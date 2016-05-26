@@ -2,6 +2,7 @@ package chrislo27.remixer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.stage.EditorStageSetup;
@@ -19,6 +20,17 @@ public class EditorScreen extends Updateable<Main> {
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		main.batch.begin();
+
+		main.batch.setColor(0.3f, 0.3f, 0.5f, 1);
+		Main.fillRect(main.batch, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -48);
+		main.batch.setColor(1, 1, 1, 1);
+
+		main.batch.end();
+
 		if (stageSetup != null) stage.render(main.batch);
 	}
 
