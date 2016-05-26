@@ -29,6 +29,12 @@ public class EditorScreen extends Updateable<Main> {
 		Main.fillRect(main.batch, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -48);
 		main.batch.setColor(1, 1, 1, 1);
 
+		if (stageSetup != null && stageSetup.shouldDim()) {
+			main.batch.setColor(0.25f, 0.25f, 0.25f, 1);
+			Main.fillRect(main.batch, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			main.batch.setColor(1, 1, 1, 1);
+		}
+
 		main.batch.end();
 
 		if (stageSetup != null) stage.render(main.batch);

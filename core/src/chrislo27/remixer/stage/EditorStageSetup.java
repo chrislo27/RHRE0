@@ -32,6 +32,7 @@ public class EditorStageSetup {
 		@Override
 		public void run() {
 			confirmationGroup.setVisible(false);
+			toolbar.setVisible(true);
 		}
 	};
 
@@ -159,12 +160,18 @@ public class EditorStageSetup {
 
 	protected void invokeConfirmation(String text, Runnable toRun) {
 		confirmationRun = toRun;
-
 		confirmationLabel.setLocalizationKey(text);
+
+		toolbar.setVisible(false);
+		confirmationGroup.setVisible(true);
 	}
 
 	public Stage getStage() {
 		return stage;
+	}
+
+	public boolean shouldDim() {
+		return confirmationGroup.isVisible();
 	}
 
 }
