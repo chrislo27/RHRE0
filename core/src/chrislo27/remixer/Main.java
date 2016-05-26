@@ -35,12 +35,12 @@ public class Main extends ionium.templates.Main {
 
 	@Override
 	public Screen getScreenToSwitchToAfterLoadingAssets() {
-		return ScreenRegistry.get("mainMenu");
+		return ScreenRegistry.get("editor");
 	}
 
 	@Override
 	public Screen getAssetLoadingScreenToUse() {
-		return ScreenRegistry.get("assetloading");
+		return ScreenRegistry.get("ionium_assetloading");
 	}
 
 	@Override
@@ -67,6 +67,7 @@ public class Main extends ionium.templates.Main {
 
 		ScreenRegistry reg = ScreenRegistry.instance();
 
+		reg.add("editor", new EditorScreen(this));
 	}
 
 	@Override
