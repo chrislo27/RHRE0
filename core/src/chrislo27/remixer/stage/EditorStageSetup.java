@@ -97,6 +97,8 @@ public class EditorStageSetup {
 				@Override
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
+					
+					Gdx.app.exit();
 				}
 
 			};
