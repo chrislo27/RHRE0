@@ -6,7 +6,7 @@ import chrislo27.remixer.utils.PreDiv;
 
 public class Remix {
 
-	private Array<Array<Action>> tracks = new Array<>();
+	private Array<Action> track = new Array<>();
 
 	private float lastBeat = 0;
 
@@ -23,11 +23,10 @@ public class Remix {
 		beat = 0;
 		isStopped = true;
 
-		for (Array<Action> track : tracks) {
-			for (Action a : track) {
-				a.reset();
-			}
+		for (Action a : track) {
+			a.reset();
 		}
+
 	}
 
 	public void start() {
@@ -40,11 +39,9 @@ public class Remix {
 
 		beat += getBeatFromSec(delta, bpm);
 
-		for (Array<Action> track : tracks) {
-			for (Action a : track) {
-				if (a.isCompleted) continue;
-				if (a.beat <= beat) a.onAction();
-			}
+		for (Action a : track) {
+			if (a.isCompleted) continue;
+			if (a.beat <= beat) a.onAction();
 		}
 
 		if (beat > lastBeat) {
@@ -57,10 +54,8 @@ public class Remix {
 		{
 			float last = 0;
 
-			for (Array<Action> track : tracks) {
-				for (Action a : track) {
-					if (a.beat > last) last = a.beat;
-				}
+			for (Action a : track) {
+				if (a.beat > last) last = a.beat;
 			}
 
 			lastBeat = last;
