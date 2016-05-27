@@ -3,6 +3,7 @@ package chrislo27.remixer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
@@ -12,6 +13,8 @@ import ionium.screen.Updateable;
 import ionium.stage.Stage;
 
 public class EditorScreen extends Updateable<Main> {
+
+	private static Vector3 tmpVec3 = new Vector3();
 
 	private EditorStageSetup stageSetup;
 	private Stage stage;
@@ -52,14 +55,12 @@ public class EditorScreen extends Updateable<Main> {
 			final int steps = 2;
 			float units = (Gdx.graphics.getWidth() / editor.camera.viewportWidth)
 					/ editor.camera.zoom;
-			float relativeX = (Gdx.graphics.getWidth() * 0.5f)
-					+ ((beat - editor.camera.position.x) * (units));
+			float relativeX = getBeatPosX(beat);
 
 			// sub-beat lines
 			main.batch.setColor(0.25f, 0.25f, 0.25f, 1);
 			for (int i = 0; i < steps; i++) {
-				float otherRelativeX = (Gdx.graphics.getWidth() * 0.5f)
-						+ (((beat + (((float) i) / steps)) - editor.camera.position.x) * (units));
+				float otherRelativeX = getBeatPosX(beat + (((float) i) / steps));
 				Main.fillRect(main.batch, otherRelativeX, beatRulerY + 8, 2, -16);
 			}
 
@@ -70,12 +71,22 @@ public class EditorScreen extends Updateable<Main> {
 			main.font.draw(main.batch, "" + beat, relativeX, beatRulerY + main.font.getLineHeight(),
 					0, Align.center, false);
 		}
-		
+
 		// horizontal line
 		main.batch.setColor(0, 0, 0, 1);
 		Main.fillRect(main.batch, 0, beatRulerY, Gdx.graphics.getWidth(), 2);
 		main.batch.setColor(1, 1, 1, 1);
-		
+
+		main.font.setColor(0.1f, 0.5f, 0.1f, 1);
+		float cursorBeat = editor.getCursorBeat();
+		main.font.draw(main.batch, String.format("%.1f", cursorBeat), getBeatPosX(cursorBeat),
+				beatRulerY + main.font.getLineHeight() + main.font.getCapHeight() * 1.5f, 0,
+				Align.center, false);
+
+		main.batch.setColor(0.1f, 0.5f, 0.1f, 1);
+		Main.fillRect(main.batch, getBeatPosX(cursorBeat), beatRulerY + 8, 1,
+				-Gdx.graphics.getHeight());
+
 		main.font.setColor(1, 1, 1, 1);
 		main.batch.setColor(1, 1, 1, 1);
 
@@ -95,6 +106,14 @@ public class EditorScreen extends Updateable<Main> {
 		}
 
 		if (stageSetup != null) stage.render(main.batch);
+	}
+
+	private float getBeatPosX(float beat) {
+		float units = (Gdx.graphics.getWidth() / editor.camera.viewportWidth) / editor.camera.zoom;
+		float relativeX = (Gdx.graphics.getWidth() * 0.5f)
+				+ ((beat - editor.camera.position.x) * (units));
+
+		return relativeX;
 	}
 
 	@Override
