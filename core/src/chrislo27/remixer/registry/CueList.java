@@ -1,5 +1,8 @@
 package chrislo27.remixer.registry;
 
+import com.badlogic.gdx.audio.Sound;
+
+import ionium.registry.AssetRegistry;
 import ionium.util.BiObjectMap;
 
 public class CueList {
@@ -17,22 +20,61 @@ public class CueList {
 		return instance;
 	}
 
-	private BiObjectMap<String, String> map = new BiObjectMap<>();
+	private BiObjectMap<String, Cue> map = new BiObjectMap<>();
 
 	private void loadResources() {
 
 	}
 
-	public static String getSFX(String key) {
+	public void put(Cue cue) {
+		map.put(cue.name, cue);
+	}
+
+	public static String getCueName(String key) {
+		return getCue(key).name;
+	}
+
+	public static String getCueGame(String key) {
+		return getCue(key).game;
+	}
+
+	public static Sound getSFXSound(String key) {
+		return AssetRegistry.getSound("cue_" + key);
+	}
+
+	public static Cue getCue(String key) {
 		return instance().map.getValue(key);
 	}
 
-	public static String getKey(String sfx) {
-		return instance().map.getKey(sfx);
+	public static String getKey(Cue cue) {
+		return instance().map.getKey(cue);
 	}
 
-	public BiObjectMap getMap() {
+	public BiObjectMap<String, Cue> getMap() {
 		return map;
+	}
+
+	public static class Cue {
+
+		/**
+		 * Game for icon
+		 */
+		public final String game;
+		/**
+		 * Name for localization and keys
+		 */
+		public final String name;
+		/**
+		 * Path in sounds/cues/
+		 */
+		public final String path;
+
+		public Cue(String game, String name, String path) {
+			this.game = game;
+			this.name = name;
+			this.path = path;
+		}
+
 	}
 
 }
