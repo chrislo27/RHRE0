@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -15,19 +16,24 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
 
+import chrislo27.remixer.Keybinds;
 import chrislo27.remixer.Main;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.registry.GameList;
 import chrislo27.remixer.track.Remix;
 import chrislo27.remixer.track.SoundEffect;
+import ionium.util.DebugSetting;
 import ionium.util.MathHelper;
 import ionium.util.Utils;
+import ionium.util.input.AnyKeyPressed;
 
 public class Editor {
 
 	public static final int BLOCK_SIZE_X = 256;
 	public static final int BLOCK_SIZE_Y = 64;
 	public static final int TRACK_COUNT = 5;
+	public static final int SNAP_DISTANCE = 4;
+	public static final float CAMERA_SPEED = 1024;
 
 	private static GlyphLayout tmpLayout = new GlyphLayout();
 	private static Vector3 tmpVec3 = new Vector3();
@@ -44,6 +50,7 @@ public class Editor {
 	public float lockingInterval = 0.5f;
 	private Vector2 moveOrigin = new Vector2();
 	private Array<Vector2> oldPositions = new Array<>();
+	private Array<Vector2> tmpVec2Array = new Array<>();
 	private Pool<Vector2> vec2Pool = new Pool<Vector2>() {
 
 		@Override
@@ -53,6 +60,7 @@ public class Editor {
 
 	};
 	private boolean isMoving = false;
+	private Rectangle tmpBoundsCalc = new Rectangle();
 
 	public Editor(Main main) {
 		this.main = main;
@@ -98,6 +106,16 @@ public class Editor {
 
 	public void render(SpriteBatch batch) {
 		camera.position.y = 96;
+		if (remix.isStarted()) {
+			float tracker = remix.getCurrentBeat() * BLOCK_SIZE_X;
+
+			if (tracker < camera.position.x - camera.viewportWidth * 0.5f) {
+				camera.position.x = tracker - camera.viewportWidth * 0.5f;
+			} else if (tracker > camera.position.x + camera.viewportWidth * 0.5f) {
+				camera.position.x = tracker + camera.viewportWidth * 0.5f;
+			}
+		}
+		camera.position.x = Math.max(0, camera.position.x);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
@@ -145,9 +163,9 @@ public class Editor {
 
 		// beat numbers
 		main.font.setColor(0, 0, 0, 1);
-		for (int i = (int) Math.max(0,
-				camera.position.x - camera.viewportWidth * 0.5f); i <= camera.position.x
-						+ camera.viewportWidth * 0.5f; i++) {
+		for (int i = (int) Math.max(0, camera.position.x - camera.viewportWidth * 0.5f)
+				/ BLOCK_SIZE_X; i <= (camera.position.x + camera.viewportWidth * 0.5f)
+						/ BLOCK_SIZE_X; i++) {
 			main.font.draw(main.batch, "" + i, i * BLOCK_SIZE_X,
 					remix.tracks.size * BLOCK_SIZE_Y + main.font.getCapHeight() * 1.5f, 0,
 					Align.left, false);
@@ -165,6 +183,14 @@ public class Editor {
 			Main.drawRect(batch, selectionOrigin.x, selectionOrigin.y, width, height, 4);
 			main.batch.setColor(1, 1, 1, 1);
 
+		}
+
+		if (DebugSetting.debug) {
+			// selection bounds renderer
+			main.batch.setColor(0.1f, 0.75f, 0.75f, 0.333f);
+			Main.fillRect(batch, tmpBoundsCalc.x, tmpBoundsCalc.y, tmpBoundsCalc.width,
+					tmpBoundsCalc.height);
+			main.batch.setColor(1, 1, 1, 1);
 		}
 
 		batch.end();
@@ -236,7 +262,7 @@ public class Editor {
 	}
 
 	public void renderUpdate() {
-		remix.update(Gdx.graphics.getDeltaTime(), selection.size > 0);
+		if (remix.isStarted()) remix.update(Gdx.graphics.getDeltaTime(), selection.size > 0);
 	}
 
 	public void inputUpdate() {
@@ -245,6 +271,101 @@ public class Editor {
 		}
 
 		if (remix.isStarted()) return;
+
+		if (Gdx.input.isButtonPressed(Buttons.LEFT) && isMoving) {
+			// move selected objects relative to cursor
+			Vector3 mouse = unprojectMouse();
+
+			// set positions as relative to first object in list
+			Vector2 firstOldPos = oldPositions.first();
+			SoundEffect firstSfx = selection.first();
+
+			// relative to where the mouse clicked to move
+			firstSfx.position.set(firstOldPos).sub(moveOrigin);
+
+			// offset first position by mouse
+			firstSfx.position.add(mouse.x, mouse.y);
+
+			firstSfx.position.x = MathHelper.lockAtIntervals(firstSfx.position.x,
+					lockingInterval * BLOCK_SIZE_X);
+			firstSfx.position.y = MathHelper.lockAtIntervals(firstSfx.position.y, BLOCK_SIZE_Y);
+
+			// calculate the rectangle the selection encompasses
+			Rectangle bounds = tmpBoundsCalc;
+			bounds.set(firstSfx.position.x, firstSfx.position.y,
+					firstSfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
+
+			// initial set others relative to first
+			for (int i = 1; i < selection.size; i++) {
+				SoundEffect sfx = selection.get(i);
+				Vector2 oldPos = oldPositions.get(i);
+
+				// offset based on first as origin
+				sfx.position.set(firstSfx.position).add(oldPos.x - firstOldPos.x,
+						oldPos.y - firstOldPos.y);
+			}
+
+			// expand rectangle based on other selected objects
+			for (int i = 1; i < selection.size; i++) {
+				SoundEffect sfx = selection.get(i);
+
+				Rectangle rect = Rectangle.tmp.set(sfx.position.x, sfx.position.y,
+						sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
+				bounds.merge(Rectangle.tmp);
+
+			}
+
+			float relativeRectX = firstSfx.position.x - bounds.x;
+			float relativeRectY = firstSfx.position.y - bounds.y;
+
+			if (!Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)
+					&& !Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT)) {
+				outer: for (int track = 0; track < remix.tracks.size; track++) {
+					mainsfx: for (SoundEffect sfx : remix.tracks.get(track)) {
+						for (SoundEffect sel : selection) {
+							if (sfx == sel) continue mainsfx;
+						}
+
+						Rectangle.tmp.set(sfx.position.x, sfx.position.y,
+								sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
+
+						if (bounds.y + bounds.height > Rectangle.tmp.y
+								&& bounds.y < Rectangle.tmp.y + Rectangle.tmp.height) {
+
+							if (MathUtils.isEqual(bounds.x, Rectangle.tmp.x + Rectangle.tmp.width,
+									SNAP_DISTANCE)) {
+								bounds.x = Rectangle.tmp.x + Rectangle.tmp.width;
+								break outer;
+							} else if (MathUtils.isEqual(bounds.x + bounds.width, Rectangle.tmp.x,
+									SNAP_DISTANCE)) {
+								bounds.x = Rectangle.tmp.x - bounds.width;
+
+								break outer;
+							} else if (bounds.x <= 0) {
+								bounds.x = 0;
+
+								break outer;
+							}
+
+						}
+					}
+				}
+
+			}
+
+			// make the first item relative to bounds
+			firstSfx.position.set(bounds.x + relativeRectX, bounds.y + relativeRectY);
+
+			// other items relative to first
+			for (int i = 1; i < selection.size; i++) {
+				SoundEffect sfx = selection.get(i);
+				Vector2 oldPos = oldPositions.get(i);
+
+				// offset based on first as origin
+				sfx.position.set(firstSfx.position).add(oldPos.x - firstOldPos.x,
+						oldPos.y - firstOldPos.y);
+			}
+		}
 
 		if (!Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustReleased(Buttons.LEFT)) {
 			if (isSelecting) {
@@ -275,6 +396,55 @@ public class Editor {
 				isSelecting = false;
 			} else if (isMoving) {
 				// place the moved objects or reset them if they intersect others
+
+				boolean rejectMovement = false;
+
+				// check for OoB track or negative beat
+				for (SoundEffect sfx : selection) {
+					int track = (int) (sfx.position.y / BLOCK_SIZE_Y);
+
+					if (track < 0 || track >= remix.tracks.size || sfx.position.x < 0) {
+						rejectMovement = true;
+						break;
+					}
+				}
+
+				// check for intersection
+				for (int track = 0; track < remix.tracks.size && !rejectMovement; track++) {
+					mainsfx: for (SoundEffect sfx : remix.tracks.get(track)) {
+						for (SoundEffect sel : selection) {
+							if (sfx == sel) continue mainsfx;
+						}
+
+						Rectangle.tmp.set(sfx.position.x, sfx.position.y,
+								sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
+
+						if (Rectangle.tmp.overlaps(tmpBoundsCalc)) {
+							rejectMovement = true;
+							break;
+						}
+					}
+				}
+
+				// finally, move the thing
+				if (!rejectMovement) {
+					// remove from track
+					for (int track = 0; track < remix.tracks.size; track++) {
+						remix.tracks.get(track).removeAll(selection, true);
+					}
+
+					for (SoundEffect sfx : selection) {
+						sfx.beat = sfx.position.x / BLOCK_SIZE_X;
+
+						// add to track based on position
+						remix.tracks.get(MathUtils.clamp((int) (sfx.position.y / BLOCK_SIZE_Y), 0,
+								remix.tracks.size - 1)).add(sfx);
+					}
+				}
+
+				for (int track = 0; track < remix.tracks.size; track++) {
+					remix.tracks.get(track).sort();
+				}
 
 				isMoving = false;
 				clearOldPositionArray();
@@ -322,29 +492,18 @@ public class Editor {
 			}
 		}
 
-		if (Gdx.input.isButtonPressed(Buttons.LEFT) && isMoving) {
-			// move selected objects relative to cursor
-			Vector3 mouse = unprojectMouse();
+		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT)) {
+			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
+		}
+		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)) {
+			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
+		}
 
-			// set positions as relative to first object in list
-			Vector2 first = oldPositions.first();
-			SoundEffect firstSfx = selection.first();
-
-			firstSfx.position.set(first).sub(moveOrigin);
-
-			// offset all positions by mouse
-			firstSfx.position.add(mouse.x, mouse.y);
-
-			firstSfx.position.x = MathHelper.lockAtIntervals(firstSfx.position.x,
-					lockingInterval * BLOCK_SIZE_X);
-			firstSfx.position.y = MathHelper.lockAtIntervals(firstSfx.position.y, BLOCK_SIZE_Y);
-
-			for (int i = 1; i < selection.size; i++) {
-				SoundEffect sfx = selection.get(i);
-				Vector2 oldPos = oldPositions.get(i);
-
-				sfx.position.set(firstSfx.position).add(oldPos.x - first.x, oldPos.y - first.y);
-			}
+		if (Gdx.input.isKeyJustPressed(Keys.HOME)) {
+			camera.position.x = 0;
+		} else if (Gdx.input.isKeyJustPressed(Keys.END)) {
+			remix.recalculate();
+			camera.position.x = remix.getLastBeat() * BLOCK_SIZE_X;
 		}
 
 	}
