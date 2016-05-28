@@ -3,11 +3,14 @@ package chrislo27.remixer.stage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 
+import chrislo27.remixer.EditorScreen;
 import chrislo27.remixer.Main;
 import ionium.registry.AssetRegistry;
 import ionium.stage.Group;
 import ionium.stage.Stage;
 import ionium.stage.ui.ImageButton;
+import ionium.stage.ui.LocalizationStrategy;
+import ionium.stage.ui.TextButton;
 import ionium.stage.ui.TextLabel;
 import ionium.stage.ui.skin.Palette;
 import ionium.stage.ui.skin.Palettes;
@@ -15,6 +18,7 @@ import ionium.stage.ui.skin.Palettes;
 public class EditorStageSetup {
 
 	private final Main main;
+	private final EditorScreen editorScreen;
 
 	private Stage stage;
 
@@ -37,8 +41,9 @@ public class EditorStageSetup {
 		}
 	};
 
-	public EditorStageSetup(Main main) {
+	public EditorStageSetup(Main main, EditorScreen es) {
 		this.main = main;
+		this.editorScreen = es;
 
 		create();
 	}
@@ -111,6 +116,67 @@ public class EditorStageSetup {
 
 			toolbar.addActor(status).setTextAlign(Align.center).align(Align.top | Align.center)
 					.setScreenOffsetSize(1, 0).setPixelOffsetSize(0, 48);
+
+			TextButton interval = new TextButton(stage, palette, "") {
+
+				private int interval = 2;
+
+				{
+					updateIntervalText();
+				}
+
+				@Override
+				public void onClickAction(float x, float y) {
+					super.onClickAction(x, y);
+
+					interval++;
+
+					if (interval > 4) {
+						interval = 0;
+					}
+
+					if (interval == 1) interval = 2;
+
+					if (interval == 0) {
+						editorScreen.editor.lockingInterval = 0;
+					} else {
+						editorScreen.editor.lockingInterval = 1f / interval;
+					}
+
+					updateIntervalText();
+				}
+
+				private void updateIntervalText() {
+					switch (interval) {
+					case 2:
+						setLocalizationKey("Snap: 1/2");
+						break;
+					case 3:
+						setLocalizationKey("Snap: 1/3");
+						break;
+					case 4:
+						setLocalizationKey("Snap: 1/4");
+						break;
+					case 0:
+						setLocalizationKey("No snap");
+						break;
+					}
+				}
+
+			};
+
+			interval.setI10NStrategy(new LocalizationStrategy() {
+
+				@Override
+				public String get(String key, Object... objects) {
+					if (key == null) return "";
+
+					return key;
+				}
+
+			});
+
+			toolbar.addActor(interval).align(Align.topRight).setPixelOffset(48, 8, 128, 32);
 		}
 
 		stage.addActor(toolbar);

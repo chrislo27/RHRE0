@@ -20,7 +20,7 @@ public class EditorScreen extends Updateable<Main> {
 	private EditorStageSetup stageSetup;
 	private Stage stage;
 
-	private Editor editor;
+	public Editor editor;
 
 	public EditorScreen(Main m) {
 		super(m);
@@ -93,7 +93,7 @@ public class EditorScreen extends Updateable<Main> {
 	@Override
 	public void show() {
 		if (stageSetup == null) {
-			stageSetup = new EditorStageSetup(main);
+			stageSetup = new EditorStageSetup(main, this);
 			stage = stageSetup.getStage();
 		}
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 
 import chrislo27.remixer.Main;
 import chrislo27.remixer.game.Game;
@@ -37,8 +38,21 @@ public class Editor {
 	private Remix remix;
 
 	private Array<SoundEffect> selection = new Array<>();
-	private Vector2 selectionOrigin = new Vector2(-1, -1);
+	private Vector2 selectionOrigin = new Vector2();
 	private boolean isSelecting = false;
+
+	public float lockingInterval = 0.5f;
+	private Vector2 moveOrigin = new Vector2();
+	private Array<Vector2> oldPositions = new Array<>();
+	private Pool<Vector2> vec2Pool = new Pool<Vector2>() {
+
+		@Override
+		protected Vector2 newObject() {
+			return new Vector2();
+		}
+
+	};
+	private boolean isMoving = false;
 
 	public Editor(Main main) {
 		this.main = main;
@@ -57,6 +71,11 @@ public class Editor {
 		selection.clear();
 
 		isSelecting = false;
+	}
+
+	private void clearOldPositionArray() {
+		vec2Pool.freeAll(oldPositions);
+		oldPositions.clear();
 	}
 
 	public void play() {
@@ -90,7 +109,9 @@ public class Editor {
 			Game currentGame = null;
 
 			for (SoundEffect sfx : remix.tracks.get(track)) {
-				sfx.position.set(sfx.beat * BLOCK_SIZE_X, track * BLOCK_SIZE_Y);
+				if (!isMoving) {
+					sfx.position.set(sfx.beat * BLOCK_SIZE_X, track * BLOCK_SIZE_Y);
+				}
 
 				renderSoundEffect(batch, currentGame, sfx);
 
@@ -223,6 +244,8 @@ public class Editor {
 			play();
 		}
 
+		if (remix.isStarted()) return;
+
 		if (!Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustReleased(Buttons.LEFT)) {
 			if (isSelecting) {
 				Vector3 mouse = unprojectMouse();
@@ -250,33 +273,80 @@ public class Editor {
 				}
 
 				isSelecting = false;
-			} else {
+			} else if (isMoving) {
+				// place the moved objects or reset them if they intersect others
 
+				isMoving = false;
+				clearOldPositionArray();
 			}
 		}
 
 		if (Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustPressed(Buttons.LEFT)) {
 			Vector3 mouse = unprojectMouse();
 
-			boolean isPointIn = false;
+			SoundEffect isPointIn = null;
 
 			outer: for (int track = 0; track < remix.tracks.size; track++) {
 				for (SoundEffect sfx : remix.tracks.get(track)) {
 					if (!sfx.selected) continue;
 
-					isPointIn = sfx.isPointIn(mouse.x, mouse.y);
+					boolean in = sfx.isPointIn(mouse.x, mouse.y);
 
-					if (isPointIn) {
+					if (in) {
+						isPointIn = sfx;
 						break outer;
 					}
 				}
 			}
 
-			if (!isPointIn || selection.size == 0) {
+			if (isPointIn == null || selection.size == 0) {
 				selectionOrigin.set(mouse.x, mouse.y);
 				isSelecting = true;
+			} else {
+				if (isPointIn != null) {
+					moveOrigin.set(mouse.x, mouse.y);
+					isMoving = true;
+
+					// copy old positions over
+					clearOldPositionArray();
+
+					for (int i = 0; i < selection.size; i++) {
+						SoundEffect sfx = selection.get(i);
+						Vector2 vec2 = vec2Pool.obtain();
+
+						vec2.set(sfx.position);
+
+						oldPositions.add(vec2);
+					}
+				}
 			}
 		}
+
+		if (Gdx.input.isButtonPressed(Buttons.LEFT) && isMoving) {
+			// move selected objects relative to cursor
+			Vector3 mouse = unprojectMouse();
+
+			// set positions as relative to first object in list
+			Vector2 first = oldPositions.first();
+			SoundEffect firstSfx = selection.first();
+
+			firstSfx.position.set(first).sub(moveOrigin);
+
+			// offset all positions by mouse
+			firstSfx.position.add(mouse.x, mouse.y);
+
+			firstSfx.position.x = MathHelper.lockAtIntervals(firstSfx.position.x,
+					lockingInterval * BLOCK_SIZE_X);
+			firstSfx.position.y = MathHelper.lockAtIntervals(firstSfx.position.y, BLOCK_SIZE_Y);
+
+			for (int i = 1; i < selection.size; i++) {
+				SoundEffect sfx = selection.get(i);
+				Vector2 oldPos = oldPositions.get(i);
+
+				sfx.position.set(firstSfx.position).add(oldPos.x - first.x, oldPos.y - first.y);
+			}
+		}
+
 	}
 
 	public void resize(int width, int height) {
