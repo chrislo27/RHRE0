@@ -81,6 +81,14 @@ public class Editor {
 		isSelecting = false;
 	}
 
+	public void deleteSelection() {
+		for (int track = 0; track < remix.tracks.size; track++) {
+			remix.tracks.get(track).removeAll(selection, true);
+		}
+
+		clearSelection();
+	}
+
 	private void clearOldPositionArray() {
 		vec2Pool.freeAll(oldPositions);
 		oldPositions.clear();
@@ -504,6 +512,10 @@ public class Editor {
 		} else if (Gdx.input.isKeyJustPressed(Keys.END)) {
 			remix.recalculate();
 			camera.position.x = remix.getLastBeat() * BLOCK_SIZE_X;
+		}
+
+		if (AnyKeyPressed.isAKeyJustPressed(Keybinds.DELETE)) {
+			deleteSelection();
 		}
 
 	}
