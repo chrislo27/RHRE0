@@ -1,24 +1,37 @@
 package chrislo27.remixer.track;
 
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import chrislo27.remixer.editor.Editor;
 import chrislo27.remixer.registry.CueList;
 import chrislo27.remixer.registry.CueList.Cue;
 
-public class SoundEffect implements Comparable {
+public final class SoundEffect implements Comparable {
 
 	public float beat = 0;
 	public Cue cue;
 	public boolean isCompleted = false;
+	public Vector2 position = new Vector2();
+	public boolean selected = false;
 
 	public SoundEffect(float beat, String cue) {
 		this(beat, CueList.getCue(cue));
+
+		position.x = beat * Editor.BLOCK_SIZE_X;
 	}
 
 	public SoundEffect(float beat, Cue cue) {
 		this.beat = beat;
 		this.cue = cue;
+	}
+
+	public boolean isPointIn(float x, float y) {
+		if (x >= position.x && y >= position.y
+				&& x <= position.x + cue.duration * Editor.BLOCK_SIZE_X
+				&& y <= position.y + Editor.BLOCK_SIZE_Y)
+			return true;
+
+		return false;
 	}
 
 	public void onAction() {
@@ -27,11 +40,6 @@ public class SoundEffect implements Comparable {
 		if (cue != null) {
 			cue.getSFX().play();
 		}
-	}
-
-	public Rectangle getBounds(Rectangle r, int track) {
-		return r.set(beat * Editor.BLOCK_SIZE_X, track * Editor.BLOCK_SIZE_Y,
-				cue.duration * Editor.BLOCK_SIZE_X, Editor.BLOCK_SIZE_Y);
 	}
 
 	public void reset() {

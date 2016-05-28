@@ -41,6 +41,10 @@ public class Remix {
 		return beat;
 	}
 
+	public void setCurrentBeat(float b) {
+		beat = b;
+	}
+
 	public void stop() {
 		beat = 0;
 		isStopped = true;
@@ -58,7 +62,7 @@ public class Remix {
 		recalculate();
 	}
 
-	public void update(float delta) {
+	public void update(float delta, boolean onlySelected) {
 		if (isStopped) return;
 
 		beat += getBeatFromSec(delta, bpm);
@@ -66,11 +70,12 @@ public class Remix {
 		for (Array<SoundEffect> track : tracks) {
 			for (SoundEffect a : track) {
 				if (a.isCompleted) continue;
+				if (onlySelected && !a.selected) continue;
 				if (a.beat <= beat) a.onAction();
 			}
 		}
 
-		if (beat > lastBeat) {
+		if (beat >= lastBeat) {
 			stop();
 		}
 	}
@@ -83,7 +88,7 @@ public class Remix {
 			for (Array<SoundEffect> track : tracks) {
 				for (SoundEffect a : track) {
 					float stopArea = a.beat + (a.cue != null ? a.cue.duration : 0);
-					
+
 					if (stopArea > last) last = stopArea;
 				}
 			}
@@ -94,6 +99,10 @@ public class Remix {
 
 	public float getLastBeat() {
 		return lastBeat;
+	}
+
+	public void setLastBeat(float b) {
+		lastBeat = b;
 	}
 
 	public static float getBeatFromSec(float sec, float bpm) {

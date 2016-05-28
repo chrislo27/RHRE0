@@ -1,20 +1,26 @@
 package chrislo27.remixer.editor;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.Main;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.registry.GameList;
 import chrislo27.remixer.track.Remix;
 import chrislo27.remixer.track.SoundEffect;
+import ionium.util.MathHelper;
+import ionium.util.Utils;
 
 public class Editor {
 
@@ -30,6 +36,10 @@ public class Editor {
 
 	private Remix remix;
 
+	private Array<SoundEffect> selection = new Array<>();
+	private Vector2 selectionOrigin = new Vector2(-1, -1);
+	private boolean isSelecting = false;
+
 	public Editor(Main main) {
 		this.main = main;
 
@@ -37,6 +47,26 @@ public class Editor {
 		camera.setToOrtho(false, 1280, 720);
 
 		camera.position.x = camera.viewportWidth * 0.4f;
+	}
+
+	public void clearSelection() {
+		for (SoundEffect sfx : selection) {
+			sfx.selected = false;
+		}
+
+		selection.clear();
+
+		isSelecting = false;
+	}
+
+	public void play() {
+		remix.start();
+		if (selection.size > 0) {
+			selection.sort();
+			remix.setCurrentBeat(selection.first().beat);
+			SoundEffect last = selection.get(selection.size - 1);
+			remix.setLastBeat(last.beat + last.cue.duration);
+		}
 	}
 
 	public void setRemix(Remix r) {
@@ -48,7 +78,7 @@ public class Editor {
 	}
 
 	public void render(SpriteBatch batch) {
-		camera.position.y = -256;
+		camera.position.y = 96;
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
@@ -56,103 +86,196 @@ public class Editor {
 
 		batch.begin();
 
+		for (int track = 0; track < remix.tracks.size; track++) {
+			Game currentGame = null;
+
+			for (SoundEffect sfx : remix.tracks.get(track)) {
+				sfx.position.set(sfx.beat * BLOCK_SIZE_X, track * BLOCK_SIZE_Y);
+
+				renderSoundEffect(batch, currentGame, sfx);
+
+				if (currentGame != sfx.cue.game) {
+					currentGame = sfx.cue.game;
+				}
+			}
+		}
+
 		batch.setColor(0, 0, 0, 1);
 
 		for (int i = (int) ((camera.position.x - camera.viewportWidth * 0.5f)
 				/ BLOCK_SIZE_X); i <= (camera.position.x + camera.viewportWidth * 0.5f)
 						/ BLOCK_SIZE_X; i++) {
-			Main.fillRect(batch, i * BLOCK_SIZE_X, 0, 2, -BLOCK_SIZE_Y * remix.tracks.size);
+			Main.fillRect(batch, i * BLOCK_SIZE_X, 0, 2, BLOCK_SIZE_Y * remix.tracks.size);
 		}
 
 		for (int i = 0; i <= remix.tracks.size; i++) {
-			Main.fillRect(batch, camera.position.x - camera.viewportWidth * 0.5f, -i * BLOCK_SIZE_Y,
+			Main.fillRect(batch, camera.position.x - camera.viewportWidth * 0.5f, i * BLOCK_SIZE_Y,
 					camera.viewportWidth, 2);
 		}
 
+		// tracker
 		if (remix.isStarted()) {
 			batch.setColor(0, 1, 0, 1);
 			Main.fillRect(batch, remix.getCurrentBeat() * BLOCK_SIZE_X, 0, 2,
-					-BLOCK_SIZE_Y * remix.tracks.size);
+					BLOCK_SIZE_Y * remix.tracks.size);
 		}
 
 		batch.setColor(1, 1, 1, 1);
 
+		// beat numbers
 		main.font.setColor(0, 0, 0, 1);
 		for (int i = (int) Math.max(0,
 				camera.position.x - camera.viewportWidth * 0.5f); i <= camera.position.x
 						+ camera.viewportWidth * 0.5f; i++) {
-			main.font.draw(main.batch, "" + i, i * BLOCK_SIZE_X, main.font.getCapHeight() * 1.5f, 0,
+			main.font.draw(main.batch, "" + i, i * BLOCK_SIZE_X,
+					remix.tracks.size * BLOCK_SIZE_Y + main.font.getCapHeight() * 1.5f, 0,
 					Align.left, false);
 		}
+		main.font.setColor(1, 1, 1, 1);
 
-		for (int track = 0; track < remix.tracks.size; track++) {
-			Game currentGame = null;
+		if (Gdx.input.isButtonPressed(Buttons.LEFT) && isSelecting) {
+			Vector3 mouse = unprojectMouse();
+			float width = mouse.x - selectionOrigin.x;
+			float height = mouse.y - selectionOrigin.y;
 
-			for (SoundEffect sfx : remix.tracks.get(track)) {
-				Rectangle bounds = sfx.getBounds(Rectangle.tmp, track);
+			main.batch.setColor(0.1f, 0.75f, 0.75f, 0.333f);
+			Main.fillRect(batch, selectionOrigin.x, selectionOrigin.y, width, height);
+			main.batch.setColor(0.1f, 0.85f, 0.85f, 1);
+			Main.drawRect(batch, selectionOrigin.x, selectionOrigin.y, width, height, 4);
+			main.batch.setColor(1, 1, 1, 1);
 
-				final int borderThickness = 4;
-
-				batch.setColor(0.75f, 0.75f, 0.75f, 0.75f);
-				Main.fillRect(batch, bounds.x, -bounds.y - bounds.height, bounds.width,
-						bounds.height);
-				batch.setColor(0.25f, 0.25f, 0.25f, 0.75f);
-				Main.drawRect(batch, bounds.x, -bounds.y - bounds.height, bounds.width,
-						bounds.height, borderThickness);
-				batch.setColor(1, 1, 1, 1);
-
-				float regionWidth = 0;
-
-				if (currentGame != sfx.cue.game) {
-					currentGame = sfx.cue.game;
-
-					AtlasRegion region = GameList.getIcon(sfx.cue.game.name);
-					regionWidth = Math.min(bounds.width - borderThickness * 2,
-							region.getRegionWidth());
-					float regionHeight = region.getRegionHeight();
-
-					batch.setColor(1, 1, 1, 0.5f);
-					batch.draw(
-							region, bounds.x
-									+ borderThickness,
-							-bounds.y + borderThickness - bounds.height
-									+ ((bounds.height - borderThickness * 2) * 0.5f
-											- regionHeight * 0.5f),
-							regionWidth, regionHeight);
-					batch.setColor(1, 1, 1, 1);
-				}
-
-				float xOffset = borderThickness + regionWidth + borderThickness;
-				float remainingTextWidth = bounds.width - xOffset;
-
-				main.fontBordered.getData().setScale(0.75f);
-
-				tmpLayout.setText(main.fontBordered, sfx.cue.file, main.fontBordered.getColor(),
-						remainingTextWidth, Align.left, true);
-
-				main.fontBordered.draw(batch, tmpLayout, bounds.x + xOffset,
-						-bounds.y - bounds.height * 0.5f + tmpLayout.height * 0.5f);
-
-				main.fontBordered.getData().setScale(1);
-			}
 		}
 
 		batch.end();
 	}
 
+	public void renderSoundEffect(SpriteBatch batch, Game currentGame, SoundEffect sfx) {
+		float x = sfx.position.x;
+		float y = sfx.position.y;
+		float width = sfx.cue.duration * BLOCK_SIZE_X;
+		float height = BLOCK_SIZE_Y;
+		int thickness = 4;
+		int padding = 2;
+		float textOffsetX = thickness + padding;
+
+		if (!sfx.selected) {
+			batch.setColor(0.75f, 0.75f, 0.75f, 0.75f);
+		} else {
+			batch.setColor(0.85f, 0.85f, 1f, 0.75f);
+		}
+
+		Main.fillRect(batch, x, y, width, height);
+
+		if (!sfx.selected) {
+			batch.setColor(0.25f, 0.25f, 0.25f, 0.5f);
+		} else {
+			batch.setColor(0.25f, 0.25f, 0.75f, 0.5f);
+		}
+
+		Main.drawRect(batch, x, y, width, height, thickness);
+
+		batch.setColor(1, 1, 1, 1);
+
+		if (currentGame != sfx.cue.game) {
+			AtlasRegion region = GameList.getIcon(sfx.cue.game.name);
+
+			float regionWidth = Math.min(region.getRegionWidth(),
+					width - thickness * 2 - padding * 2);
+			float regionHeight = (region.getRegionHeight() * 1f / region.getRegionWidth())
+					* regionWidth;
+
+			textOffsetX += regionWidth + padding;
+
+			batch.setColor(1, 1, 1, 0.5f);
+			batch.draw(region, x + thickness + padding, y + height * 0.5f - regionHeight * 0.5f,
+					regionWidth, regionHeight);
+			batch.setColor(1, 1, 1, 1);
+		}
+
+		BitmapFont font = main.font;
+
+		font.setColor(0, 0, 0, 1);
+		font.getData().setScale(0.75f);
+
+		tmpLayout.setText(font, sfx.cue.file, font.getColor(),
+				width - thickness * 2 - padding - textOffsetX, Align.left, true);
+
+		font.draw(batch, tmpLayout, x + textOffsetX, y + height * 0.5f + tmpLayout.height * 0.5f);
+
+		font.getData().setScale(1);
+
+	}
+
 	public float getCursorBeat() {
-		return Math.max(
-				Math.round(camera.unproject(tmpVec3.set(Gdx.input.getX(), Gdx.input.getY(), 0)).x),
-				0);
+		return Math.max(Math.round(unprojectMouse().x), 0);
+	}
+
+	public Vector3 unprojectMouse() {
+		return camera.unproject(tmpVec3.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 	}
 
 	public void renderUpdate() {
-		remix.update(Gdx.graphics.getDeltaTime());
+		remix.update(Gdx.graphics.getDeltaTime(), selection.size > 0);
 	}
 
 	public void inputUpdate() {
 		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			remix.start();
+			play();
+		}
+
+		if (!Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustReleased(Buttons.LEFT)) {
+			if (isSelecting) {
+				Vector3 mouse = unprojectMouse();
+				float width = mouse.x - selectionOrigin.x;
+				float height = mouse.y - selectionOrigin.y;
+
+				Rectangle.tmp.set(selectionOrigin.x, selectionOrigin.y, width, height);
+				MathHelper.normalizeRectangle(Rectangle.tmp);
+
+				if (!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
+						&& !Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)) {
+					clearSelection();
+				}
+
+				for (int track = 0; track < remix.tracks.size; track++) {
+					for (SoundEffect sfx : remix.tracks.get(track)) {
+						MathHelper.normalizeRectangle(Rectangle.tmp2.set(sfx.position.x,
+								sfx.position.y, sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y));
+
+						if (Rectangle.tmp2.overlaps(Rectangle.tmp)) {
+							sfx.selected = true;
+							selection.add(sfx);
+						}
+					}
+				}
+
+				isSelecting = false;
+			} else {
+
+			}
+		}
+
+		if (Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustPressed(Buttons.LEFT)) {
+			Vector3 mouse = unprojectMouse();
+
+			boolean isPointIn = false;
+
+			outer: for (int track = 0; track < remix.tracks.size; track++) {
+				for (SoundEffect sfx : remix.tracks.get(track)) {
+					if (!sfx.selected) continue;
+
+					isPointIn = sfx.isPointIn(mouse.x, mouse.y);
+
+					if (isPointIn) {
+						break outer;
+					}
+				}
+			}
+
+			if (!isPointIn || selection.size == 0) {
+				selectionOrigin.set(mouse.x, mouse.y);
+				isSelecting = true;
+			}
 		}
 	}
 
