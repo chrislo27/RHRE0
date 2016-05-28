@@ -68,6 +68,13 @@ public class Editor {
 			Main.fillRect(batch, camera.position.x - camera.viewportWidth * 0.5f, -i * BLOCK_SIZE_Y,
 					camera.viewportWidth, 2);
 		}
+
+		if (remix.isStarted()) {
+			batch.setColor(0, 1, 0, 1);
+			Main.fillRect(batch, remix.getCurrentBeat() * BLOCK_SIZE_X, 0, 2,
+					-BLOCK_SIZE_Y * remix.tracks.size);
+		}
+
 		batch.setColor(1, 1, 1, 1);
 
 		main.font.setColor(0, 0, 0, 1);

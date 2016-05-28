@@ -33,6 +33,14 @@ public class Remix {
 		}
 	}
 
+	public boolean isStarted() {
+		return !isStopped;
+	}
+
+	public float getCurrentBeat() {
+		return beat;
+	}
+
 	public void stop() {
 		beat = 0;
 		isStopped = true;
@@ -74,7 +82,9 @@ public class Remix {
 
 			for (Array<SoundEffect> track : tracks) {
 				for (SoundEffect a : track) {
-					if (a.beat > last) last = a.beat;
+					float stopArea = a.beat + (a.cue != null ? a.cue.duration : 0);
+					
+					if (stopArea > last) last = stopArea;
 				}
 			}
 
