@@ -28,13 +28,15 @@ public class CueList {
 			Game ls = GameList.getGame("lockstep");
 
 			put(new Cue(ls, "lockstep", "hai", 0.5f));
-			put(new Cue(ls, "lockstep", "backbeat_ha", 0.5f));
-			put(new Cue(ls, "lockstep", "backbeat_hoi", 0.5f));
-			put(new Cue(ls, "lockstep", "backbeat_boh", 0.5f));
+			put(new Cue(ls, "lockstep", "bkbt_ha", 0.5f));
+			put(new Cue(ls, "lockstep", "bkbt_hoi", 0.5f));
+			put(new Cue(ls, "lockstep", "bkbt_boh", 0.5f));
 			put(new Cue(ls, "lockstep", "return_hee", 0.5f));
 			put(new Cue(ls, "lockstep", "return_ha", 0.5f));
-			put(new Cue(ls, "lockstep", "march", 0.5f));
-			put(new Cue(ls, "lockstep", "march_backbeat", 0.5f));
+			put(new Cue(ls, "lockstep", "march1", 0.5f));
+			put(new Cue(ls, "lockstep", "march2", 0.5f));
+			put(new Cue(ls, "lockstep", "march1_bkbt", 0.5f));
+			put(new Cue(ls, "lockstep", "march2_bkbt", 0.5f));
 		}
 	}
 

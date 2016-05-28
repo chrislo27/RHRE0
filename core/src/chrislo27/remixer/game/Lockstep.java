@@ -29,8 +29,8 @@ public class Lockstep extends Game {
 				array.add(new SoundEffect(0, "lockstep_hai"));
 				array.add(new SoundEffect(1, "lockstep_hai"));
 				array.add(new SoundEffect(2, "lockstep_hai"));
-				array.add(new SoundEffect(3, "lockstep_backbeat_ha"));
-				array.add(new SoundEffect(3.5f, "lockstep_backbeat_hoi"));
+				array.add(new SoundEffect(3, "lockstep_bkbt_ha"));
+				array.add(new SoundEffect(3.5f, "lockstep_bkbt_hoi"));
 			}
 		});
 
@@ -43,6 +43,24 @@ public class Lockstep extends Game {
 				array.add(new SoundEffect(1, "lockstep_return_hee"));
 				array.add(new SoundEffect(1.5f, "lockstep_return_ha"));
 				array.add(new SoundEffect(2, "lockstep_hai"));
+			}
+		});
+
+		this.patterns.put("march", new Pattern(this) {
+
+			@Override
+			public void addPatternToArray(Array<SoundEffect> array) {
+				array.add(new SoundEffect(0, "lockstep_march1"));
+				array.add(new SoundEffect(0.5f, "lockstep_march2"));
+			}
+		});
+
+		this.patterns.put("bbeat_march", new Pattern(this) {
+
+			@Override
+			public void addPatternToArray(Array<SoundEffect> array) {
+				array.add(new SoundEffect(0, "lockstep_march1_bkbt"));
+				array.add(new SoundEffect(0.5f, "lockstep_march2_bkbt"));
 			}
 		});
 	}
