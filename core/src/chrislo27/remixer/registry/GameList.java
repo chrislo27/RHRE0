@@ -1,10 +1,11 @@
 package chrislo27.remixer.registry;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.utils.Array;
 
+import chrislo27.remixer.game.Game;
+import chrislo27.remixer.game.Lockstep;
 import ionium.registry.AssetRegistry;
+import ionium.util.BiObjectMap;
 
 public class GameList {
 
@@ -21,10 +22,18 @@ public class GameList {
 		return instance;
 	}
 
-	public Array<String> games = new Array<>();
+	public BiObjectMap<String, Game> games = new BiObjectMap<>();
 
 	private void loadResources() {
+		put(new Lockstep("lockstep"));
+	}
 
+	public void put(Game game) {
+		games.put(game.name, game);
+	}
+
+	public static Game getGame(String key) {
+		return instance().games.getValue(key);
 	}
 
 	public static AtlasRegion getIcon(String key) {

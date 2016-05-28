@@ -2,11 +2,14 @@ package chrislo27.remixer.track;
 
 import com.badlogic.gdx.utils.Array;
 
+import chrislo27.remixer.game.Game;
+import chrislo27.remixer.pattern.Pattern;
+import chrislo27.remixer.registry.GameList;
 import chrislo27.remixer.utils.PreDiv;
 
 public class Remix {
 
-	private Array<Action> track = new Array<>();
+	public Array<Array<SoundEffect>> tracks = new Array<>();
 
 	private float lastBeat = 0;
 
@@ -15,16 +18,29 @@ public class Remix {
 
 	public int bpm = 120;
 
-	public Remix() {
+	public Remix(int trackCount) {
+		for (int i = 0; i < trackCount; i++) {
+			this.tracks.add(new Array<SoundEffect>());
+		}
 
+		Game g = GameList.getGame("lockstep");
+
+		Array<Pattern> patterns = g.patterns.getAllValues();
+		for (int i = 0; i < patterns.size; i++) {
+			Pattern p = patterns.get(i);
+
+			p.addPatternToArray(this.tracks.get(i));
+		}
 	}
 
 	public void stop() {
 		beat = 0;
 		isStopped = true;
 
-		for (Action a : track) {
-			a.reset();
+		for (Array<SoundEffect> track : tracks) {
+			for (SoundEffect a : track) {
+				a.reset();
+			}
 		}
 
 	}
@@ -39,9 +55,11 @@ public class Remix {
 
 		beat += getBeatFromSec(delta, bpm);
 
-		for (Action a : track) {
-			if (a.isCompleted) continue;
-			if (a.beat <= beat) a.onAction();
+		for (Array<SoundEffect> track : tracks) {
+			for (SoundEffect a : track) {
+				if (a.isCompleted) continue;
+				if (a.beat <= beat) a.onAction();
+			}
 		}
 
 		if (beat > lastBeat) {
@@ -54,8 +72,10 @@ public class Remix {
 		{
 			float last = 0;
 
-			for (Action a : track) {
-				if (a.beat > last) last = a.beat;
+			for (Array<SoundEffect> track : tracks) {
+				for (SoundEffect a : track) {
+					if (a.beat > last) last = a.beat;
+				}
 			}
 
 			lastBeat = last;

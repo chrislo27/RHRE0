@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.editor.Editor;
 import chrislo27.remixer.stage.EditorStageSetup;
+import chrislo27.remixer.track.Remix;
 import ionium.screen.Updateable;
 import ionium.stage.Stage;
 
@@ -25,6 +26,7 @@ public class EditorScreen extends Updateable<Main> {
 		super(m);
 
 		editor = new Editor(main);
+		editor.setRemix(new Remix(Editor.TRACK_COUNT));
 	}
 
 	@Override
@@ -41,53 +43,6 @@ public class EditorScreen extends Updateable<Main> {
 
 		main.batch.setColor(0.3f, 0.3f, 0.5f, 1);
 		Main.fillRect(main.batch, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -48);
-		main.batch.setColor(1, 1, 1, 1);
-
-		// beat counter
-		float beatRulerY = Gdx.graphics.getHeight() - 96;
-
-		main.font.getData().setScale(0.75f);
-		main.font.setColor(0, 0, 0, 1);
-
-		for (float beat = editor.camera.position.x
-				- editor.camera.viewportWidth * 0.5f; beat <= editor.camera.position.x
-						+ editor.camera.viewportWidth * 0.5f; beat++) {
-			final int steps = 2;
-			float units = (Gdx.graphics.getWidth() / editor.camera.viewportWidth)
-					/ editor.camera.zoom;
-			float relativeX = getBeatPosX(beat);
-
-			// sub-beat lines
-			main.batch.setColor(0.25f, 0.25f, 0.25f, 1);
-			for (int i = 0; i < steps; i++) {
-				float otherRelativeX = getBeatPosX(beat + (((float) i) / steps));
-				Main.fillRect(main.batch, otherRelativeX, beatRulerY + 8, 2, -16);
-			}
-
-			// beat line
-			main.batch.setColor(0, 0, 0, 1);
-			Main.fillRect(main.batch, relativeX, beatRulerY + 8, 2, -24);
-
-			main.font.draw(main.batch, "" + beat, relativeX, beatRulerY + main.font.getLineHeight(),
-					0, Align.center, false);
-		}
-
-		// horizontal line
-		main.batch.setColor(0, 0, 0, 1);
-		Main.fillRect(main.batch, 0, beatRulerY, Gdx.graphics.getWidth(), 2);
-		main.batch.setColor(1, 1, 1, 1);
-
-		main.font.setColor(0.1f, 0.5f, 0.1f, 1);
-		float cursorBeat = editor.getCursorBeat();
-		main.font.draw(main.batch, String.format("%.1f", cursorBeat), getBeatPosX(cursorBeat),
-				beatRulerY + main.font.getLineHeight() + main.font.getCapHeight() * 1.5f, 0,
-				Align.center, false);
-
-		main.batch.setColor(0.1f, 0.5f, 0.1f, 1);
-		Main.fillRect(main.batch, getBeatPosX(cursorBeat), beatRulerY + 8, 1,
-				-Gdx.graphics.getHeight());
-
-		main.font.setColor(1, 1, 1, 1);
 		main.batch.setColor(1, 1, 1, 1);
 
 		main.batch.end();
@@ -118,7 +73,7 @@ public class EditorScreen extends Updateable<Main> {
 
 	@Override
 	public void renderUpdate() {
-		editor.inputUpdate();
+		if (!stageSetup.shouldDim()) editor.inputUpdate();
 		editor.renderUpdate();
 	}
 

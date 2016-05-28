@@ -107,7 +107,7 @@ public class EditorStageSetup {
 			exitGame.getColor().set(0.85f, 0.25f, 0.25f, 1);
 			toolbar.addActor(exitGame).align(Align.topRight).setPixelOffset(8, 8, 32, 32);
 
-			status = new TextLabel(stage, palette, "status.start");
+			status = new TextLabel(stage, palette, "status.nothing");
 
 			toolbar.addActor(status).setTextAlign(Align.center).align(Align.top | Align.center)
 					.setScreenOffsetSize(1, 0).setPixelOffsetSize(0, 48);
