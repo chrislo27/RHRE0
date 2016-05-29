@@ -68,6 +68,25 @@ public class CueList {
 			put(new Cue(dd, dd.name, "dwonk1", 0.5f));
 			put(new Cue(dd, dd.name, "dwonk2", 0.5f));
 		}
+
+		{
+			Game tt = GameList.getGame("tapTroupe");
+			float dottedEighth = 0.75f;
+
+			put(new Cue(tt, tt.name, "and", 0.25f));
+			put(new Cue(tt, tt.name, "bombom1", 0.75f));
+			put(new Cue(tt, tt.name, "bombom2", 0.75f));
+			put(new Cue(tt, tt.name, "ok1", 7f / 3f));
+			put(new Cue(tt, tt.name, "ok2", 7f / 3f));
+			put(new Cue(tt, tt.name, "ready1", 0.5f));
+			put(new Cue(tt, tt.name, "ready2", 0.5f));
+			put(new Cue(tt, tt.name, "step1", 0.5f));
+			put(new Cue(tt, tt.name, "step2", 0.5f));
+			put(new Cue(tt, tt.name, "tapNook", 0.25f));
+			put(new Cue(tt, tt.name, "taptaptap1", 0.75f));
+			put(new Cue(tt, tt.name, "taptaptap2", 0.75f));
+			put(new Cue(tt, tt.name, "taptaptap3", 0.75f));
+		}
 	}
 
 	public void put(Cue cue) {
