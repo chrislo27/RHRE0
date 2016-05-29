@@ -3,11 +3,13 @@ package chrislo27.remixer.editor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -22,13 +24,13 @@ import chrislo27.remixer.game.Game;
 import chrislo27.remixer.registry.GameList;
 import chrislo27.remixer.track.Remix;
 import chrislo27.remixer.track.SoundEffect;
-import ionium.util.DebugSetting;
 import ionium.util.MathHelper;
 import ionium.util.Utils;
 import ionium.util.i18n.Localization;
 import ionium.util.input.AnyKeyPressed;
+import ionium.util.render.StencilMaskUtil;
 
-public class Editor {
+public class Editor extends InputAdapter {
 
 	public static final int BLOCK_SIZE_X = 256;
 	public static final int BLOCK_SIZE_Y = 64;
@@ -37,6 +39,7 @@ public class Editor {
 	public static final float CAMERA_SPEED = 1024;
 	public static final boolean SHOW_GAME_ICON_ALWAYS = true;
 	public static final int SCREEN_EDGE_SCROLL = 64;
+	public static final int SELECT_BAR_HEIGHT = 256;
 
 	private static GlyphLayout tmpLayout = new GlyphLayout();
 	private static Vector3 tmpVec3 = new Vector3();
@@ -64,6 +67,8 @@ public class Editor {
 	};
 	private boolean isMoving = false;
 	private Rectangle tmpBoundsCalc = new Rectangle();
+	
+	private int currentGame = 0;
 
 	public Editor(Main main) {
 		this.main = main;
@@ -188,23 +193,43 @@ public class Editor {
 			float width = mouse.x - selectionOrigin.x;
 			float height = mouse.y - selectionOrigin.y;
 
-			main.batch.setColor(0.1f, 0.75f, 0.75f, 0.333f);
+			batch.setColor(0.1f, 0.75f, 0.75f, 0.333f);
 			Main.fillRect(batch, selectionOrigin.x, selectionOrigin.y, width, height);
-			main.batch.setColor(0.1f, 0.85f, 0.85f, 1);
+			batch.setColor(0.1f, 0.85f, 0.85f, 1);
 			Main.drawRect(batch, selectionOrigin.x, selectionOrigin.y, width, height, 4);
-			main.batch.setColor(1, 1, 1, 1);
+			batch.setColor(1, 1, 1, 1);
 
 		}
 
 		if (isMoving) {
 			// selection bounds renderer
-			main.batch.setColor(0.1f, 0.75f, 0.75f, 0.125f);
+			batch.setColor(0.1f, 0.75f, 0.75f, 0.125f);
 			Main.fillRect(batch, tmpBoundsCalc.x, tmpBoundsCalc.y, tmpBoundsCalc.width,
 					tmpBoundsCalc.height);
-			main.batch.setColor(1, 1, 1, 1);
+			batch.setColor(1, 1, 1, 1);
 		}
 
+		batch.setProjectionMatrix(main.camera.combined);
+
+		// select area
+		batch.setColor(0, 0, 0, 0.5f);
+		Main.fillRect(batch, 0, 0, Gdx.graphics.getWidth(), SELECT_BAR_HEIGHT);
+		batch.setColor(1, 1, 1, 1);
+
 		batch.end();
+
+		StencilMaskUtil.prepareMask();
+		main.shapes.setProjectionMatrix(main.camera.combined);
+		main.shapes.begin(ShapeType.Filled);
+		main.shapes.rect(0, 0, Gdx.graphics.getWidth(), SELECT_BAR_HEIGHT);
+		main.shapes.end();
+
+		// actual stuff
+		main.batch.begin();
+		StencilMaskUtil.useMask();
+
+		main.batch.end();
+		StencilMaskUtil.resetMask();
 	}
 
 	public void renderSoundEffect(SpriteBatch batch, Game currentGame, SoundEffect sfx) {
@@ -491,7 +516,8 @@ public class Editor {
 			}
 		}
 
-		if (Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustPressed(Buttons.LEFT)) {
+		if (Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustPressed(Buttons.LEFT)
+				&& Gdx.graphics.getHeight() - Gdx.input.getY() > SELECT_BAR_HEIGHT) {
 			Vector3 mouse = unprojectMouse();
 
 			SoundEffect isPointIn = null;
@@ -539,27 +565,15 @@ public class Editor {
 			deleteSelection();
 		}
 
-		if (Gdx.input.isKeyJustPressed(Keys.T)) {
-			clearSelection();
-
-			GameList.getGame("lockstep").patterns.getValue("return").addPatternToArray(selection);
-
-			selection.sort();
-
-			for (SoundEffect sfx : selection) {
-				sfx.selected = true;
-				sfx.position.set(Short.MIN_VALUE + sfx.beat * BLOCK_SIZE_X, Short.MIN_VALUE);
-
-				remix.tracks.first().add(sfx);
-			}
-
-			beginMoving(selection.first().position.x, selection.first().position.y);
-		}
-
 	}
 
-	public void resize(int width, int height) {
+	@Override
+	public boolean scrolled(int amount) {
+		if (remix.isStarted()) return false;
+		if (Gdx.graphics.getHeight() - Gdx.input.getY() > SELECT_BAR_HEIGHT) return false;
+		
 
+		return true;
 	}
 
 }

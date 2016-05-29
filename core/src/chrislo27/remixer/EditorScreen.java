@@ -87,7 +87,6 @@ public class EditorScreen extends Updateable<Main> {
 
 	@Override
 	public void resize(int width, int height) {
-		editor.resize(width, height);
 	}
 
 	@Override
@@ -103,6 +102,7 @@ public class EditorScreen extends Updateable<Main> {
 			InputMultiplexer plex = (InputMultiplexer) Gdx.input.getInputProcessor();
 
 			stage.addSelfToInputMultiplexer(plex);
+			plex.addProcessor(editor);
 		}
 	}
 
@@ -116,6 +116,7 @@ public class EditorScreen extends Updateable<Main> {
 					InputMultiplexer plex = (InputMultiplexer) Gdx.input.getInputProcessor();
 
 					stage.removeSelfFromInputMultiplexer(plex);
+					plex.removeProcessor(editor);
 				}
 
 			});
