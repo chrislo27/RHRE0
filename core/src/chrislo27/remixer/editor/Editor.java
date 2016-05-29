@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.Pool;
 import chrislo27.remixer.Keybinds;
 import chrislo27.remixer.Main;
 import chrislo27.remixer.game.Game;
+import chrislo27.remixer.pattern.Pattern;
 import chrislo27.remixer.registry.GameList;
 import chrislo27.remixer.track.Remix;
 import chrislo27.remixer.track.SoundEffect;
@@ -40,6 +41,8 @@ public class Editor extends InputAdapter {
 	public static final boolean SHOW_GAME_ICON_ALWAYS = true;
 	public static final int SCREEN_EDGE_SCROLL = 64;
 	public static final int SELECT_BAR_HEIGHT = 256;
+	public static final int SELECT_BAR_WIDTH = (int) (SELECT_BAR_HEIGHT * 1.5f);
+	public static final int SCROLL_EXTRA_ITEMS = SELECT_BAR_HEIGHT / 64;
 
 	private static GlyphLayout tmpLayout = new GlyphLayout();
 	private static Vector3 tmpVec3 = new Vector3();
@@ -69,6 +72,10 @@ public class Editor extends InputAdapter {
 	private Rectangle tmpBoundsCalc = new Rectangle();
 
 	private int currentGame = 0;
+	private float gameScroll = 0;
+	private int currentPattern = 0;
+	private float patternScroll = 0;
+	private Array<Array<String>> storedPatterns = new Array<>();
 
 	public Editor(Main main) {
 		this.main = main;
@@ -77,6 +84,19 @@ public class Editor extends InputAdapter {
 		camera.setToOrtho(false, 1280, 720);
 
 		camera.position.x = camera.viewportWidth * 0.4f;
+
+		Array<Game> games = GameList.instance().games.getAllValues();
+		for (int i = 0; i < games.size; i++) {
+			Game g = games.get(i);
+			Array<String> patternList = new Array<>();
+
+			for (int j = 0; j < g.patterns.getAllValues().size; j++) {
+				String name = g.patterns.getAllKeys().get(j);
+				patternList.add(name);
+			}
+
+			storedPatterns.add(patternList);
+		}
 	}
 
 	public void clearSelection() {
@@ -233,7 +253,63 @@ public class Editor extends InputAdapter {
 		main.batch.begin();
 		StencilMaskUtil.useMask();
 
-		main.batch.end();
+		// game list
+		{
+			Array<Game> games = GameList.instance().games.getAllValues();
+			for (int i = Math.max(0, currentGame - SCROLL_EXTRA_ITEMS); i < Math.min(games.size,
+					currentGame + SCROLL_EXTRA_ITEMS); i++) {
+				Game g = games.get(i);
+
+				float x = 32;
+				float y = SELECT_BAR_HEIGHT * 0.5f - i * BLOCK_SIZE_Y + gameScroll * BLOCK_SIZE_Y;
+				AtlasRegion region = GameList.getIcon(g.name);
+
+				batch.draw(region, x - region.getRegionWidth() * 0.5f,
+						y - region.getRegionHeight() * 0.5f);
+
+				main.fontBordered.setColor(1, 1, 1, 1);
+				if (i == currentGame) {
+					main.fontBordered.setColor(0.4f, 1, 1, 1);
+				}
+
+				tmpLayout.setText(main.fontBordered, Localization.get("game." + g.name),
+						main.fontBordered.getColor(), SELECT_BAR_WIDTH - x, Align.left, false);
+
+				main.fontBordered.draw(batch, tmpLayout, x * 2, y + tmpLayout.height * 0.5f);
+
+				main.fontBordered.setColor(1, 1, 1, 1);
+			}
+		}
+
+		// line dividing game list and pattern list
+		batch.setColor(1, 1, 1, 1);
+		Main.fillRect(batch, SELECT_BAR_WIDTH, 0, 1, SELECT_BAR_HEIGHT);
+
+		{
+			Array<String> patternList = storedPatterns.get(currentGame);
+			for (int i = Math.max(0, currentPattern - SCROLL_EXTRA_ITEMS); i < Math
+					.min(patternList.size, currentPattern + SCROLL_EXTRA_ITEMS); i++) {
+				String pattern = patternList.get(i);
+
+				float x = SELECT_BAR_WIDTH + 32;
+				float y = SELECT_BAR_HEIGHT * 0.5f - i * BLOCK_SIZE_Y
+						+ patternScroll * BLOCK_SIZE_Y;
+
+				main.fontBordered.setColor(1, 1, 1, 1);
+				if (i == currentPattern) {
+					main.fontBordered.setColor(0.4f, 1, 1, 1);
+				}
+
+				tmpLayout.setText(main.fontBordered, pattern, main.fontBordered.getColor(),
+						SELECT_BAR_WIDTH - x, Align.left, false);
+
+				main.fontBordered.draw(batch, tmpLayout, x, y + tmpLayout.height * 0.5f);
+
+				main.fontBordered.setColor(1, 1, 1, 1);
+			}
+		}
+
+		batch.end();
 		StencilMaskUtil.resetMask();
 	}
 
@@ -304,6 +380,11 @@ public class Editor extends InputAdapter {
 
 	public void renderUpdate() {
 		if (remix.isStarted()) remix.update(Gdx.graphics.getDeltaTime(), selection.size > 0);
+
+		float alpha = Gdx.graphics.getDeltaTime() * 16;
+
+		gameScroll = MathUtils.lerp(gameScroll, currentGame, alpha);
+		patternScroll = MathUtils.lerp(patternScroll, currentPattern, alpha);
 	}
 
 	public void updateMovementOfSelected() {
@@ -406,7 +487,6 @@ public class Editor extends InputAdapter {
 
 	public void placeSelected() {
 		if (!isMoving) return;
-
 		// place the moved objects or reset them if they intersect others
 		boolean rejectMovement = false;
 
@@ -437,8 +517,11 @@ public class Editor extends InputAdapter {
 			}
 		}
 
-		// finally, move the thing
-		if (!rejectMovement) {
+		// place on toolbar area to delete
+		if (Gdx.input.getY() >= Gdx.graphics.getHeight() - SELECT_BAR_HEIGHT) {
+			deleteSelection();
+		} else if (!rejectMovement) {
+			// finally, move the thing
 			// remove from track
 			for (int track = 0; track < remix.tracks.size; track++) {
 				remix.tracks.get(track).removeAll(selection, true);
@@ -450,6 +533,23 @@ public class Editor extends InputAdapter {
 				// add to track based on position
 				remix.tracks.get(MathUtils.clamp((int) (sfx.position.y / BLOCK_SIZE_Y), 0,
 						remix.tracks.size - 1)).add(sfx);
+			}
+		} else if (rejectMovement) {
+			// check old positions, if any of them are negative it means it was spawned so it should be deleted
+
+			boolean shouldBeDeleted = false;
+
+			for (int i = 0; i < selection.size; i++) {
+				Vector2 oldPos = oldPositions.get(i);
+
+				if (oldPos.x < 0 || oldPos.y < 0) {
+					shouldBeDeleted = true;
+					break;
+				}
+			}
+
+			if (shouldBeDeleted) {
+				deleteSelection();
 			}
 		}
 
@@ -522,7 +622,7 @@ public class Editor extends InputAdapter {
 		}
 
 		if (Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustPressed(Buttons.LEFT)
-				&& Gdx.graphics.getHeight() - Gdx.input.getY() > SELECT_BAR_HEIGHT) {
+				&& Gdx.input.getY() > 48) {
 			Vector3 mouse = unprojectMouse();
 
 			SoundEffect isPointIn = null;
@@ -540,12 +640,26 @@ public class Editor extends InputAdapter {
 				}
 			}
 
-			if (isPointIn == null || selection.size == 0) {
-				selectionOrigin.set(mouse.x, mouse.y);
-				isSelecting = true;
+			if (Gdx.input.getY() >= Gdx.graphics.getHeight() - SELECT_BAR_HEIGHT) {
+				int center = ((SELECT_BAR_HEIGHT / 2) - (BLOCK_SIZE_Y / 2));
+				int properInput = Gdx.graphics.getHeight() - Gdx.input.getY();
+				int relativeSpot = (int) -Math.floor((float) (properInput - center) / BLOCK_SIZE_Y);
+
+				if (Gdx.input.getX() <= SELECT_BAR_WIDTH) {
+					moveToGame(relativeSpot + currentGame, false);
+				} else {
+					moveToPattern(relativeSpot + currentPattern);
+				}
 			} else {
-				if (isPointIn != null) {
-					beginMoving(mouse.x, mouse.y);
+				if (isPointIn == null || selection.size == 0) {
+					// start selecting
+					selectionOrigin.set(mouse.x, mouse.y);
+					isSelecting = true;
+				} else {
+					// start moving
+					if (isPointIn != null) {
+						beginMoving(mouse.x, mouse.y);
+					}
 				}
 			}
 		}
@@ -572,12 +686,71 @@ public class Editor extends InputAdapter {
 
 	}
 
+	private void moveToPattern(int pattern) {
+		currentPattern = MathUtils.clamp(pattern, 0, storedPatterns.get(currentGame).size - 1);
+	}
+
+	private void moveToGame(int game, boolean loop) {
+		currentGame = game;
+
+		currentPattern = 0;
+		patternScroll = 0;
+
+		if (loop) {
+			if (currentGame < 0) {
+				currentGame = GameList.instance().games.getAllValues().size - 1;
+			} else if (currentGame >= GameList.instance().games.getAllValues().size) {
+				currentGame = 0;
+			}
+		} else {
+			currentGame = MathUtils.clamp(game, 0,
+					GameList.instance().games.getAllValues().size - 1);
+		}
+	}
+
 	@Override
 	public boolean scrolled(int amount) {
 		if (remix.isStarted()) return false;
 		if (Gdx.graphics.getHeight() - Gdx.input.getY() > SELECT_BAR_HEIGHT) return false;
 
+		if (Gdx.input.getX() <= SELECT_BAR_WIDTH) {
+			moveToGame(currentGame + amount, true);
+		} else {
+			moveToPattern(currentPattern + amount);
+		}
+
 		return true;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
+			if (!isMoving && Gdx.input.getY() >= Gdx.graphics.getHeight() - SELECT_BAR_HEIGHT
+					&& Gdx.input.getX() > SELECT_BAR_WIDTH) {
+				// create new pattern
+				clearSelection();
+				isMoving = true;
+				isSelecting = false;
+
+				Pattern current = GameList.instance().games.getAllValues().get(currentGame).patterns
+						.getAllValues().get(currentPattern);
+
+				current.addPatternToArray(selection);
+
+				for (SoundEffect sfx : selection) {
+					sfx.selected = true;
+					sfx.position.set(sfx.beat * BLOCK_SIZE_X, Short.MIN_VALUE);
+
+					remix.tracks.first().add(sfx);
+				}
+
+				beginMoving(selection.first().position.x, selection.first().position.y);
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
