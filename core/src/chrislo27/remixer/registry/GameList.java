@@ -7,6 +7,7 @@ import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.MunchyMonk;
 import ionium.registry.AssetRegistry;
+import ionium.templates.Main;
 import ionium.util.BiObjectMap;
 
 public class GameList {
@@ -30,6 +31,10 @@ public class GameList {
 		put(new Lockstep("lockstep"));
 		put(new MunchyMonk("munchyMonk"));
 		put(new DonkDonk("donkDonk"));
+
+		games.getAllKeys().sort();
+		games.getAllValues().sort();
+
 	}
 
 	public void put(Game game) {
