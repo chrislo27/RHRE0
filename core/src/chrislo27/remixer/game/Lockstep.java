@@ -31,6 +31,9 @@ public class Lockstep extends Game {
 				array.add(new SoundEffect(2, "lockstep_hai"));
 				array.add(new SoundEffect(3, "lockstep_bkbt_ha"));
 				array.add(new SoundEffect(3.5f, "lockstep_bkbt_hoi"));
+				array.add(new SoundEffect(4.5f, "lockstep_bkbt_boh"));
+				array.add(new SoundEffect(5.5f, "lockstep_bkbt_boh"));
+				array.add(new SoundEffect(6.5f, "lockstep_bkbt_boh"));
 			}
 		});
 
