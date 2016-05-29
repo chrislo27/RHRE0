@@ -19,6 +19,7 @@ public class Lockstep extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "lockstep_hai"));
+				array.add(new SoundEffect(1, "lockstep_march2"));
 			}
 		});
 
