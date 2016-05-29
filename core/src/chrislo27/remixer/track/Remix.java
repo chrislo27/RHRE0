@@ -22,15 +22,6 @@ public class Remix {
 		for (int i = 0; i < trackCount; i++) {
 			this.tracks.add(new Array<SoundEffect>());
 		}
-
-		Game g = GameList.getGame("lockstep");
-
-		Array<Pattern> patterns = g.patterns.getAllValues();
-		for (int i = 0; i < patterns.size; i++) {
-			Pattern p = patterns.get(i);
-
-			p.addPatternToArray(this.tracks.get(i));
-		}
 	}
 
 	public boolean isStarted() {
