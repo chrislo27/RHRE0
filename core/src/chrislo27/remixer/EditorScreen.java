@@ -45,6 +45,11 @@ public class EditorScreen extends Updateable<Main> {
 		Main.fillRect(main.batch, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -48);
 		main.batch.setColor(1, 1, 1, 1);
 
+		main.font.draw(main.batch,
+				"This demo is heavily unfinished - no saving/loading, tempo change, etc.",
+				Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight() - 16, 0, Align.center,
+				false);
+
 		main.batch.end();
 
 		// render editor
