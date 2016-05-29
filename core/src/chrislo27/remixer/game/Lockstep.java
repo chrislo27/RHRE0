@@ -58,7 +58,7 @@ public class Lockstep extends Game {
 			}
 		});
 
-		this.patterns.put("bbeat_march", new Pattern(this) {
+		this.patterns.put("backbeat march", new Pattern(this) {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
