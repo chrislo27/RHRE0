@@ -580,7 +580,17 @@ public class Editor extends InputAdapter {
 
 	public void inputUpdate() {
 		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			play();
+			if (remix.isStarted()) {
+				remix.stop();
+			} else {
+				if (selection.size > 0) {
+					selection.sort();
+					remix.setCurrentBeat(selection.first().beat);
+					remix.setLastBeat(selection.get(selection.size - 1).beat
+							+ selection.get(selection.size - 1).cue.duration);
+				}
+				remix.start();
+			}
 		}
 
 		if (remix.isStarted()) return;
