@@ -665,11 +665,11 @@ public class Editor extends InputAdapter {
 		}
 
 		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT)
-				|| (Gdx.input.getX() <= SCREEN_EDGE_SCROLL && isMoving)) {
+				|| (Gdx.input.getX() <= SCREEN_EDGE_SCROLL)) {
 			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
 		}
 		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)
-				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL && isMoving)) {
+				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL)) {
 			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
 		}
 
