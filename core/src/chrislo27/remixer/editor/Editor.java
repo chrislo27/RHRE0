@@ -67,7 +67,7 @@ public class Editor extends InputAdapter {
 	};
 	private boolean isMoving = false;
 	private Rectangle tmpBoundsCalc = new Rectangle();
-	
+
 	private int currentGame = 0;
 
 	public Editor(Main main) {
@@ -147,7 +147,12 @@ public class Editor extends InputAdapter {
 					sfx.position.set(sfx.beat * BLOCK_SIZE_X, track * BLOCK_SIZE_Y);
 				}
 
-				renderSoundEffect(batch, currentGame, sfx);
+				if (MathHelper.intersects(camera.position.x - camera.viewportWidth * 0.5f,
+						camera.position.y - camera.viewportHeight * 0.5f, camera.viewportWidth,
+						camera.viewportHeight, sfx.position.x, sfx.position.y,
+						sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y)) {
+					renderSoundEffect(batch, currentGame, sfx);
+				}
 
 				if (currentGame != sfx.cue.game) {
 					currentGame = sfx.cue.game;
@@ -571,7 +576,6 @@ public class Editor extends InputAdapter {
 	public boolean scrolled(int amount) {
 		if (remix.isStarted()) return false;
 		if (Gdx.graphics.getHeight() - Gdx.input.getY() > SELECT_BAR_HEIGHT) return false;
-		
 
 		return true;
 	}
