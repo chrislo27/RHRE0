@@ -664,12 +664,13 @@ public class Editor extends InputAdapter {
 			}
 		}
 
-		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT)
-				|| (Gdx.input.getX() <= SCREEN_EDGE_SCROLL)) {
+		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT) || (Gdx.input.getX() <= SCREEN_EDGE_SCROLL
+				&& Gdx.input.isButtonPressed(Buttons.LEFT))) {
 			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
 		}
 		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)
-				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL)) {
+				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL
+						&& Gdx.input.isButtonPressed(Buttons.LEFT))) {
 			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
 		}
 
@@ -714,7 +715,7 @@ public class Editor extends InputAdapter {
 		if (Gdx.graphics.getHeight() - Gdx.input.getY() > SELECT_BAR_HEIGHT) return false;
 
 		if (Gdx.input.getX() <= SELECT_BAR_WIDTH) {
-			moveToGame(currentGame + amount, true);
+			moveToGame(currentGame + amount, false);
 		} else {
 			moveToPattern(currentPattern + amount);
 		}
