@@ -36,6 +36,7 @@ public class Editor {
 	public static final int SNAP_DISTANCE = 4;
 	public static final float CAMERA_SPEED = 1024;
 	public static final boolean SHOW_GAME_ICON_ALWAYS = true;
+	public static final int SCREEN_EDGE_SCROLL = 64;
 
 	private static GlyphLayout tmpLayout = new GlyphLayout();
 	private static Vector3 tmpVec3 = new Vector3();
@@ -518,10 +519,12 @@ public class Editor {
 			}
 		}
 
-		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT)) {
+		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT)
+				|| (Gdx.input.getX() <= SCREEN_EDGE_SCROLL && isMoving)) {
 			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
 		}
-		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)) {
+		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)
+				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL && isMoving)) {
 			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
 		}
 
