@@ -27,16 +27,46 @@ public class CueList {
 		{
 			Game ls = GameList.getGame("lockstep");
 
-			put(new Cue(ls, "lockstep", "hai", 0.5f));
-			put(new Cue(ls, "lockstep", "bkbt_ha", 0.5f));
-			put(new Cue(ls, "lockstep", "bkbt_hoi", 0.5f));
-			put(new Cue(ls, "lockstep", "bkbt_boh", 0.5f));
-			put(new Cue(ls, "lockstep", "return_hee", 0.5f));
-			put(new Cue(ls, "lockstep", "return_ha", 0.5f));
-			put(new Cue(ls, "lockstep", "march1", 0.5f));
-			put(new Cue(ls, "lockstep", "march2", 0.5f));
-			put(new Cue(ls, "lockstep", "march1_bkbt", 0.5f));
-			put(new Cue(ls, "lockstep", "march2_bkbt", 0.5f));
+			put(new Cue(ls, ls.name, "hai", 0.5f));
+			put(new Cue(ls, ls.name, "bkbt_ha", 0.5f));
+			put(new Cue(ls, ls.name, "bkbt_hoi", 0.5f));
+			put(new Cue(ls, ls.name, "bkbt_boh", 0.5f));
+			put(new Cue(ls, ls.name, "return_hee", 0.5f));
+			put(new Cue(ls, ls.name, "return_ha", 0.5f));
+			put(new Cue(ls, ls.name, "march1", 0.5f));
+			put(new Cue(ls, ls.name, "march2", 0.5f));
+			put(new Cue(ls, ls.name, "march1_bkbt", 0.5f));
+			put(new Cue(ls, ls.name, "march2_bkbt", 0.5f));
+		}
+
+		{
+			Game mm = GameList.getGame("munchyMonk");
+
+			put(new Cue(mm, mm.name, "gulp", 0.5f));
+			put(new Cue(mm, mm.name, "gulp3-1", 0.5f));
+			put(new Cue(mm, mm.name, "gulp3-2", 0.5f));
+			put(new Cue(mm, mm.name, "gulp3-3", 0.5f));
+			put(new Cue(mm, mm.name, "one", 0.5f));
+			put(new Cue(mm, mm.name, "three", 0.5f));
+			put(new Cue(mm, mm.name, "try", 0.5f));
+			put(new Cue(mm, mm.name, "two", 0.5f));
+		}
+
+		{
+			Game dd = GameList.getGame("donkDonk");
+			float third = 1f / 3f;
+
+			put(new Cue(dd, dd.name, "blastoff", 2f));
+			put(new Cue(dd, dd.name, "deetdeetdoot1", third));
+			put(new Cue(dd, dd.name, "deetdeetdoot2", third));
+			put(new Cue(dd, dd.name, "deetdeetdoot3", third));
+			put(new Cue(dd, dd.name, "deetdeetduh1", third));
+			put(new Cue(dd, dd.name, "deetdeetduh2", third));
+			put(new Cue(dd, dd.name, "deetdeetduh3", third));
+			put(new Cue(dd, dd.name, "donk1", 0.5f));
+			put(new Cue(dd, dd.name, "donk2", 0.5f));
+			put(new Cue(dd, dd.name, "dwonk1", 0.5f));
+			put(new Cue(dd, dd.name, "dwonk2", 0.5f));
 		}
 	}
 

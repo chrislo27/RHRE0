@@ -2,8 +2,10 @@ package chrislo27.remixer.registry;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
+import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.Lockstep;
+import chrislo27.remixer.game.MunchyMonk;
 import ionium.registry.AssetRegistry;
 import ionium.util.BiObjectMap;
 
@@ -26,6 +28,8 @@ public class GameList {
 
 	private void loadResources() {
 		put(new Lockstep("lockstep"));
+		put(new MunchyMonk("munchyMonk"));
+		put(new DonkDonk("donkDonk"));
 	}
 
 	public void put(Game game) {
