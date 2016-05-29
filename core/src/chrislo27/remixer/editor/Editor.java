@@ -35,6 +35,7 @@ public class Editor {
 	public static final int TRACK_COUNT = 5;
 	public static final int SNAP_DISTANCE = 4;
 	public static final float CAMERA_SPEED = 1024;
+	public static final boolean SHOW_GAME_ICON_ALWAYS = true;
 
 	private static GlyphLayout tmpLayout = new GlyphLayout();
 	private static Vector3 tmpVec3 = new Vector3();
@@ -194,9 +195,9 @@ public class Editor {
 
 		}
 
-		if (DebugSetting.debug) {
+		if (isMoving) {
 			// selection bounds renderer
-			main.batch.setColor(0.1f, 0.75f, 0.75f, 0.333f);
+			main.batch.setColor(0.1f, 0.75f, 0.75f, 0.125f);
 			Main.fillRect(batch, tmpBoundsCalc.x, tmpBoundsCalc.y, tmpBoundsCalc.width,
 					tmpBoundsCalc.height);
 			main.batch.setColor(1, 1, 1, 1);
@@ -232,7 +233,7 @@ public class Editor {
 
 		batch.setColor(1, 1, 1, 1);
 
-		if (currentGame != sfx.cue.game) {
+		if (currentGame != sfx.cue.game || SHOW_GAME_ICON_ALWAYS) {
 			AtlasRegion region = GameList.getIcon(sfx.cue.game.name);
 
 			float regionWidth = Math.min(region.getRegionWidth(),
@@ -240,7 +241,7 @@ public class Editor {
 			float regionHeight = (region.getRegionHeight() * 1f / region.getRegionWidth())
 					* regionWidth;
 
-			textOffsetX += regionWidth + padding;
+			//textOffsetX += regionWidth + padding;
 
 			batch.setColor(1, 1, 1, 0.25f);
 			batch.draw(region, x + thickness + padding, y + height * 0.5f - regionHeight * 0.5f,
@@ -254,7 +255,7 @@ public class Editor {
 		font.getData().setScale(0.75f);
 
 		tmpLayout.setText(font, Localization.get(sfx.cue.soundId), font.getColor(),
-				width - thickness * 2 - padding - textOffsetX, Align.left, true);
+				width - thickness * 2 - padding - textOffsetX, Align.right, true);
 
 		font.draw(batch, tmpLayout, x + textOffsetX, y + height * 0.5f + tmpLayout.height * 0.5f);
 
@@ -539,14 +540,13 @@ public class Editor {
 			clearSelection();
 
 			GameList.getGame("lockstep").patterns.getValue("return").addPatternToArray(selection);
-			
+
 			selection.sort();
 
 			for (SoundEffect sfx : selection) {
 				sfx.selected = true;
-				sfx.position.set(Short.MIN_VALUE + sfx.beat * BLOCK_SIZE_X,
-						Short.MIN_VALUE);
-				
+				sfx.position.set(Short.MIN_VALUE + sfx.beat * BLOCK_SIZE_X, Short.MIN_VALUE);
+
 				remix.tracks.first().add(sfx);
 			}
 
