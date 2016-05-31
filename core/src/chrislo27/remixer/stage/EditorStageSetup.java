@@ -246,6 +246,30 @@ public class EditorStageSetup {
 			toolbar.addActor(currentMusic).align(Align.topLeft).setPixelOffset(8 + (32 + 8) * 6, 8,
 					480, 32);
 
+			ImageButton clearMusic = new ImageButton(stage, palette,
+					AssetRegistry.getAtlasRegion("ionium_ui-icons", "no")) {
+
+				Runnable run = new Runnable() {
+
+					@Override
+					public void run() {
+						editorScreen.editor.setMusic(null);
+					}
+				};
+
+				@Override
+				public void onClickAction(float x, float y) {
+					super.onClickAction(x, y);
+
+					invokeConfirmation("menu.clearMusicWarning", run);
+				}
+
+			};
+
+			clearMusic.getColor().set(0.85f, 0.25f, 0.25f, 1);
+			toolbar.addActor(clearMusic).align(Align.topLeft)
+					.setPixelOffset(8 + (32 + 8) * 6 + 480 - palette.borderThickness, 8, 32, 32);
+
 			ImageButton exitGame = new ImageButton(stage, palette,
 					AssetRegistry.getAtlasRegion("ionium_ui-icons", "no")) {
 

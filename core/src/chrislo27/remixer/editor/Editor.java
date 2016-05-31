@@ -126,16 +126,20 @@ public class Editor extends InputAdapter implements Disposable {
 
 		boolean success = true;
 
-		try {
-			Music mus = Gdx.audio.newMusic(file);
-			music = mus;
-		} catch (GdxRuntimeException e) {
-			Main.logger.warn("Failed to load music file", e);
+		if (file == null) {
+			music = null;
+		} else {
+			try {
+				Music mus = Gdx.audio.newMusic(file);
+				music = mus;
+			} catch (GdxRuntimeException e) {
+				Main.logger.warn("Failed to load music file", e);
 
-			success = false;
-		} finally {
-			remix.setMusic(music);
+				success = false;
+			}
 		}
+
+		remix.setMusic(music);
 
 		return success;
 	}
