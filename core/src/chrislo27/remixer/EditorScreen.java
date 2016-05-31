@@ -45,11 +45,6 @@ public class EditorScreen extends Updateable<Main> {
 		Main.fillRect(main.batch, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -48);
 		main.batch.setColor(1, 1, 1, 1);
 
-		main.font.draw(main.batch,
-				"This demo is heavily unfinished - no saving/loading, tempo change, etc.",
-				Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight() - 16, 0, Align.center,
-				false);
-
 		main.batch.end();
 
 		// render editor
@@ -59,7 +54,7 @@ public class EditorScreen extends Updateable<Main> {
 		// dim if confirmation dialog is visible
 		if (stageSetup != null && stageSetup.shouldDim()) {
 			main.batch.begin();
-			main.batch.setColor(0.25f, 0.25f, 0.25f, 1);
+			main.batch.setColor(0.25f, 0.25f, 0.25f, 0.75f);
 			Main.fillRect(main.batch, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			main.batch.setColor(1, 1, 1, 1);
 			main.batch.end();
@@ -80,6 +75,7 @@ public class EditorScreen extends Updateable<Main> {
 	public void renderUpdate() {
 		if (!stageSetup.shouldDim()) editor.inputUpdate();
 		editor.renderUpdate();
+		stageSetup.renderUpdate();
 	}
 
 	@Override

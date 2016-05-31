@@ -1,9 +1,14 @@
 package chrislo27.remixer.editor;
 
+import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -16,6 +21,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.Pool;
 
 import chrislo27.remixer.Keybinds;
@@ -31,7 +38,7 @@ import ionium.util.i18n.Localization;
 import ionium.util.input.AnyKeyPressed;
 import ionium.util.render.StencilMaskUtil;
 
-public class Editor extends InputAdapter {
+public class Editor extends InputAdapter implements Disposable {
 
 	public static final int BLOCK_SIZE_X = 256;
 	public static final int BLOCK_SIZE_Y = 64;
@@ -77,6 +84,9 @@ public class Editor extends InputAdapter {
 	private float patternScroll = 0;
 	private Array<Array<String>> storedPatterns = new Array<>();
 
+	private Music music;
+	private FileHandle musicFile;
+
 	public Editor(Main main) {
 		this.main = main;
 
@@ -97,6 +107,37 @@ public class Editor extends InputAdapter {
 
 			storedPatterns.add(patternList);
 		}
+	}
+
+	public Music getMusic() {
+		return music;
+	}
+
+	public FileHandle getMusicFile() {
+		return musicFile;
+	}
+
+	public boolean setMusic(FileHandle file) {
+		if (music != null) {
+			music.dispose();
+		}
+
+		musicFile = file;
+
+		boolean success = true;
+
+		try {
+			Music mus = Gdx.audio.newMusic(file);
+			music = mus;
+		} catch (GdxRuntimeException e) {
+			Main.logger.warn("Failed to load music file", e);
+
+			success = false;
+		} finally {
+			remix.setMusic(music);
+		}
+
+		return success;
 	}
 
 	public void clearSelection() {
@@ -123,8 +164,10 @@ public class Editor extends InputAdapter {
 	}
 
 	public void play() {
+		boolean shouldModSel = selection.size > 0 && !remix.isPaused();
+
 		remix.start();
-		if (selection.size > 0) {
+		if (shouldModSel) {
 			selection.sort();
 			remix.setCurrentBeat(selection.first().beat);
 			SoundEffect last = selection.get(selection.size - 1);
@@ -140,6 +183,28 @@ public class Editor extends InputAdapter {
 		return remix;
 	}
 
+	private void renderTracker(SpriteBatch batch, float position, String extraText, int linesUp) {
+		main.fontBordered.draw(main.batch, String.format("%.2f", position), position * BLOCK_SIZE_X,
+				remix.tracks.size * BLOCK_SIZE_Y + main.fontBordered.getCapHeight() * 3f, 0,
+				Align.left, false);
+		// draw seconds in format mm:ss
+		float beatSecs = Remix.getSecFromBeat(position, remix.bpm);
+
+		main.fontBordered.draw(main.batch,
+				(beatSecs < 0 ? "-" : "") + String.format("%1$02d:%2$02.3f",
+						(int) (Math.abs(beatSecs) / 60), Math.abs(beatSecs) % 60),
+				position * BLOCK_SIZE_X,
+				remix.tracks.size * BLOCK_SIZE_Y + main.fontBordered.getCapHeight() * 4.5f, 0,
+				Align.left, false);
+
+		if (extraText != null) {
+			main.fontBordered.draw(main.batch, Localization.get(extraText), position * BLOCK_SIZE_X,
+					remix.tracks.size * BLOCK_SIZE_Y
+							+ main.fontBordered.getCapHeight() * (3f + linesUp * 1.5f),
+					0, Align.right, false);
+		}
+	}
+
 	public void render(SpriteBatch batch) {
 		camera.position.y = 96;
 		if (remix.isStarted()) {
@@ -151,7 +216,6 @@ public class Editor extends InputAdapter {
 				camera.position.x = tracker + camera.viewportWidth * 0.5f;
 			}
 		}
-		camera.position.x = Math.max(0, camera.position.x);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
@@ -194,17 +258,28 @@ public class Editor extends InputAdapter {
 		}
 
 		// tracker
-		if (remix.isStarted()) {
-			batch.setColor(0, 1, 0, 1);
-			Main.fillRect(batch, remix.getCurrentBeat() * BLOCK_SIZE_X, 0, 2,
-					BLOCK_SIZE_Y * remix.tracks.size);
-		}
+		batch.setColor(0, 1, 0, 1);
+		Main.fillRect(batch, remix.getCurrentBeat() * BLOCK_SIZE_X, 0, 2,
+				BLOCK_SIZE_Y * (remix.tracks.size + 1));
 
+		// draw music start
+		batch.setColor(1, 0, 0, 1);
+		Main.fillRect(batch, Remix.getBeatFromSec(remix.musicStartTime, remix.bpm) * BLOCK_SIZE_X,
+				0, 4, BLOCK_SIZE_Y * (remix.tracks.size + 1));
+
+		main.fontBordered.setColor(0.85f, 0.25f, 0.25f, 1);
+		renderTracker(batch, Remix.getBeatFromSec(remix.musicStartTime, remix.bpm),
+				"editor.musicStart", 1);
+
+		// draw beat
+		main.fontBordered.setColor(0.25f, 0.85f, 0.25f, 1);
+		renderTracker(batch, remix.getCurrentBeat(), "editor.beat", 0);
+		main.fontBordered.setColor(1, 1, 1, 1);
 		batch.setColor(1, 1, 1, 1);
 
 		// beat numbers
 		main.font.setColor(0, 0, 0, 1);
-		for (int i = (int) Math.max(0, camera.position.x - camera.viewportWidth * 0.5f)
+		for (int i = (int) (camera.position.x - camera.viewportWidth * 0.5f)
 				/ BLOCK_SIZE_X; i <= (camera.position.x + camera.viewportWidth * 0.5f)
 						/ BLOCK_SIZE_X; i++) {
 			main.font.draw(main.batch, "" + i, i * BLOCK_SIZE_X,
@@ -471,6 +546,8 @@ public class Editor extends InputAdapter {
 
 		}
 
+		if (bounds.x < 0) bounds.x = 0;
+
 		// make the first item relative to bounds
 		firstSfx.position.set(bounds.x + relativeRectX, bounds.y + relativeRectY);
 
@@ -557,6 +634,11 @@ public class Editor extends InputAdapter {
 			remix.tracks.get(track).sort();
 		}
 
+		if (selection.size > 0) {
+			selection.sort();
+			remix.setCurrentBeat(selection.first().beat);
+		}
+
 		isMoving = false;
 		clearOldPositionArray();
 	}
@@ -579,24 +661,12 @@ public class Editor extends InputAdapter {
 	}
 
 	public void inputUpdate() {
-		if (Gdx.input.isKeyJustPressed(Keys.P)) {
-			if (remix.isStarted()) {
-				remix.stop();
-			} else {
-				if (selection.size > 0) {
-					selection.sort();
-					remix.setCurrentBeat(selection.first().beat);
-					remix.setLastBeat(selection.get(selection.size - 1).beat
-							+ selection.get(selection.size - 1).cue.duration);
-				}
-				remix.start();
+		if (remix.isStarted() || remix.isPaused()) return;
+
+		if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
+			if (isMoving) {
+				updateMovementOfSelected();
 			}
-		}
-
-		if (remix.isStarted()) return;
-
-		if (Gdx.input.isButtonPressed(Buttons.LEFT) && isMoving) {
-			updateMovementOfSelected();
 		}
 
 		if (!Gdx.input.isButtonPressed(Buttons.LEFT) && Utils.isButtonJustReleased(Buttons.LEFT)) {
@@ -623,6 +693,11 @@ public class Editor extends InputAdapter {
 							selection.add(sfx);
 						}
 					}
+				}
+
+				if (selection.size > 0) {
+					selection.sort();
+					remix.setCurrentBeat(selection.first().beat);
 				}
 
 				isSelecting = false;
@@ -677,11 +752,13 @@ public class Editor extends InputAdapter {
 		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT) || (Gdx.input.getX() <= SCREEN_EDGE_SCROLL
 				&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
 			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
+			camera.update();
 		}
 		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)
 				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL
 						&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
 			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
+			camera.update();
 		}
 
 		if (Gdx.input.isKeyJustPressed(Keys.HOME)) {
@@ -693,6 +770,21 @@ public class Editor extends InputAdapter {
 
 		if (AnyKeyPressed.isAKeyJustPressed(Keybinds.DELETE)) {
 			deleteSelection();
+		}
+
+		if (Gdx.input.getY() > 48) {
+			Vector3 mouse = unprojectMouse();
+
+			if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+				remix.setCurrentBeat(
+						MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval));
+			}
+
+			if (Gdx.input.isButtonPressed(Buttons.MIDDLE)) {
+				remix.musicStartTime = Remix.getSecFromBeat(
+						MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval),
+						remix.bpm);
+			}
 		}
 
 	}
@@ -737,7 +829,7 @@ public class Editor extends InputAdapter {
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
 			if (!isMoving && Gdx.input.getY() >= Gdx.graphics.getHeight() - SELECT_BAR_HEIGHT
-					&& Gdx.input.getX() > SELECT_BAR_WIDTH) {
+					&& Gdx.input.getX() > SELECT_BAR_WIDTH && !isSelecting) {
 				// create new pattern
 				clearSelection();
 				isMoving = true;
@@ -762,6 +854,11 @@ public class Editor extends InputAdapter {
 		}
 
 		return false;
+	}
+
+	@Override
+	public void dispose() {
+		if (music != null) music.dispose();
 	}
 
 }
