@@ -33,8 +33,8 @@ public class DonkDonk extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "donkDonk_deetdeetduh1"));
-				array.add(new SoundEffect(1 / 3f, "donkDonk_deetdeetduh2"));
-				array.add(new SoundEffect(2 / 3f, "donkDonk_deetdeetduh3"));
+				array.add(new SoundEffect(2 / 3f, "donkDonk_deetdeetduh2"));
+				array.add(new SoundEffect(4 / 3f, "donkDonk_deetdeetduh3"));
 			}
 		});
 
@@ -43,8 +43,8 @@ public class DonkDonk extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "donkDonk_deetdeetdoot1"));
-				array.add(new SoundEffect(1 / 3f, "donkDonk_deetdeetdoot2"));
-				array.add(new SoundEffect(2 / 3f, "donkDonk_deetdeetdoot3"));
+				array.add(new SoundEffect(2 / 3f, "donkDonk_deetdeetdoot2"));
+				array.add(new SoundEffect(4 / 3f, "donkDonk_deetdeetdoot3"));
 			}
 		});
 

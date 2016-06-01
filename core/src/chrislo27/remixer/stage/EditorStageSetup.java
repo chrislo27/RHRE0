@@ -8,11 +8,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import chrislo27.remixer.EditorScreen;
 import chrislo27.remixer.Main;
+import chrislo27.remixer.editor.Editor;
 import chrislo27.remixer.track.Remix;
 import ionium.registry.AssetRegistry;
 import ionium.stage.Group;
@@ -35,6 +37,7 @@ public class EditorStageSetup {
 	private Group toolbar;
 	private ImageButton saveButton;
 	private TextButton currentMusic;
+	private TextButton tempo;
 
 	private Group confirmationGroup;
 	private ImageButton confirmationYes;
@@ -77,13 +80,18 @@ public class EditorStageSetup {
 
 					@Override
 					public void run() {
-						editorScreen.editor.setRemix(new Remix(120));
+						editorScreen.editor.setRemix(new Remix(Editor.TRACK_COUNT));
+						editorScreen.editor.setMusic(null);
 					}
 				};
 
 				@Override
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
+
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
 
 					invokeConfirmation("menu.newWarning", run);
 				}
@@ -107,6 +115,10 @@ public class EditorStageSetup {
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
 
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
+
 					invokeConfirmation("menu.openWarning", run);
 				}
 
@@ -122,6 +134,10 @@ public class EditorStageSetup {
 				@Override
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
+
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
 				}
 
 			};
@@ -204,6 +220,10 @@ public class EditorStageSetup {
 
 					if (selecting) return;
 
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
+
 					Thread t = new Thread() {
 
 						@Override
@@ -285,6 +305,10 @@ public class EditorStageSetup {
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
 
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
+
 					invokeConfirmation("menu.exitWarning", run);
 				}
 
@@ -364,6 +388,103 @@ public class EditorStageSetup {
 			});
 
 			toolbar.addActor(interval).align(Align.topRight).setPixelOffset(48, 8, 128, 32);
+
+			LocalizationStrategy tempoStrat = new LocalizationStrategy() {
+
+				@Override
+				public String get(String key, Object... params) {
+					return key;
+				}
+			};
+
+			tempo = new TextButton(stage, palette, "120");
+			tempo.setI10NStrategy(new LocalizationStrategy() {
+
+				@Override
+				public String get(String key, Object... params) {
+					return editorScreen.editor.getRemix().bpm + "";
+				}
+			});
+
+			toolbar.addActor(tempo).align(Align.topRight).setPixelOffset(184 + (32 + 8) * 2, 8, 64,
+					32);
+
+			TextButton tempoChangeUp = new TextButton(stage, palette, "+1") {
+
+				@Override
+				public void onClickAction(float x, float y) {
+					super.onClickAction(x, y);
+
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
+
+					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
+							editorScreen.editor.getRemix().bpm + 1, Remix.MIN_BPM, Remix.MAX_BPM);
+
+				}
+			};
+			tempoChangeUp.setI10NStrategy(tempoStrat);
+
+			toolbar.addActor(tempoChangeUp).align(Align.topRight).setPixelOffset(184 + (32 + 8) * 1,
+					8, 32, 32);
+
+			TextButton tempoChangeUp5 = new TextButton(stage, palette, "+5") {
+
+				@Override
+				public void onClickAction(float x, float y) {
+					super.onClickAction(x, y);
+
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
+
+					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
+							editorScreen.editor.getRemix().bpm + 5, Remix.MIN_BPM, Remix.MAX_BPM);
+
+				}
+			};
+			tempoChangeUp5.setI10NStrategy(tempoStrat);
+
+			toolbar.addActor(tempoChangeUp5).align(Align.topRight).setPixelOffset(184, 8, 32, 32);
+
+			TextButton tempoChangeDown = new TextButton(stage, palette, "-1") {
+
+				@Override
+				public void onClickAction(float x, float y) {
+					super.onClickAction(x, y);
+
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
+
+					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
+							editorScreen.editor.getRemix().bpm - 1, Remix.MIN_BPM, Remix.MAX_BPM);
+				}
+			};
+			tempoChangeDown.setI10NStrategy(tempoStrat);
+
+			toolbar.addActor(tempoChangeDown).align(Align.topRight)
+					.setPixelOffset(184 + 64 + (32 + 8) * 2 + 8, 8, 32, 32);
+
+			TextButton tempoChangeDown5 = new TextButton(stage, palette, "-5") {
+
+				@Override
+				public void onClickAction(float x, float y) {
+					super.onClickAction(x, y);
+
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused())
+						return;
+
+					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
+							editorScreen.editor.getRemix().bpm - 5, Remix.MIN_BPM, Remix.MAX_BPM);
+				}
+			};
+			tempoChangeDown5.setI10NStrategy(tempoStrat);
+
+			toolbar.addActor(tempoChangeDown5).align(Align.topRight)
+					.setPixelOffset(184 + 64 + (32 + 8) * 3 + 8, 8, 32, 32);
 		}
 
 		stage.addActor(toolbar);

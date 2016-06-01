@@ -58,6 +58,7 @@ public class Editor extends InputAdapter implements Disposable {
 	public OrthographicCamera camera;
 
 	private Remix remix;
+	private float lastStartPos = 0;
 
 	private Array<SoundEffect> selection = new Array<>();
 	private Vector2 selectionOrigin = new Vector2();
@@ -168,19 +169,18 @@ public class Editor extends InputAdapter implements Disposable {
 	}
 
 	public void play() {
-		boolean shouldModSel = selection.size > 0 && !remix.isPaused();
+		//remix.setCurrentBeat(lastStartPos);
+
+		lastStartPos = remix.getCurrentBeat();
 
 		remix.start();
-		if (shouldModSel) {
-			selection.sort();
-			remix.setCurrentBeat(selection.first().beat);
-			SoundEffect last = selection.get(selection.size - 1);
-			remix.setLastBeat(last.beat + last.cue.duration);
-		}
 	}
 
 	public void setRemix(Remix r) {
 		remix = r;
+		lastStartPos = 0;
+		clearSelection();
+		clearOldPositionArray();
 	}
 
 	public Remix getRemix() {
@@ -458,7 +458,7 @@ public class Editor extends InputAdapter implements Disposable {
 	}
 
 	public void renderUpdate() {
-		if (remix.isStarted()) remix.update(Gdx.graphics.getDeltaTime(), selection.size > 0);
+		if (remix.isStarted()) remix.update(Gdx.graphics.getDeltaTime(), false);
 
 		float alpha = Gdx.graphics.getDeltaTime() * 16;
 
@@ -755,21 +755,33 @@ public class Editor extends InputAdapter implements Disposable {
 
 		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT) || (Gdx.input.getX() <= SCREEN_EDGE_SCROLL
 				&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
-			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
+			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED
+					* (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)
+							|| Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) ? 4 : 1);
 			camera.update();
 		}
 		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)
 				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL
 						&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
-			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED;
+			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED
+					* (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)
+							|| Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) ? 4 : 1);
 			camera.update();
 		}
 
 		if (Gdx.input.isKeyJustPressed(Keys.HOME)) {
 			camera.position.x = 0;
+			camera.update();
 		} else if (Gdx.input.isKeyJustPressed(Keys.END)) {
 			remix.recalculate();
 			camera.position.x = remix.getLastBeat() * BLOCK_SIZE_X;
+			camera.update();
+		} else if (Gdx.input.isKeyJustPressed(Keys.PAGE_UP)) {
+			camera.position.x -= BLOCK_SIZE_X * 4;
+			camera.update();
+		} else if (Gdx.input.isKeyJustPressed(Keys.PAGE_DOWN)) {
+			camera.position.x += BLOCK_SIZE_X * 4;
+			camera.update();
 		}
 
 		if (AnyKeyPressed.isAKeyJustPressed(Keybinds.DELETE)) {

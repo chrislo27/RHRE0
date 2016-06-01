@@ -11,6 +11,9 @@ import ionium.templates.Main;
 
 public class Remix {
 
+	public static final int MIN_BPM = 60;
+	public static final int MAX_BPM = 240;
+
 	public Array<Array<SoundEffect>> tracks = new Array<>();
 
 	private float lastBeat = 0;
@@ -55,7 +58,7 @@ public class Remix {
 		beat = b;
 
 		if (music != null) {
-			music.setPosition(getSecFromBeat(beat, bpm));
+			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
 		}
 	}
 
@@ -91,14 +94,14 @@ public class Remix {
 		isPaused = false;
 		recalculate();
 
-		if (music != null && !music.isPlaying()) {
-			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
+		if (music != null) {
 			music.play();
+			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
 		}
 	}
 
 	public void update(float delta, boolean onlySelected) {
-		if (isStopped) return;
+		if (isStopped || isPaused) return;
 
 		if (music != null && music.isPlaying()) {
 			beat = getBeatFromSec(music.getPosition() + musicStartTime, bpm);
@@ -110,12 +113,14 @@ public class Remix {
 			for (SoundEffect a : track) {
 				if (a.isCompleted) continue;
 				if (onlySelected && !a.selected) continue;
-				if (a.beat <= beat && a.beat + a.cue.duration >= beat) a.onAction();
+				if (beat >= a.beat && beat < a.beat + a.cue.duration) a.onAction();
 			}
 		}
 
 		if (beat >= lastBeat) {
+			float last = lastBeat;
 			stop();
+			setCurrentBeat(lastBeat);
 		}
 	}
 
