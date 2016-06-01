@@ -76,8 +76,6 @@ public class CueList {
 			put(new Cue(tt, tt.name, "and", 0.25f));
 			put(new Cue(tt, tt.name, "bombom1", 0.75f));
 			put(new Cue(tt, tt.name, "bombom2", 0.75f));
-			put(new Cue(tt, tt.name, "ok1", 7f / 3f));
-			put(new Cue(tt, tt.name, "ok2", 7f / 3f));
 			put(new Cue(tt, tt.name, "ready1", 0.5f));
 			put(new Cue(tt, tt.name, "ready2", 0.5f));
 			put(new Cue(tt, tt.name, "step1", 0.5f));

@@ -39,24 +39,6 @@ public class TapTroupe extends Game {
 
 		});
 
-		this.patterns.put("normal OK!", new Pattern(this) {
-
-			@Override
-			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "tapTroupe_ok1"));
-			}
-
-		});
-
-		this.patterns.put("excited OK!", new Pattern(this) {
-
-			@Override
-			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "tapTroupe_ok2"));
-			}
-
-		});
-
 		this.patterns.put("tap tap tap!", new Pattern(this) {
 
 			@Override
