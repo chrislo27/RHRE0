@@ -833,8 +833,7 @@ public class Editor extends InputAdapter implements Disposable {
 	}
 
 	private void moveToGame(int game, boolean loop) {
-		currentPattern = storedPatterns.get(currentGame).patternScroll;
-		patternScroll = currentPattern;
+		storedPatterns.get(currentGame).patternScroll = currentPattern;
 		
 		currentGame = game;
 
@@ -848,6 +847,8 @@ public class Editor extends InputAdapter implements Disposable {
 			currentGame = MathUtils.clamp(game, 0,
 					GameList.instance().games.getAllValues().size - 1);
 		}
+		
+		currentPattern = storedPatterns.get(currentGame).patternScroll;
 	}
 
 	@Override
