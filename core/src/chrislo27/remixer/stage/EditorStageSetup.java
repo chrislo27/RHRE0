@@ -1,6 +1,7 @@
 package chrislo27.remixer.stage;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -16,6 +17,7 @@ import chrislo27.remixer.EditorScreen;
 import chrislo27.remixer.Main;
 import chrislo27.remixer.editor.Editor;
 import chrislo27.remixer.track.Remix;
+import chrislo27.remixer.track.RemixPorter;
 import ionium.registry.AssetRegistry;
 import ionium.stage.Group;
 import ionium.stage.Stage;
@@ -104,10 +106,66 @@ public class EditorStageSetup {
 			ImageButton openProject = new ImageButton(stage, palette,
 					AssetRegistry.getAtlasRegion("ionium_ui-icons", "openFile")) {
 
+				File lastOpenLocation = null;
+				boolean isSelectingFile = false;
+
 				Runnable run = new Runnable() {
+
+					JFileChooser fileChooser = new JFileChooser();
+
+					{
+						fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						fileChooser.setDialogTitle("Open a remix file");
+						FileNameExtensionFilter ffef = new FileNameExtensionFilter(
+								"JSON remix files (.rhre, .json)", "rhre", "json");
+						fileChooser.addChoosableFileFilter(ffef);
+						fileChooser.setFileFilter(ffef);
+					}
 
 					@Override
 					public void run() {
+
+						Thread t = new Thread() {
+
+							@Override
+							public void run() {
+								isSelectingFile = true;
+
+								if (lastOpenLocation != null) {
+									fileChooser.setCurrentDirectory(lastOpenLocation);
+								} else {
+									fileChooser.setCurrentDirectory(
+											new File(System.getProperty("user.home"), "Desktop"));
+								}
+
+								int result = fileChooser.showOpenDialog(null);
+
+								if (result == JFileChooser.APPROVE_OPTION) {
+									final File selectedFile = fileChooser.getSelectedFile();
+
+									try {
+										Remix r = RemixPorter.importRemix(
+												new FileHandle(selectedFile).readString("UTF-8"));
+
+										editorScreen.editor.setRemix(r);
+										editorScreen.editor.setMusic(null);
+										lastOpenLocation = selectedFile;
+
+										invokeConfirmation("menu.successOpen", null, true);
+									} catch (Exception e) {
+										e.printStackTrace();
+										invokeConfirmation("menu.failedOpen", null, true);
+									}
+
+								}
+
+								isSelectingFile = false;
+								System.gc();
+							}
+						};
+
+						t.setDaemon(true);
+						t.start();
 					}
 				};
 
@@ -116,7 +174,7 @@ public class EditorStageSetup {
 					super.onClickAction(x, y);
 
 					if (editorScreen.editor.getRemix().isStarted()
-							|| editorScreen.editor.getRemix().isPaused())
+							|| editorScreen.editor.getRemix().isPaused() || isSelectingFile)
 						return;
 
 					invokeConfirmation("menu.openWarning", run);
@@ -131,20 +189,79 @@ public class EditorStageSetup {
 			saveButton = new ImageButton(stage, palette,
 					AssetRegistry.getAtlasRegion("ionium_ui-icons", "saveFile")) {
 
+				boolean isSelectingFile = false;
+				File lastSaveLocation = null;
+				JFileChooser fileChooser = new JFileChooser();
+
+				{
+					fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+					fileChooser.setDialogTitle("Save a remix");
+					FileNameExtensionFilter ffef = new FileNameExtensionFilter(
+							"JSON remix files (.rhre, .json)", "rhre", "json");
+					fileChooser.addChoosableFileFilter(ffef);
+					fileChooser.setFileFilter(ffef);
+				}
+
 				@Override
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
 
 					if (editorScreen.editor.getRemix().isStarted()
-							|| editorScreen.editor.getRemix().isPaused())
+							|| editorScreen.editor.getRemix().isPaused() || isSelectingFile)
 						return;
+
+					Thread t = new Thread() {
+
+						@Override
+						public void run() {
+							isSelectingFile = true;
+
+							if (lastSaveLocation != null) {
+								fileChooser.setCurrentDirectory(lastSaveLocation);
+							} else {
+								fileChooser.setCurrentDirectory(
+										new File(System.getProperty("user.home"), "Desktop"));
+							}
+
+							int result = fileChooser.showOpenDialog(null);
+
+							if (result == JFileChooser.APPROVE_OPTION) {
+								final File selectedFile = fileChooser.getSelectedFile();
+
+								try {
+									String json = RemixPorter
+											.exportRemix(editorScreen.editor.getRemix(), true);
+									FileHandle file = new FileHandle(selectedFile);
+									if (file.extension().equals("")) {
+										file = new FileHandle(
+												selectedFile.getAbsolutePath() + ".rhre");
+									}
+
+									file.writeString(json, false);
+
+									lastSaveLocation = selectedFile;
+								} catch (Exception e) {
+									e.printStackTrace();
+									invokeConfirmation("menu.failedSave", null, true);
+								}
+
+							}
+
+							isSelectingFile = false;
+							System.gc();
+						}
+					};
+
+					t.setDaemon(true);
+					t.start();
+
 				}
 
 			};
 
 			saveButton.getColor().set(0.25f, 0.25f, 0.25f, 1);
-			toolbar.addActor(saveButton).align(Align.topLeft)
-					.setPixelOffset(8 + (32 + 8) * 2, 8, 32, 32).setEnabled(false);
+			toolbar.addActor(saveButton).align(Align.topLeft).setPixelOffset(8 + (32 + 8) * 2, 8,
+					32, 32);
 
 			ImageButton playRemix = new ImageButton(stage, palette,
 					AssetRegistry.getAtlasRegion("ionium_ui-icons", "play")) {
@@ -541,11 +658,16 @@ public class EditorStageSetup {
 	}
 
 	protected void invokeConfirmation(String text, Runnable toRun) {
+		invokeConfirmation(text, toRun, false);
+	}
+
+	protected void invokeConfirmation(String text, Runnable toRun, boolean onlyOk) {
 		confirmationRun = toRun;
 		confirmationLabel.setLocalizationKey(text);
 
 		toolbar.setVisible(false);
 		confirmationGroup.setVisible(true);
+		confirmationNo.setEnabled(!onlyOk);
 	}
 
 	public Stage getStage() {
