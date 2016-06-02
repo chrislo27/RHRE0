@@ -7,6 +7,7 @@ import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.MunchyMonk;
+import chrislo27.remixer.game.TapTrial;
 import chrislo27.remixer.game.TapTroupe;
 import ionium.registry.AssetRegistry;
 import ionium.util.BiObjectMap;
@@ -35,6 +36,7 @@ public class GameList {
 		put(new MunchyMonk("munchyMonk"));
 		put(new DonkDonk("donkDonk"));
 		put(new TapTroupe("tapTroupe"));
+		put(new TapTrial("tapTrial"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

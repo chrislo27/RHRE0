@@ -96,6 +96,21 @@ public class CueList {
 			put(new Cue(tt, tt.name, "taptaptap2", 0.75f));
 			put(new Cue(tt, tt.name, "taptaptap3", 0.75f));
 		}
+
+		{
+			Game tt = GameList.getGame("tapTrial");
+
+			put(new Cue(tt, tt.name, "jumptap1_tap", 0.5f));
+			put(new Cue(tt, tt.name, "jumptap1", 0.5f));
+			put(new Cue(tt, tt.name, "jumptap2_tap", 0.5f));
+			put(new Cue(tt, tt.name, "jumptap2", 0.5f));
+			put(new Cue(tt, tt.name, "ook", 0.5f));
+			put(new Cue(tt, tt.name, "ooki1", 0.5f));
+			put(new Cue(tt, tt.name, "ooki2", 0.5f));
+			put(new Cue(tt, tt.name, "ookook1", 0.5f));
+			put(new Cue(tt, tt.name, "ookook2", 0.5f));
+			put(new Cue(tt, tt.name, "tap", 0.5f));
+		}
 	}
 
 	public void put(Cue cue) {

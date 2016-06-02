@@ -31,9 +31,16 @@ munchyMonk
   orig: 32, 28
   offset: 0, 0
   index: -1
-tapTroupe
+tapTrial
   rotate: false
   xy: 69, 31
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+tapTroupe
+  rotate: false
+  xy: 103, 31
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
