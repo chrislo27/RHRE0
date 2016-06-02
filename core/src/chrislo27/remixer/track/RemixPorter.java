@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
 
+import chrislo27.remixer.editor.Editor;
 import chrislo27.remixer.registry.CueList;
 import ionium.templates.Main;
 
@@ -95,6 +96,8 @@ public class RemixPorter {
 				Array<SoundEffect> track = new Array<>();
 				Iterator<JsonValue> trackIterator = eachTrack.iterator();
 
+				int trackNumber = eachTrack.getInt("number");
+
 				while (trackIterator.hasNext()) {
 					JsonValue trackValue = trackIterator.next();
 
@@ -107,12 +110,15 @@ public class RemixPorter {
 
 							if (CueList.getCue(cueName) == null) continue;
 
-							track.add(new SoundEffect(cue.getFloat("beat"), cueName));
+							SoundEffect sfx = new SoundEffect(cue.getFloat("beat"), cueName);
+							sfx.position.set(sfx.beat * Editor.BLOCK_SIZE_X,
+									trackNumber * Editor.BLOCK_SIZE_Y);
+							track.add(sfx);
 						}
 					}
 				}
 
-				parsedTracks.insert(eachTrack.getInt("number"), track);
+				parsedTracks.insert(trackNumber, track);
 			}
 
 			if (parsedTracks.size == 0) {
