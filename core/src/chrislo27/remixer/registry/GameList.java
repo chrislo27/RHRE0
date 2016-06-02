@@ -2,6 +2,7 @@ package chrislo27.remixer.registry;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 
+import chrislo27.remixer.game.CountInGame;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.Lockstep;
@@ -28,6 +29,8 @@ public class GameList {
 	public BiObjectMap<String, Game> games = new BiObjectMap<>();
 
 	private void loadResources() {
+		put(new CountInGame("countIn"));
+		
 		put(new Lockstep("lockstep"));
 		put(new MunchyMonk("munchyMonk"));
 		put(new DonkDonk("donkDonk"));

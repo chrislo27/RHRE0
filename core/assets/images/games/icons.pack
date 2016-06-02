@@ -3,7 +3,7 @@ icons.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-donkDonk
+countIn
   rotate: false
   xy: 1, 31
   size: 32, 32
@@ -17,7 +17,7 @@ lockstep
   orig: 32, 28
   offset: 0, 0
   index: -1
-tapTroupe
+donkDonk
   rotate: false
   xy: 35, 31
   size: 32, 32
@@ -29,5 +29,12 @@ munchyMonk
   xy: 35, 1
   size: 32, 28
   orig: 32, 28
+  offset: 0, 0
+  index: -1
+tapTroupe
+  rotate: false
+  xy: 69, 31
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1

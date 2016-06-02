@@ -25,6 +25,17 @@ public class CueList {
 
 	private void loadResources() {
 		{
+			Game ci = GameList.getGame("countIn");
+
+			put(new Cue(ci, ci.name, "and", 0.5f));
+			put(new Cue(ci, ci.name, "cowbell", 0.5f));
+			put(new Cue(ci, ci.name, "one", 0.5f));
+			put(new Cue(ci, ci.name, "two", 0.5f));
+			put(new Cue(ci, ci.name, "three", 0.5f));
+			put(new Cue(ci, ci.name, "four", 0.5f));
+		}
+
+		{
 			Game ls = GameList.getGame("lockstep");
 
 			put(new Cue(ls, ls.name, "hai", 0.5f));
