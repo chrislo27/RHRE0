@@ -9,9 +9,13 @@ and make remixes!
 Games included:
 
 Tap Troupe
+
 Lockstep
+
 Donk-Donk
+
 Munchy Monk
+
 
 Controls:
 
