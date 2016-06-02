@@ -78,6 +78,7 @@ public class Editor extends InputAdapter implements Disposable {
 	};
 	private boolean isMoving = false;
 	private Rectangle tmpBoundsCalc = new Rectangle();
+	private Array<SoundEffect> copyArray = new Array<>();
 
 	private int currentGame = 0;
 	private float gameScroll = 0;
@@ -647,20 +648,42 @@ public class Editor extends InputAdapter implements Disposable {
 		clearOldPositionArray();
 	}
 
-	public void beginMoving(float mouseX, float mouseY) {
+	public void beginMoving(boolean copy, float mouseX, float mouseY) {
 		moveOrigin.set(mouseX, mouseY);
 		isMoving = true;
-
-		// copy old positions over
 		clearOldPositionArray();
 
+		if (copy) {
+			copyArray.clear();
+
+			for (int i = 0; i < selection.size; i++) {
+				SoundEffect sfx = selection.get(i);
+				SoundEffect copied = new SoundEffect(sfx);
+
+				copied.selected = true;
+				copyArray.add(copied);
+				remix.tracks.first().add(copied);
+			}
+
+			clearSelection();
+			selection.addAll(copyArray);
+			selection.sort();
+
+			copyArray.clear();
+		}
+
+		// copy old positions over
 		for (int i = 0; i < selection.size; i++) {
 			SoundEffect sfx = selection.get(i);
 			Vector2 vec2 = vec2Pool.obtain();
 
-			vec2.set(sfx.position);
+			vec2.set(sfx.position.x, copy ? Short.MIN_VALUE : sfx.position.y);
 
 			oldPositions.add(vec2);
+		}
+
+		if (oldPositions.size > 0 && copy) {
+			moveOrigin.set(oldPositions.first());
 		}
 	}
 
@@ -747,7 +770,10 @@ public class Editor extends InputAdapter implements Disposable {
 				} else {
 					// start moving
 					if (isPointIn != null) {
-						beginMoving(mouse.x, mouse.y);
+						boolean copy = Gdx.input.isKeyPressed(Keys.ALT_LEFT)
+								|| Gdx.input.isKeyPressed(Keys.ALT_RIGHT);
+
+						beginMoving(copy, mouse.x, mouse.y);
 					}
 				}
 			}
@@ -863,7 +889,7 @@ public class Editor extends InputAdapter implements Disposable {
 					remix.tracks.first().add(sfx);
 				}
 
-				beginMoving(selection.first().position.x, selection.first().position.y);
+				beginMoving(false, selection.first().position.x, selection.first().position.y);
 
 				return true;
 			}
