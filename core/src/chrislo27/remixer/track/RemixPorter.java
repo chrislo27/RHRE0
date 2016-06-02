@@ -127,6 +127,9 @@ public class RemixPorter {
 
 		r.musicStartTime = musicStartTime;
 		r.tracks = parsedTracks;
+		for (Array<SoundEffect> array : r.tracks) {
+			array.sort();
+		}
 
 		return r;
 	}
