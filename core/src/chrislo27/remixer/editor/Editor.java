@@ -29,6 +29,7 @@ import chrislo27.remixer.Keybinds;
 import chrislo27.remixer.Main;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.pattern.Pattern;
+import chrislo27.remixer.registry.CueList;
 import chrislo27.remixer.registry.GameList;
 import chrislo27.remixer.track.Remix;
 import chrislo27.remixer.track.SoundEffect;
@@ -84,7 +85,7 @@ public class Editor extends InputAdapter implements Disposable {
 	private float gameScroll = 0;
 	private int currentPattern = 0;
 	private float patternScroll = 0;
-	private Array<Array<String>> storedPatterns = new Array<>();
+	private Array<StoredPattern> storedPatterns = new Array<>();
 
 	private Music music;
 	private FileHandle musicFile;
@@ -100,14 +101,8 @@ public class Editor extends InputAdapter implements Disposable {
 		Array<Game> games = GameList.instance().games.getAllValues();
 		for (int i = 0; i < games.size; i++) {
 			Game g = games.get(i);
-			Array<String> patternList = new Array<>();
 
-			for (int j = 0; j < g.patterns.getAllValues().size; j++) {
-				String name = g.patterns.getAllKeys().get(j);
-				patternList.add(name);
-			}
-
-			storedPatterns.add(patternList);
+			storedPatterns.add(new StoredPattern(g));
 		}
 	}
 
@@ -366,7 +361,7 @@ public class Editor extends InputAdapter implements Disposable {
 		Main.fillRect(batch, SELECT_BAR_WIDTH, 0, 1, SELECT_BAR_HEIGHT);
 
 		{
-			Array<String> patternList = storedPatterns.get(currentGame);
+			Array<String> patternList = storedPatterns.get(currentGame).patterns;
 			for (int i = Math.max(0, currentPattern - SCROLL_EXTRA_ITEMS); i < Math
 					.min(patternList.size, currentPattern + SCROLL_EXTRA_ITEMS); i++) {
 				String pattern = patternList.get(i);
@@ -832,14 +827,16 @@ public class Editor extends InputAdapter implements Disposable {
 	}
 
 	private void moveToPattern(int pattern) {
-		currentPattern = MathUtils.clamp(pattern, 0, storedPatterns.get(currentGame).size - 1);
+		currentPattern = MathUtils.clamp(pattern, 0,
+				storedPatterns.get(currentGame).patterns.size - 1);
+		storedPatterns.get(currentGame).patternScroll = currentPattern;
 	}
 
 	private void moveToGame(int game, boolean loop) {
+		currentPattern = storedPatterns.get(currentGame).patternScroll;
+		patternScroll = currentPattern;
+		
 		currentGame = game;
-
-		currentPattern = 0;
-		patternScroll = 0;
 
 		if (loop) {
 			if (currentGame < 0) {
@@ -901,6 +898,24 @@ public class Editor extends InputAdapter implements Disposable {
 	@Override
 	public void dispose() {
 		if (music != null) music.dispose();
+	}
+
+	private class StoredPattern {
+
+		final Game game;
+		final Array<String> patterns;
+		int patternScroll = 0;
+
+		StoredPattern(Game g) {
+			game = g;
+
+			patterns = new Array<>();
+			// initialize single cue patterns
+			CueList.instance();
+			for (String s : game.patterns.getAllKeys()) {
+				patterns.add(s);
+			}
+		}
 	}
 
 }

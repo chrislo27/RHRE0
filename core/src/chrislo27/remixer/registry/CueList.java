@@ -1,10 +1,15 @@
 package chrislo27.remixer.registry;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.game.Game;
+import chrislo27.remixer.pattern.Pattern;
+import chrislo27.remixer.track.SoundEffect;
 import ionium.registry.AssetRegistry;
+import ionium.templates.Main;
 import ionium.util.BiObjectMap;
+import ionium.util.i18n.Localization;
 
 public class CueList {
 
@@ -111,6 +116,39 @@ public class CueList {
 			put(new Cue(tt, tt.name, "ookook2", 0.5f));
 			put(new Cue(tt, tt.name, "tap", 0.5f));
 		}
+
+		// add individual cues as patterns too
+		Array<SoundEffect> tmp = new Array<>();
+
+		outer: for (final Cue c : cues.getAllValues()) {
+			String id = Localization.get(c.soundId);
+			id = "Cue - " + id;
+			id = id.replace("\n", " - ");
+
+			for (Pattern p : c.game.patterns.getAllValues()) {
+				tmp.clear();
+				p.addPatternToArray(tmp);
+
+				if (tmp.size == 1) {
+					if (tmp.first().beat == 0 && tmp.first().cue == c) {
+						continue outer;
+					}
+				}
+			}
+
+			c.game.patterns.put(id, new Pattern(c.game) {
+
+				@Override
+				public void addPatternToArray(Array<SoundEffect> array) {
+					array.add(new SoundEffect(0, c));
+				}
+			});
+		}
+
+		tmp.clear();
+		tmp = null;
+		System.gc();
+
 	}
 
 	public void put(Cue cue) {
