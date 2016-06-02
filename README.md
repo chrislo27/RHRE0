@@ -16,4 +16,3 @@ Munchy Monk
 Controls:
 
 - Read the README in the download!
-- 
