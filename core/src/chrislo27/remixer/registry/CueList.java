@@ -125,16 +125,14 @@ public class CueList {
 			put(new Cue(sd, sd.name, "sit1", 0.5f));
 			put(new Cue(sd, sd.name, "down1", 0.5f));
 			put(new Cue(sd, sd.name, "pa1", 0.5f));
-			put(new Cue(sd, sd.name, "pun1", 0.25f));
-			put(new Cue(sd, sd.name, "ch1", 0.5f));
+			put(new Cue(sd, sd.name, "punch1", 1.5f));
 			put(new Cue(sd, sd.name, "turn2", 0.5f));
 			put(new Cue(sd, sd.name, "right2", 0.5f));
 			put(new Cue(sd, sd.name, "lets2", 0.5f));
 			put(new Cue(sd, sd.name, "sit2", 0.5f));
 			put(new Cue(sd, sd.name, "down2", 0.5f));
 			put(new Cue(sd, sd.name, "pa2", 0.5f));
-			put(new Cue(sd, sd.name, "pun2", 0.25f));
-			put(new Cue(sd, sd.name, "ch2", 0.5f));
+			put(new Cue(sd, sd.name, "punch2", 1.5f));
 		}
 
 		// add individual cues as patterns too

@@ -37,8 +37,7 @@ public class SpaceDance extends Game {
 				array.add(new SoundEffect(0.5f, "spaceDance_pa1"));
 				array.add(new SoundEffect(1, "spaceDance_pa1"));
 
-				array.add(new SoundEffect(1.5f, "spaceDance_pun1"));
-				array.add(new SoundEffect(2, "spaceDance_ch1"));
+				array.add(new SoundEffect(1.5f, "spaceDance_punch1"));
 			}
 
 		});
@@ -70,8 +69,7 @@ public class SpaceDance extends Game {
 				array.add(new SoundEffect(0.5f, "spaceDance_pa2"));
 				array.add(new SoundEffect(1, "spaceDance_pa2"));
 
-				array.add(new SoundEffect(1.5f, "spaceDance_pun2"));
-				array.add(new SoundEffect(2, "spaceDance_ch2"));
+				array.add(new SoundEffect(1.5f, "spaceDance_punch2"));
 			}
 
 		});
