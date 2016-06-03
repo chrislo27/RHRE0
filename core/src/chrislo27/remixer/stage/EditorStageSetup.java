@@ -200,6 +200,7 @@ public class EditorStageSetup {
 							"JSON remix files (.rhre, .json)", "rhre", "json");
 					fileChooser.addChoosableFileFilter(ffef);
 					fileChooser.setFileFilter(ffef);
+					fileChooser.setApproveButtonText("Save");
 				}
 
 				@Override
