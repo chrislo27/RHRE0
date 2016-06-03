@@ -55,12 +55,31 @@ public class EditorStageSetup {
 			toolbar.setVisible(true);
 		}
 	};
+	private Runnable hideToolbar = new Runnable() {
+
+		@Override
+		public void run() {
+			toolbar.setVisible(false);
+		}
+	};
+
+	private boolean isSelectingFile = false;
 
 	public EditorStageSetup(Main main, EditorScreen es) {
 		this.main = main;
 		this.editorScreen = es;
 
 		create();
+	}
+
+	private void setSelectingFile(boolean b) {
+		isSelectingFile = b;
+
+		if (isSelectingFile) {
+			Gdx.app.postRunnable(hideToolbar);
+		} else {
+			toolbar.setVisible(true);
+		}
 	}
 
 	public void renderUpdate() {
@@ -107,7 +126,6 @@ public class EditorStageSetup {
 					AssetRegistry.getAtlasRegion("ionium_ui-icons", "openFile")) {
 
 				File lastOpenLocation = null;
-				boolean isSelectingFile = false;
 
 				Runnable run = new Runnable() {
 
@@ -129,7 +147,7 @@ public class EditorStageSetup {
 
 							@Override
 							public void run() {
-								isSelectingFile = true;
+								setSelectingFile(true);
 
 								if (lastOpenLocation != null) {
 									fileChooser.setCurrentDirectory(lastOpenLocation);
@@ -151,6 +169,7 @@ public class EditorStageSetup {
 										editorScreen.editor.setMusic(null);
 										lastOpenLocation = selectedFile;
 
+										setSelectingFile(false);
 										invokeConfirmation("menu.successOpen", null, true);
 									} catch (Exception e) {
 										e.printStackTrace();
@@ -159,7 +178,6 @@ public class EditorStageSetup {
 
 								}
 
-								isSelectingFile = false;
 								System.gc();
 							}
 						};
@@ -189,7 +207,6 @@ public class EditorStageSetup {
 			saveButton = new ImageButton(stage, palette,
 					AssetRegistry.getAtlasRegion("ionium_ui-icons", "saveFile")) {
 
-				boolean isSelectingFile = false;
 				File lastSaveLocation = null;
 				JFileChooser fileChooser = new JFileChooser();
 
@@ -215,7 +232,7 @@ public class EditorStageSetup {
 
 						@Override
 						public void run() {
-							isSelectingFile = true;
+							setSelectingFile(true);
 
 							if (lastSaveLocation != null) {
 								fileChooser.setCurrentDirectory(lastSaveLocation);
@@ -241,6 +258,9 @@ public class EditorStageSetup {
 									file.writeString(json, false);
 
 									lastSaveLocation = selectedFile;
+
+									setSelectingFile(false);
+									invokeConfirmation("menu.successSave", null, true);
 								} catch (Exception e) {
 									e.printStackTrace();
 									invokeConfirmation("menu.failedSave", null, true);
@@ -248,7 +268,6 @@ public class EditorStageSetup {
 
 							}
 
-							isSelectingFile = false;
 							System.gc();
 						}
 					};
@@ -677,6 +696,10 @@ public class EditorStageSetup {
 
 	public boolean shouldDim() {
 		return confirmationGroup.isVisible();
+	}
+
+	public boolean isSelectingFile() {
+		return isSelectingFile;
 	}
 
 }

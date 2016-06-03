@@ -165,7 +165,7 @@ public class Editor extends InputAdapter implements Disposable {
 	}
 
 	public void play() {
-		remix.setCurrentBeat(startPos);
+		if (!remix.isPaused()) remix.setCurrentBeat(startPos);
 
 		remix.start();
 	}
@@ -701,7 +701,54 @@ public class Editor extends InputAdapter implements Disposable {
 	}
 
 	public void inputUpdate() {
-		if (remix.isStarted() || remix.isPaused()) return;
+		if (remix.isStarted()) return;
+
+		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT) || (Gdx.input.getX() <= SCREEN_EDGE_SCROLL
+				&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
+			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED
+					* (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)
+							|| Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) ? 4 : 1);
+			camera.update();
+		}
+		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)
+				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL
+						&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
+			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED
+					* (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)
+							|| Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) ? 4 : 1);
+			camera.update();
+		}
+
+		if (Gdx.input.isKeyJustPressed(Keys.HOME)) {
+			camera.position.x = 0;
+			camera.update();
+		} else if (Gdx.input.isKeyJustPressed(Keys.END)) {
+			remix.recalculate();
+			camera.position.x = remix.getLastBeat() * BLOCK_SIZE_X;
+			camera.update();
+		} else if (Gdx.input.isKeyJustPressed(Keys.PAGE_UP)) {
+			camera.position.x -= BLOCK_SIZE_X * 4;
+			camera.update();
+		} else if (Gdx.input.isKeyJustPressed(Keys.PAGE_DOWN)) {
+			camera.position.x += BLOCK_SIZE_X * 4;
+			camera.update();
+		}
+
+		if (Gdx.input.getY() > 48) {
+			Vector3 mouse = unprojectMouse();
+
+			if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+				startPos = MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval);
+			}
+
+			if (Gdx.input.isButtonPressed(Buttons.MIDDLE) && !remix.isPaused()) {
+				remix.musicStartTime = Remix.getSecFromBeat(
+						MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval),
+						remix.bpm);
+			}
+		}
+
+		if (remix.isPaused()) return;
 
 		if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
 			if (isMoving) {
@@ -791,53 +838,8 @@ public class Editor extends InputAdapter implements Disposable {
 			}
 		}
 
-		if (AnyKeyPressed.isAKeyPressed(Keybinds.LEFT) || (Gdx.input.getX() <= SCREEN_EDGE_SCROLL
-				&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
-			camera.position.x -= Gdx.graphics.getDeltaTime() * CAMERA_SPEED
-					* (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)
-							|| Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) ? 4 : 1);
-			camera.update();
-		}
-		if (AnyKeyPressed.isAKeyPressed(Keybinds.RIGHT)
-				|| (Gdx.graphics.getWidth() - Gdx.input.getX() <= SCREEN_EDGE_SCROLL
-						&& Gdx.input.isButtonPressed(Buttons.LEFT) && Gdx.input.getY() > 48)) {
-			camera.position.x += Gdx.graphics.getDeltaTime() * CAMERA_SPEED
-					* (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)
-							|| Gdx.input.isKeyPressed(Keys.CONTROL_RIGHT) ? 4 : 1);
-			camera.update();
-		}
-
-		if (Gdx.input.isKeyJustPressed(Keys.HOME)) {
-			camera.position.x = 0;
-			camera.update();
-		} else if (Gdx.input.isKeyJustPressed(Keys.END)) {
-			remix.recalculate();
-			camera.position.x = remix.getLastBeat() * BLOCK_SIZE_X;
-			camera.update();
-		} else if (Gdx.input.isKeyJustPressed(Keys.PAGE_UP)) {
-			camera.position.x -= BLOCK_SIZE_X * 4;
-			camera.update();
-		} else if (Gdx.input.isKeyJustPressed(Keys.PAGE_DOWN)) {
-			camera.position.x += BLOCK_SIZE_X * 4;
-			camera.update();
-		}
-
 		if (AnyKeyPressed.isAKeyJustPressed(Keybinds.DELETE)) {
 			deleteSelection();
-		}
-
-		if (Gdx.input.getY() > 48) {
-			Vector3 mouse = unprojectMouse();
-
-			if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
-				startPos = MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval);
-			}
-
-			if (Gdx.input.isButtonPressed(Buttons.MIDDLE)) {
-				remix.musicStartTime = Remix.getSecFromBeat(
-						MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval),
-						remix.bpm);
-			}
 		}
 
 	}

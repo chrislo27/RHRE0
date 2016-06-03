@@ -12,6 +12,7 @@ import chrislo27.remixer.stage.EditorStageSetup;
 import chrislo27.remixer.track.Remix;
 import ionium.screen.Updateable;
 import ionium.stage.Stage;
+import ionium.util.i18n.Localization;
 
 public class EditorScreen extends Updateable<Main> {
 
@@ -52,11 +53,19 @@ public class EditorScreen extends Updateable<Main> {
 		main.batch.setProjectionMatrix(main.camera.combined);
 
 		// dim if confirmation dialog is visible
-		if (stageSetup != null && stageSetup.shouldDim()) {
+		if (stageSetup != null && (stageSetup.shouldDim() || stageSetup.isSelectingFile())) {
 			main.batch.begin();
 			main.batch.setColor(0.25f, 0.25f, 0.25f, 0.75f);
 			Main.fillRect(main.batch, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			main.batch.setColor(1, 1, 1, 1);
+
+			if (stageSetup.isSelectingFile()) {
+				main.font.setColor(1, 1, 1, 1);
+				main.font.draw(main.batch, Localization.get("menu.dialogOpen"),
+						Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight() * 0.5f, 0,
+						Align.center, false);
+			}
+
 			main.batch.end();
 		}
 
@@ -64,7 +73,8 @@ public class EditorScreen extends Updateable<Main> {
 
 		main.batch.begin();
 		main.font.setColor(1, 1, 1, 1);
-		main.font.draw(main.batch, Main.version, Gdx.graphics.getWidth() - 4, 4 + main.font.getCapHeight(), 0, Align.right, false);
+		main.font.draw(main.batch, Main.version, Gdx.graphics.getWidth() - 4,
+				4 + main.font.getCapHeight(), 0, Align.right, false);
 		main.batch.end();
 	}
 
@@ -78,7 +88,7 @@ public class EditorScreen extends Updateable<Main> {
 
 	@Override
 	public void renderUpdate() {
-		if (!stageSetup.shouldDim()) editor.inputUpdate();
+		if (!stageSetup.shouldDim() && !stageSetup.isSelectingFile()) editor.inputUpdate();
 		editor.renderUpdate();
 		stageSetup.renderUpdate();
 	}
