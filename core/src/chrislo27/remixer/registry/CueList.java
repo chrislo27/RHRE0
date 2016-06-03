@@ -99,6 +99,7 @@ public class CueList {
 			put(new Cue(tt, tt.name, "tapNook", 0.75f));
 			put(new Cue(tt, tt.name, "taptaptap1", 0.75f));
 			put(new Cue(tt, tt.name, "taptaptap2", 0.75f));
+			putDeprecated("taptaptap3", "tapNook");
 		}
 
 		{
@@ -152,6 +153,12 @@ public class CueList {
 
 	public void put(Cue cue) {
 		cues.put(cue.folder + "_" + cue.file, cue);
+	}
+
+	public void putDeprecated(String oldKey, String newKey) {
+		if (cues.getValue(newKey) == null) return;
+
+		cues.put(oldKey, cues.getValue(newKey));
 	}
 
 	public static Cue getCue(String key) {
