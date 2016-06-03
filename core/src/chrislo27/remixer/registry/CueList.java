@@ -96,10 +96,9 @@ public class CueList {
 			put(new Cue(tt, tt.name, "ready2", 0.5f));
 			put(new Cue(tt, tt.name, "step1", 0.5f));
 			put(new Cue(tt, tt.name, "step2", 0.5f));
-			put(new Cue(tt, tt.name, "tapNook", 0.75f));
+			put(new Cue(tt, tt.name, "tapNook", 0.75f), "taptaptap3");
 			put(new Cue(tt, tt.name, "taptaptap1", 0.75f));
 			put(new Cue(tt, tt.name, "taptaptap2", 0.75f));
-			putDeprecated("taptaptap3", "tapNook");
 		}
 
 		{
@@ -151,14 +150,14 @@ public class CueList {
 
 	}
 
-	public void put(Cue cue) {
+	public void put(Cue cue, String... deprecatedNames) {
 		cues.put(cue.folder + "_" + cue.file, cue);
-	}
 
-	public void putDeprecated(String oldKey, String newKey) {
-		if (cues.getValue(newKey) == null) return;
-
-		cues.put(oldKey, cues.getValue(newKey));
+		if (deprecatedNames.length > 0) {
+			for (String s : deprecatedNames) {
+				cues.put(cue.folder + "_" + s, cue);
+			}
+		}
 	}
 
 	public static Cue getCue(String key) {
