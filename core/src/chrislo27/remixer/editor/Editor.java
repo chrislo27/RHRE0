@@ -59,7 +59,7 @@ public class Editor extends InputAdapter implements Disposable {
 	public OrthographicCamera camera;
 
 	private Remix remix;
-	private float lastStartPos = 0;
+	private float startPos = 0;
 
 	private Array<SoundEffect> selection = new Array<>();
 	private Vector2 selectionOrigin = new Vector2();
@@ -165,16 +165,14 @@ public class Editor extends InputAdapter implements Disposable {
 	}
 
 	public void play() {
-		//remix.setCurrentBeat(lastStartPos);
-
-		lastStartPos = remix.getCurrentBeat();
+		remix.setCurrentBeat(startPos);
 
 		remix.start();
 	}
 
 	public void setRemix(Remix r) {
 		remix = r;
-		lastStartPos = 0;
+		startPos = Math.min(0, r.musicStartTime);
 		clearSelection();
 		clearOldPositionArray();
 	}
@@ -257,36 +255,56 @@ public class Editor extends InputAdapter implements Disposable {
 					camera.viewportWidth, 2);
 		}
 
-		// tracker
-		batch.setColor(0, 1, 0, 1);
-		Main.fillRect(batch, remix.getCurrentBeat() * BLOCK_SIZE_X, 0, 2,
-				BLOCK_SIZE_Y * (remix.tracks.size + 1));
+		{
+			// draw music start
+			batch.setColor(1, 0, 0, 1);
+			Main.fillRect(batch,
+					Remix.getBeatFromSec(remix.musicStartTime, remix.bpm) * BLOCK_SIZE_X, 0, 4,
+					BLOCK_SIZE_Y * (remix.tracks.size + 1));
+			batch.setColor(1, 1, 1, 1);
 
-		// draw music start
-		batch.setColor(1, 0, 0, 1);
-		Main.fillRect(batch, Remix.getBeatFromSec(remix.musicStartTime, remix.bpm) * BLOCK_SIZE_X,
-				0, 4, BLOCK_SIZE_Y * (remix.tracks.size + 1));
-
-		main.fontBordered.setColor(0.85f, 0.25f, 0.25f, 1);
-		renderTracker(batch, Remix.getBeatFromSec(remix.musicStartTime, remix.bpm),
-				"editor.musicStart", 1);
-
-		// draw beat
-		main.fontBordered.setColor(0.25f, 0.85f, 0.25f, 1);
-		renderTracker(batch, remix.getCurrentBeat(), "editor.beat", 0);
-		main.fontBordered.setColor(1, 1, 1, 1);
-		batch.setColor(1, 1, 1, 1);
-
-		// beat numbers
-		main.font.setColor(0, 0, 0, 1);
-		for (int i = (int) (camera.position.x - camera.viewportWidth * 0.5f)
-				/ BLOCK_SIZE_X; i <= (camera.position.x + camera.viewportWidth * 0.5f)
-						/ BLOCK_SIZE_X; i++) {
-			main.font.draw(main.batch, "" + i, i * BLOCK_SIZE_X,
-					remix.tracks.size * BLOCK_SIZE_Y + main.font.getCapHeight() * 1.5f, 0,
-					Align.left, false);
+			main.fontBordered.setColor(1, 0.65f, 0.65f, 1);
+			renderTracker(batch, Remix.getBeatFromSec(remix.musicStartTime, remix.bpm),
+					"editor.musicStart", 1);
 		}
-		main.font.setColor(1, 1, 1, 1);
+
+		{
+			batch.setColor(0.25f, 0.85f, 0.85f, 1);
+			Main.fillRect(batch, startPos * BLOCK_SIZE_X, 0, 4,
+					BLOCK_SIZE_Y * (remix.tracks.size + 1));
+			batch.setColor(1, 1, 1, 1);
+
+			// draw start position
+			main.fontBordered.setColor(0.25f, 0.85f, 0.85f, 1);
+			renderTracker(batch, startPos, "editor.beat", 0);
+			main.fontBordered.setColor(1, 1, 1, 1);
+
+		}
+
+		if (remix.isStarted() || remix.isPaused()) {
+			// tracker
+			batch.setColor(0, 1, 0, 1);
+			Main.fillRect(batch, remix.getCurrentBeat() * BLOCK_SIZE_X, 0, 2,
+					BLOCK_SIZE_Y * (remix.tracks.size + 1));
+
+			// numbers
+			main.fontBordered.setColor(0.25f, 0.85f, 0.25f, 1);
+			renderTracker(batch, remix.getCurrentBeat(), "editor.beat", 0);
+			main.fontBordered.setColor(1, 1, 1, 1);
+		}
+
+		{
+			// beat numbers
+			main.font.setColor(0, 0, 0, 1);
+			for (int i = (int) (camera.position.x - camera.viewportWidth * 0.5f)
+					/ BLOCK_SIZE_X; i <= (camera.position.x + camera.viewportWidth * 0.5f)
+							/ BLOCK_SIZE_X; i++) {
+				main.font.draw(main.batch, "" + i, i * BLOCK_SIZE_X,
+						remix.tracks.size * BLOCK_SIZE_Y + main.font.getCapHeight() * 1.5f, 0,
+						Align.left, false);
+			}
+			main.font.setColor(1, 1, 1, 1);
+		}
 
 		if (Gdx.input.isButtonPressed(Buttons.LEFT) && isSelecting) {
 			Vector3 mouse = unprojectMouse();
@@ -719,7 +737,6 @@ public class Editor extends InputAdapter implements Disposable {
 
 				if (selection.size > 0) {
 					selection.sort();
-					remix.setCurrentBeat(selection.first().beat);
 				}
 
 				isSelecting = false;
@@ -813,8 +830,7 @@ public class Editor extends InputAdapter implements Disposable {
 			Vector3 mouse = unprojectMouse();
 
 			if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
-				remix.setCurrentBeat(
-						MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval));
+				startPos = MathHelper.snapToNearest(mouse.x / BLOCK_SIZE_X, lockingInterval);
 			}
 
 			if (Gdx.input.isButtonPressed(Buttons.MIDDLE)) {
@@ -834,7 +850,7 @@ public class Editor extends InputAdapter implements Disposable {
 
 	private void moveToGame(int game, boolean loop) {
 		storedPatterns.get(currentGame).patternScroll = currentPattern;
-		
+
 		currentGame = game;
 
 		if (loop) {
@@ -847,7 +863,7 @@ public class Editor extends InputAdapter implements Disposable {
 			currentGame = MathUtils.clamp(game, 0,
 					GameList.instance().games.getAllValues().size - 1);
 		}
-		
+
 		currentPattern = storedPatterns.get(currentGame).patternScroll;
 	}
 
