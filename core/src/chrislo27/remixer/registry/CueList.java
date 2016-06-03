@@ -96,10 +96,9 @@ public class CueList {
 			put(new Cue(tt, tt.name, "ready2", 0.5f));
 			put(new Cue(tt, tt.name, "step1", 0.5f));
 			put(new Cue(tt, tt.name, "step2", 0.5f));
-			put(new Cue(tt, tt.name, "tapNook", 0.25f));
+			put(new Cue(tt, tt.name, "tapNook", 0.75f));
 			put(new Cue(tt, tt.name, "taptaptap1", 0.75f));
 			put(new Cue(tt, tt.name, "taptaptap2", 0.75f));
-			put(new Cue(tt, tt.name, "taptaptap3", 0.75f));
 		}
 
 		{

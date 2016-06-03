@@ -45,7 +45,7 @@ public class TapTroupe extends Game {
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "tapTroupe_taptaptap1"));
 				array.add(new SoundEffect(0.75f, "tapTroupe_taptaptap2"));
-				array.add(new SoundEffect(1.5f, "tapTroupe_taptaptap3"));
+				array.add(new SoundEffect(1.5f, "tapTroupe_tapNook"));
 			}
 
 		});
