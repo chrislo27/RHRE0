@@ -1,6 +1,8 @@
 package chrislo27.remixer.registry;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.utils.ObjectMap;
 
 import chrislo27.remixer.game.CountInGame;
 import chrislo27.remixer.game.DonkDonk;
@@ -28,10 +30,12 @@ public class GameList {
 	}
 
 	public BiObjectMap<String, Game> games = new BiObjectMap<>();
+	public TextureAtlas atlas;
+	public ObjectMap<String, AtlasRegion> allRegions;
 
 	private void loadResources() {
 		put(new CountInGame("countIn"));
-		
+
 		put(new Lockstep("lockstep"));
 		put(new MunchyMonk("munchyMonk"));
 		put(new DonkDonk("donkDonk"));
@@ -52,7 +56,7 @@ public class GameList {
 	}
 
 	public static AtlasRegion getIcon(String key) {
-		return AssetRegistry.getAtlasRegion("gameIcons", key);
+		return instance().allRegions.get(key);
 	}
 
 }

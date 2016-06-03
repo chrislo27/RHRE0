@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.init.DefAssetLoader;
+import chrislo27.remixer.registry.GameList;
 import ionium.registry.AssetRegistry;
 import ionium.registry.ScreenRegistry;
 import ionium.util.Logger;
@@ -40,7 +41,7 @@ public class Main extends ionium.templates.Main {
 
 	@Override
 	public Screen getAssetLoadingScreenToUse() {
-		return ScreenRegistry.get("ionium_assetloading");
+		return ScreenRegistry.get("assetloading");
 	}
 
 	@Override
@@ -67,6 +68,7 @@ public class Main extends ionium.templates.Main {
 
 		ScreenRegistry reg = ScreenRegistry.instance();
 
+		reg.add("assetloading", new LoadingScreen(this));
 		reg.add("editor", new EditorScreen(this));
 	}
 
@@ -161,6 +163,8 @@ public class Main extends ionium.templates.Main {
 		biggerFontBordered.dispose();
 		font.dispose();
 		fontBordered.dispose();
+
+		GameList.instance().atlas.dispose();
 
 		if (!Utils.argumentsOverrode) {
 			Settings.instance().save();

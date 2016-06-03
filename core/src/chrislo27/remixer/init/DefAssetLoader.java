@@ -17,8 +17,6 @@ public class DefAssetLoader implements IAssetLoader {
 
 	@Override
 	public void addManagedAssets(AssetManager manager) {
-		manager.load(AssetMap.add("gameIcons", "images/games/icons.pack"), TextureAtlas.class);
-
 		for (Cue c : CueList.instance().cues.getAllValues()) {
 			manager.load(AssetMap.add(c.soundId, "sounds/cues/" + c.folder + "/" + c.file + ".ogg"),
 					Sound.class);
