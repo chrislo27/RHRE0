@@ -61,6 +61,11 @@ public class EditorScreen extends Updateable<Main> {
 		}
 
 		if (stageSetup != null) stage.render(main.batch);
+
+		main.batch.begin();
+		main.font.setColor(1, 1, 1, 1);
+		main.font.draw(main.batch, Main.version, Gdx.graphics.getWidth() - 4, 4 + main.font.getCapHeight(), 0, Align.right, false);
+		main.batch.end();
 	}
 
 	private float getBeatPosX(float beat) {
