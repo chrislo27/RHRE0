@@ -173,6 +173,8 @@ public class EditorStageSetup {
 										invokeConfirmation("menu.successOpen", null, true);
 									} catch (Exception e) {
 										e.printStackTrace();
+										Main.logger.error("Failed to open remix", e);
+										setSelectingFile(false);
 										invokeConfirmation("menu.failedOpen", null, true);
 									}
 
@@ -263,6 +265,8 @@ public class EditorStageSetup {
 									invokeConfirmation("menu.successSave", null, true);
 								} catch (Exception e) {
 									e.printStackTrace();
+									Main.logger.error("Failed to save remix", e);
+									setSelectingFile(false);
 									invokeConfirmation("menu.failedSave", null, true);
 								}
 
