@@ -216,7 +216,7 @@ public class EditorStageSetup {
 					fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 					fileChooser.setDialogTitle("Save a remix");
 					FileNameExtensionFilter ffef = new FileNameExtensionFilter(
-							"JSON remix files (.rhre, .json)", "rhre", "json");
+							"Plain-text remix files (.rhre, .json)", "rhre", "json");
 					fileChooser.addChoosableFileFilter(ffef);
 					fileChooser.setFileFilter(ffef);
 					fileChooser.setApproveButtonText("Save");
