@@ -257,7 +257,7 @@ public class EditorStageSetup {
 												selectedFile.getAbsolutePath() + ".rhre");
 									}
 
-									file.writeString(json, false);
+									file.writeString(json, false, "UTF-8");
 
 									lastSaveLocation = selectedFile;
 
