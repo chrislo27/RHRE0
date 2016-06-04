@@ -71,62 +71,57 @@ public class RemixPorter {
 		}
 	}
 
-	public static Remix importRemix(String json) {
+	public static Remix importRemix(String json) throws Exception {
 		JsonValue jsonValue = reader.parse(json);
 
 		int bpm;
 		float musicStartTime;
 		Array<Array<SoundEffect>> parsedTracks = new Array<>();
 
-		try {
-			bpm = jsonValue.getInt("bpm");
-			musicStartTime = jsonValue.getFloat("musicStartTime");
+		bpm = jsonValue.getInt("bpm");
+		musicStartTime = jsonValue.getFloat("musicStartTime");
 
-			if (!jsonValue.hasChild("tracks")) {
-				throw new Exception("Missing tracks array");
-			}
+		if (!jsonValue.hasChild("tracks")) {
+			throw new Exception("Missing tracks array");
+		}
 
-			JsonValue tracks = jsonValue.get("tracks");
-			// iterator for the tracks array
-			Iterator<JsonValue> tracksIterator = tracks.iterator();
+		JsonValue tracks = jsonValue.get("tracks");
+		// iterator for the tracks array
+		Iterator<JsonValue> tracksIterator = tracks.iterator();
 
-			while (tracksIterator.hasNext()) {
-				JsonValue eachTrack = tracksIterator.next();
+		while (tracksIterator.hasNext()) {
+			JsonValue eachTrack = tracksIterator.next();
 
-				Array<SoundEffect> track = new Array<>();
-				Iterator<JsonValue> trackIterator = eachTrack.iterator();
+			Array<SoundEffect> track = new Array<>();
+			Iterator<JsonValue> trackIterator = eachTrack.iterator();
 
-				int trackNumber = eachTrack.getInt("number");
+			int trackNumber = eachTrack.getInt("number");
 
-				while (trackIterator.hasNext()) {
-					JsonValue trackValue = trackIterator.next();
+			while (trackIterator.hasNext()) {
+				JsonValue trackValue = trackIterator.next();
 
-					if (trackValue.isArray() && trackValue.name() != null
-							&& trackValue.name.equals("sfxs")) {
-						// iterate the array object
-						for (int i = 0; i < trackValue.size; i++) {
-							JsonValue cue = trackValue.get(i);
-							String cueName = cue.getString("cue");
+				if (trackValue.isArray() && trackValue.name() != null
+						&& trackValue.name.equals("sfxs")) {
+					// iterate the array object
+					for (int i = 0; i < trackValue.size; i++) {
+						JsonValue cue = trackValue.get(i);
+						String cueName = cue.getString("cue");
 
-							if (CueList.getCue(cueName) == null) continue;
+						if (CueList.getCue(cueName) == null) continue;
 
-							SoundEffect sfx = new SoundEffect(cue.getFloat("beat"), cueName);
-							sfx.position.set(sfx.beat * Editor.BLOCK_SIZE_X,
-									trackNumber * Editor.BLOCK_SIZE_Y);
-							track.add(sfx);
-						}
+						SoundEffect sfx = new SoundEffect(cue.getFloat("beat"), cueName);
+						sfx.position.set(sfx.beat * Editor.BLOCK_SIZE_X,
+								trackNumber * Editor.BLOCK_SIZE_Y);
+						track.add(sfx);
 					}
 				}
-
-				parsedTracks.insert(trackNumber, track);
 			}
 
-			if (parsedTracks.size == 0) {
-				throw new Exception("Incomplete tracks");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			parsedTracks.insert(trackNumber, track);
+		}
+
+		if (parsedTracks.size == 0) {
+			throw new Exception("Missing tracks");
 		}
 
 		Remix r = new Remix(bpm);
