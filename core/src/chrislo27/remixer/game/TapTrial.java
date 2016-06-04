@@ -8,7 +8,7 @@ import chrislo27.remixer.track.SoundEffect;
 public class TapTrial extends Game {
 
 	public TapTrial(String name) {
-		super(name);
+		super(name, null);
 
 		this.patterns.put("single tap", new Pattern(this) {
 

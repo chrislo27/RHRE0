@@ -8,7 +8,7 @@ import chrislo27.remixer.track.SoundEffect;
 public class TapTroupe extends Game {
 
 	public TapTroupe(String name) {
-		super(name);
+		super(name, null);
 
 		this.patterns.put("and-", new Pattern(this) {
 

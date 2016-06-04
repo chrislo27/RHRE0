@@ -8,7 +8,7 @@ import chrislo27.remixer.track.SoundEffect;
 public class MunchyMonk extends Game {
 
 	public MunchyMonk(String name) {
-		super(name);
+		super(name, null);
 
 		this.patterns.put("eat one", new Pattern(this) {
 

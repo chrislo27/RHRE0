@@ -8,7 +8,7 @@ import chrislo27.remixer.track.SoundEffect;
 public class SpaceDance extends Game {
 
 	public SpaceDance(String name) {
-		super(name);
+		super(name, null);
 
 		this.patterns.put("dancers - turn right", new Pattern(this) {
 

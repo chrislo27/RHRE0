@@ -8,7 +8,7 @@ import chrislo27.remixer.track.SoundEffect;
 public class CountInGame extends Game {
 
 	public CountInGame(String name) {
-		super(name);
+		super(name, null);
 
 		this.patterns.put("and", new Pattern(this) {
 

@@ -8,7 +8,7 @@ import chrislo27.remixer.track.SoundEffect;
 public class DonkDonk extends Game {
 
 	public DonkDonk(String name) {
-		super(name);
+		super(name, null);
 
 		this.patterns.put("donk-donk", new Pattern(this) {
 

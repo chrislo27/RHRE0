@@ -8,7 +8,7 @@ import chrislo27.remixer.track.SoundEffect;
 public class Lockstep extends Game {
 
 	public Lockstep(String name) {
-		super(name);
+		super(name, null);
 
 		addPatterns();
 	}

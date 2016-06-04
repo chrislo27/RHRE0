@@ -7,9 +7,11 @@ public class Game implements Comparable {
 
 	public final String name;
 	public final BiObjectMap<String, Pattern> patterns = new BiObjectMap<>();
+	public final String contributors;
 
-	public Game(String name) {
+	public Game(String name, String contributors) {
 		this.name = name;
+		this.contributors = contributors;
 	}
 
 	@Override

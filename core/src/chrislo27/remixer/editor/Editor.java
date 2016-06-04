@@ -402,8 +402,23 @@ public class Editor extends InputAdapter implements Disposable {
 			}
 		}
 
-		batch.end();
+		batch.flush();
 		StencilMaskUtil.resetMask();
+
+		{
+			Game current = GameList.instance().games.getAllValues().get(currentGame);
+			if (current.contributors != null) {
+				float x = SELECT_BAR_WIDTH + 16;
+				float y = SELECT_BAR_HEIGHT - 8;
+
+				main.font.setColor(1, 1, 1, 0.5f);
+				main.font.draw(batch,
+						Localization.get("editor.contributions", current.contributors), x, y);
+				main.font.setColor(1, 1, 1, 1);
+			}
+		}
+
+		batch.end();
 	}
 
 	public void renderSoundEffect(SpriteBatch batch, Game currentGame, SoundEffect sfx) {
