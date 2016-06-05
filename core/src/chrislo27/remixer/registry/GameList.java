@@ -64,7 +64,7 @@ public class GameList {
 	}
 
 	public static AtlasRegion getIcon(String key) {
-		return instance().allRegions.get("moaiDooWop2");
+		return instance().allRegions.get(key);
 	}
 
 }
