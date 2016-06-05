@@ -140,9 +140,11 @@ public class CueList {
 
 		{
 			Game custom = GameList.getGame("custom");
-			FileHandle folder = Gdx.files.local("customSound/");
+			FileHandle folder = Gdx.files.local("custom/");
 			if (folder.exists() && folder.isDirectory()) {
 				FileHandle[] all = folder.list(".ogg");
+				
+				Main.logger.info("Custom sound folder located with " + all.length + " legal files");
 
 				for (FileHandle fh : all) {
 					put(new Cue(custom, "", custom.name, fh.nameWithoutExtension(), 0.5f));
