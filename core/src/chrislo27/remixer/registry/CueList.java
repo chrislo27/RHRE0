@@ -178,11 +178,11 @@ public class CueList {
 			put(new Cue(cs, cs.name, "stomp", 0.5f));
 			put(new Cue(cs, cs.name, "walk", 0.5f));
 		}
-		
+
 		{
 			Game rs = GameList.getGame("ringside");
 			final float third = 1 / 3f;
-			
+
 			put(new Cue(rs, rs.name, "wubba1-1", third));
 			put(new Cue(rs, rs.name, "wubba1-2", third));
 			put(new Cue(rs, rs.name, "dubba1-1", third));
@@ -244,6 +244,15 @@ public class CueList {
 			put(new Cue(rs, rs.name, "camera3", 1));
 			put(new Cue(rs, rs.name, "muscles1", 0.5f));
 			put(new Cue(rs, rs.name, "muscles2", 0.5f));
+		}
+
+		{
+			Game shoot = GameList.getGame("shootEmUp");
+
+			put(new Cue(shoot, shoot.name, "spawn", 0.25f));
+			put(new Cue(shoot, shoot.name, "shoot", 0.25f));
+			put(new Cue(shoot, shoot.name, "commStart", 1));
+			put(new Cue(shoot, shoot.name, "commEnd", 1));
 		}
 
 		// add individual cues as patterns too
