@@ -13,6 +13,7 @@ public final class SoundEffect implements Comparable {
 	public boolean isCompleted = false;
 	public Vector2 position = new Vector2();
 	public boolean selected = false;
+	public float duration = 1;
 
 	public SoundEffect(float beat, String cue) {
 		this(beat, CueList.getCue(cue));
@@ -23,6 +24,8 @@ public final class SoundEffect implements Comparable {
 	public SoundEffect(float beat, Cue cue) {
 		this.beat = beat;
 		this.cue = cue;
+
+		duration = this.cue.duration;
 	}
 
 	/**
@@ -47,7 +50,9 @@ public final class SoundEffect implements Comparable {
 		isCompleted = true;
 
 		if (cue != null) {
-			cue.getSFX().play(1, cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1, 0);
+			cue.getSFX().play(1,
+					cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1,
+					0);
 		}
 	}
 

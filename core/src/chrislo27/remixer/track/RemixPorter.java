@@ -52,6 +52,7 @@ public class RemixPorter {
 
 				writer.name("beat").value(sfx.beat);
 				writer.name("cue").value(CueList.getKey(sfx.cue));
+				writer.name("duration").value(sfx.duration);
 
 				writer.pop();
 			}
@@ -110,8 +111,11 @@ public class RemixPorter {
 						if (CueList.getCue(cueName) == null) continue;
 
 						SoundEffect sfx = new SoundEffect(cue.getFloat("beat"), cueName);
+
 						sfx.position.set(sfx.beat * Editor.BLOCK_SIZE_X,
 								trackNumber * Editor.BLOCK_SIZE_Y);
+						sfx.duration = cue.getFloat("duration", sfx.cue.duration);
+
 						track.add(sfx);
 					}
 				}

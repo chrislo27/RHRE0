@@ -122,7 +122,7 @@ public class Remix {
 			for (SoundEffect a : track) {
 				if (a.isCompleted) continue;
 				if (onlySelected && !a.selected) continue;
-				if (beat >= a.beat && a.beat + a.cue.duration > beat) a.onAction(this);
+				if (beat >= a.beat && a.beat + a.duration > beat) a.onAction(this);
 			}
 		}
 
@@ -140,7 +140,7 @@ public class Remix {
 
 			for (Array<SoundEffect> track : tracks) {
 				for (SoundEffect a : track) {
-					float stopArea = a.beat + (a.cue != null ? a.cue.duration : 0);
+					float stopArea = a.beat + (a.cue != null ? a.duration : 0);
 
 					if (stopArea > last) last = stopArea;
 				}

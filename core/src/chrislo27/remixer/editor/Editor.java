@@ -232,7 +232,7 @@ public class Editor extends InputAdapter implements Disposable {
 				if (MathHelper.intersects(camera.position.x - camera.viewportWidth * 0.5f,
 						camera.position.y - camera.viewportHeight * 0.5f, camera.viewportWidth,
 						camera.viewportHeight, sfx.position.x, sfx.position.y,
-						sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y)) {
+						sfx.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y)) {
 					renderSoundEffect(batch, currentGame, sfx);
 				}
 
@@ -436,7 +436,7 @@ public class Editor extends InputAdapter implements Disposable {
 	public void renderSoundEffect(SpriteBatch batch, Game currentGame, SoundEffect sfx) {
 		float x = sfx.position.x;
 		float y = sfx.position.y;
-		float width = sfx.cue.duration * BLOCK_SIZE_X;
+		float width = sfx.duration * BLOCK_SIZE_X;
 		float height = BLOCK_SIZE_Y;
 		int thickness = 4;
 		int padding = 2;
@@ -530,7 +530,7 @@ public class Editor extends InputAdapter implements Disposable {
 
 		// calculate the rectangle the selection encompasses
 		Rectangle bounds = tmpBoundsCalc;
-		bounds.set(firstSfx.position.x, firstSfx.position.y, firstSfx.cue.duration * BLOCK_SIZE_X,
+		bounds.set(firstSfx.position.x, firstSfx.position.y, firstSfx.duration * BLOCK_SIZE_X,
 				BLOCK_SIZE_Y);
 
 		// initial set others relative to first
@@ -548,7 +548,7 @@ public class Editor extends InputAdapter implements Disposable {
 			SoundEffect sfx = selection.get(i);
 
 			Rectangle rect = Rectangle.tmp.set(sfx.position.x, sfx.position.y,
-					sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
+					sfx.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
 			bounds.merge(Rectangle.tmp);
 
 		}
@@ -565,7 +565,7 @@ public class Editor extends InputAdapter implements Disposable {
 					}
 
 					Rectangle.tmp.set(sfx.position.x, sfx.position.y,
-							sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
+							sfx.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
 
 					if (bounds.y + bounds.height > Rectangle.tmp.y
 							&& bounds.y < Rectangle.tmp.y + Rectangle.tmp.height) {
@@ -629,7 +629,7 @@ public class Editor extends InputAdapter implements Disposable {
 					if (sfx == sel) continue mainsfx;
 				}
 
-				Rectangle.tmp.set(sfx.position.x, sfx.position.y, sfx.cue.duration * BLOCK_SIZE_X,
+				Rectangle.tmp.set(sfx.position.x, sfx.position.y, sfx.duration * BLOCK_SIZE_X,
 						BLOCK_SIZE_Y);
 
 				if (Rectangle.tmp.overlaps(tmpBoundsCalc)) {
@@ -800,7 +800,7 @@ public class Editor extends InputAdapter implements Disposable {
 				for (int track = 0; track < remix.tracks.size; track++) {
 					for (SoundEffect sfx : remix.tracks.get(track)) {
 						MathHelper.normalizeRectangle(Rectangle.tmp2.set(sfx.position.x,
-								sfx.position.y, sfx.cue.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y));
+								sfx.position.y, sfx.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y));
 
 						if (Rectangle.tmp2.overlaps(Rectangle.tmp)) {
 							sfx.selected = true;
