@@ -166,7 +166,7 @@ public class CueList {
 			put(new Cue(bb, bb.name, "stretchoutyourneck1", 4 / 6f));
 			put(new Cue(bb, bb.name, "stretchoutyourneck2", 0.5f));
 			put(new Cue(bb, bb.name, "stretchoutyourneck3", 0.5f));
-			put(new Cue(bb, bb.name, "stretchoutyourneck4", 1 / 3f));
+			put(new Cue(bb, bb.name, "stretchoutyourneck4", 0.4f));
 		}
 
 		{

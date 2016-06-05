@@ -24,8 +24,8 @@ public class MunchyMonk extends Game {
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "munchyMonk_try"));
 				array.add(new SoundEffect(0.5f, "munchyMonk_two"));
+				array.add(new SoundEffect(1, "munchyMonk_gulp"));
 				array.add(new SoundEffect(1.5f, "munchyMonk_gulp"));
-				array.add(new SoundEffect(2f, "munchyMonk_gulp"));
 			}
 		});
 		this.patterns.put("eat three", new Pattern(this) {
