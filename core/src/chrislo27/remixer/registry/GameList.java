@@ -47,7 +47,7 @@ public class GameList {
 		put(new DonkDonk("donkDonk"));
 		put(new TapTroupe("tapTroupe"));
 		put(new TapTrial("tapTrial"));
-		put(new SpaceDance("spaceDance"));
+		put(new SpaceDance("spaceDance", "megaminerzero"));
 		put(new CropStomp("cropStomp", "Chocolate2890"));
 		put(new BlueBirds("blueBirds", "Chocolate2890"));
 		//put(new KarateMan("karateMan", "Chocolate2890"));
