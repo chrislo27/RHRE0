@@ -358,7 +358,8 @@ public class Editor extends InputAdapter implements Disposable {
 				AtlasRegion region = GameList.getIcon(g.name);
 
 				batch.draw(region, x - region.getRegionWidth() * 0.5f,
-						y - region.getRegionHeight() * 0.5f);
+						y - region.getRegionHeight() * 0.5f, Math.min(32, region.getRegionWidth()),
+						Math.min(32, region.getRegionHeight()));
 
 				main.fontBordered.setColor(1, 1, 1, 1);
 				if (i == currentGame) {
