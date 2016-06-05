@@ -24,8 +24,8 @@ public class SpaceDance extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "spaceDance_lets1"));
-				array.add(new SoundEffect(0.75f, "spaceDance_sit1"));
-				array.add(new SoundEffect(1.25f, "spaceDance_down1"));
+				array.add(new SoundEffect(0.5f, "spaceDance_sit1"));
+				array.add(new SoundEffect(1f, "spaceDance_down1"));
 			}
 
 		});
