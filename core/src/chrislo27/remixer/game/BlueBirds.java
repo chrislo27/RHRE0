@@ -31,7 +31,7 @@ public class BlueBirds extends Game {
 				array.add(new SoundEffect(0, "blueBirds_stretchoutyourneck1"));
 				array.add(new SoundEffect(5 / 6f, "blueBirds_stretchoutyourneck2"));
 				array.add(new SoundEffect(1.5f, "blueBirds_stretchoutyourneck3"));
-				array.add(new SoundEffect(2.f, "blueBirds_stretchoutyourneck4"));
+				array.add(new SoundEffect(2, "blueBirds_stretchoutyourneck4"));
 				
 				array.add(new SoundEffect(3, "blueBirds_stretch1"));
 				array.add(new SoundEffect(4, "blueBirds_stretch2"));
