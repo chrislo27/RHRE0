@@ -2,6 +2,7 @@ package chrislo27.remixer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
@@ -22,6 +23,8 @@ public class EditorScreen extends Updateable<Main> {
 	private Stage stage;
 
 	public Editor editor;
+
+	private int newVersionAvailable = -1;
 
 	public EditorScreen(Main m) {
 		super(m);
@@ -75,6 +78,22 @@ public class EditorScreen extends Updateable<Main> {
 		main.font.setColor(1, 1, 1, 1);
 		main.font.draw(main.batch, Main.version, Gdx.graphics.getWidth() - 4,
 				4 + main.font.getCapHeight(), 0, Align.right, false);
+
+		if (newVersionAvailable != -1) {
+			if (newVersionAvailable == 0) {
+				main.font.setColor(0.1f, 0.9f, 0.1f, 1);
+				main.font.draw(main.batch, Localization.get("editor.upToDate", Main.githubVersion),
+						Gdx.graphics.getWidth() - 4, 4 + main.font.getCapHeight() * 2.5f, 0,
+						Align.right, false);
+			} else if (newVersionAvailable == 1) {
+				main.font.setColor(Color.GOLDENROD);
+				main.font.draw(main.batch,
+						Localization.get("editor.newVersion", Main.githubVersion),
+						Gdx.graphics.getWidth() - 4, 4 + main.font.getCapHeight() * 2.5f, 0,
+						Align.right, false);
+			}
+			main.font.setColor(1, 1, 1, 1);
+		}
 		main.batch.end();
 	}
 
@@ -91,6 +110,14 @@ public class EditorScreen extends Updateable<Main> {
 		if (!stageSetup.shouldDim() && !stageSetup.isSelectingFile()) editor.inputUpdate();
 		editor.renderUpdate();
 		stageSetup.renderUpdate();
+
+		if (newVersionAvailable == -1 && Main.githubVersion != null) {
+			if (Main.githubVersion.equalsIgnoreCase(Main.version)) {
+				newVersionAvailable = 0;
+			} else {
+				newVersionAvailable = 1;
+			}
+		}
 	}
 
 	@Override
