@@ -254,6 +254,15 @@ public class CueList {
 			put(new Cue(shoot, shoot.name, "commStart", 1));
 			put(new Cue(shoot, shoot.name, "commEnd", 1));
 		}
+		
+		{
+			Game wd = GameList.getGame("workingDough");
+			
+			put(new Cue(wd, wd.name, "leftSmall", 0.25f));
+			put(new Cue(wd, wd.name, "leftBig", 0.25f));
+			put(new Cue(wd, wd.name, "rightSmall", 0.25f));
+			put(new Cue(wd, wd.name, "rightBig", 0.25f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();

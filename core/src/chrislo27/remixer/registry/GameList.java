@@ -17,6 +17,7 @@ import chrislo27.remixer.game.ShootEmUp;
 import chrislo27.remixer.game.SpaceDance;
 import chrislo27.remixer.game.TapTrial;
 import chrislo27.remixer.game.TapTroupe;
+import chrislo27.remixer.game.WorkingDough;
 import ionium.util.BiObjectMap;
 
 public class GameList {
@@ -53,6 +54,7 @@ public class GameList {
 		//put(new KarateMan("karateMan", "Chocolate2890"));
 		put(new Ringside("ringside", null));
 		put(new ShootEmUp("shootEmUp", null));
+		put(new WorkingDough("workingDough", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
