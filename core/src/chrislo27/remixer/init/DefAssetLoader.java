@@ -18,7 +18,7 @@ public class DefAssetLoader implements IAssetLoader {
 	@Override
 	public void addManagedAssets(AssetManager manager) {
 		for (Cue c : CueList.instance().cues.getAllValues()) {
-			manager.load(AssetMap.add(c.soundId, "sounds/cues/" + c.folder + "/" + c.file + ".ogg"),
+			manager.load(AssetMap.add(c.soundId, c.folderParent + c.folder + "/" + c.file + ".ogg"),
 					Sound.class);
 		}
 	}

@@ -1,6 +1,8 @@
 package chrislo27.remixer.registry;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.game.Game;
@@ -53,6 +55,7 @@ public class CueList {
 			put(new Cue(ls, ls.name, "march2", 0.5f));
 			put(new Cue(ls, ls.name, "march1_bkbt", 0.5f));
 			put(new Cue(ls, ls.name, "march2_bkbt", 0.5f));
+			put(new Cue(ls, ls.name, "corruptHai", 0.5f));
 		}
 
 		{
@@ -135,6 +138,20 @@ public class CueList {
 			put(new Cue(sd, sd.name, "punch2", 1.5f));
 		}
 
+		{
+			Game custom = GameList.getGame("custom");
+			FileHandle folder = Gdx.files.local("customSound/");
+			if (folder.exists() && folder.isDirectory()) {
+				FileHandle[] all = folder.list(".ogg");
+
+				for (FileHandle fh : all) {
+					put(new Cue(custom, "", custom.name, fh.nameWithoutExtension(), 0.5f));
+
+					Main.logger.info("Added custom sound " + fh.nameWithoutExtension());
+				}
+			}
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 
@@ -194,14 +211,20 @@ public class CueList {
 		public final String file;
 		public final String soundId;
 		public final float duration;
+		public final String folderParent;
 
-		public Cue(Game game, String folder, String file, float duration) {
+		public Cue(Game game, String folderParent, String folder, String file, float duration) {
 			this.game = game;
 			this.folder = folder;
 			this.file = file;
 			this.duration = duration;
+			this.folderParent = folderParent;
 
 			soundId = "cue_" + folder + "_" + file;
+		}
+
+		public Cue(Game game, String folder, String file, float duration) {
+			this(game, "sounds/cues/", folder, file, duration);
 		}
 
 		public Sound getSFX() {

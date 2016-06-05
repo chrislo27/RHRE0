@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import chrislo27.remixer.game.CountInGame;
+import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.Lockstep;
@@ -35,6 +36,7 @@ public class GameList {
 
 	private void loadResources() {
 		put(new CountInGame("countIn"));
+		put(new CustomSound("custom"));
 
 		put(new Lockstep("lockstep"));
 		put(new MunchyMonk("munchyMonk"));
