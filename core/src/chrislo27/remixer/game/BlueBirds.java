@@ -29,7 +29,7 @@ public class BlueBirds extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "blueBirds_stretchoutyourneck1"));
-				array.add(new SoundEffect(4 / 6f, "blueBirds_stretchoutyourneck2"));
+				array.add(new SoundEffect(5 / 6f, "blueBirds_stretchoutyourneck2"));
 				array.add(new SoundEffect(1.5f, "blueBirds_stretchoutyourneck3"));
 				array.add(new SoundEffect(2, "blueBirds_stretchoutyourneck4"));
 				
