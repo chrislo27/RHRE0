@@ -10,6 +10,7 @@ import chrislo27.remixer.game.CropStomp;
 import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
+import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.MunchyMonk;
 import chrislo27.remixer.game.SpaceDance;
@@ -48,7 +49,7 @@ public class GameList {
 		put(new SpaceDance("spaceDance"));
 		put(new CropStomp("cropStomp", "Chocolate2890"));
 		put(new BlueBirds("blueBirds", "Chocolate2890"));
-		put(new Game("moaiDooWop2", null));
+		put(new KarateMan("karateMan", "Chocolate2890"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
