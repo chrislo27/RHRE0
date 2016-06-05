@@ -180,6 +180,7 @@ public class EditorStageSetup {
 
 								}
 
+								setSelectingFile(false);
 								System.gc();
 							}
 						};
@@ -272,6 +273,7 @@ public class EditorStageSetup {
 
 							}
 
+							setSelectingFile(false);
 							System.gc();
 						}
 					};
