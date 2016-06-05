@@ -27,7 +27,7 @@ public class EditorScreen extends Updateable<Main> {
 		super(m);
 
 		editor = new Editor(main);
-		editor.setRemix(new Remix(Editor.TRACK_COUNT));
+		editor.setRemix(new Remix(120, Editor.TRACK_COUNT));
 	}
 
 	@Override

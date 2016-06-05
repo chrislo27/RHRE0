@@ -27,10 +27,12 @@ public class Remix {
 	private Music music = null;
 	public float musicStartTime = 0;
 
-	public Remix(int trackCount) {
+	public Remix(int bpm, int trackCount) {
 		for (int i = 0; i < trackCount; i++) {
 			this.tracks.add(new Array<SoundEffect>());
 		}
+		
+		this.bpm = bpm;
 	}
 
 	public Music getMusic() {

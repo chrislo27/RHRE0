@@ -101,7 +101,7 @@ public class EditorStageSetup {
 
 					@Override
 					public void run() {
-						editorScreen.editor.setRemix(new Remix(Editor.TRACK_COUNT));
+						editorScreen.editor.setRemix(new Remix(120, Editor.TRACK_COUNT));
 						editorScreen.editor.setMusic(null);
 					}
 				};
