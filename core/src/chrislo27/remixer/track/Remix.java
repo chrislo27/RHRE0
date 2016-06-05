@@ -113,7 +113,7 @@ public class Remix {
 			for (SoundEffect a : track) {
 				if (a.isCompleted) continue;
 				if (onlySelected && !a.selected) continue;
-				if (beat >= a.beat && a.beat + a.cue.duration > beat) a.onAction();
+				if (beat >= a.beat && a.beat + a.cue.duration > beat) a.onAction(this);
 			}
 		}
 

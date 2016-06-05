@@ -36,7 +36,7 @@ public class CueList {
 			FileHandle folder = Gdx.files.local("custom/");
 			if (folder.exists() && folder.isDirectory()) {
 				FileHandle[] all = folder.list(".ogg");
-				
+
 				Main.logger.info("Custom sound folder located with " + all.length + " legal files");
 
 				for (FileHandle fh : all) {
@@ -46,7 +46,7 @@ public class CueList {
 				}
 			}
 		}
-		
+
 		{
 			Game ci = GameList.getGame("countIn");
 
@@ -153,10 +153,10 @@ public class CueList {
 			put(new Cue(sd, sd.name, "pa2", 0.5f));
 			put(new Cue(sd, sd.name, "punch2", 1.5f));
 		}
-		
+
 		{
 			Game bb = GameList.getGame("blueBirds");
-			
+
 			put(new Cue(bb, bb.name, "peck", 0.5f));
 			put(new Cue(bb, bb.name, "peckyourbeak1", 0.5f));
 			put(new Cue(bb, bb.name, "peckyourbeak2", 0.5f));
@@ -168,10 +168,10 @@ public class CueList {
 			put(new Cue(bb, bb.name, "stretchoutyourneck3", 0.5f));
 			put(new Cue(bb, bb.name, "stretchoutyourneck4", 1 / 3f));
 		}
-		
+
 		{
 			Game cs = GameList.getGame("cropStomp");
-			
+
 			put(new Cue(cs, cs.name, "molefling", 0.5f));
 			put(new Cue(cs, cs.name, "pick1", 0.5f));
 			put(new Cue(cs, cs.name, "pick2", 0.5f));
@@ -239,6 +239,7 @@ public class CueList {
 		public final String soundId;
 		public final float duration;
 		public final String folderParent;
+		public int pitchWithBpm = -1;
 
 		public Cue(Game game, String folderParent, String folder, String file, float duration) {
 			this.game = game;
@@ -252,6 +253,12 @@ public class CueList {
 
 		public Cue(Game game, String folder, String file, float duration) {
 			this(game, "sounds/cues/", folder, file, duration);
+		}
+
+		public Cue setUsesPitch(int baseBpm) {
+			pitchWithBpm = baseBpm;
+
+			return this;
 		}
 
 		public Sound getSFX() {

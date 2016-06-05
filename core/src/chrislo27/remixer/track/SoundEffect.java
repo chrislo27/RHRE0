@@ -24,12 +24,12 @@ public final class SoundEffect implements Comparable {
 		this.beat = beat;
 		this.cue = cue;
 	}
-	
+
 	/**
 	 * Copies the beat, cue, and position only.
 	 * @param copy
 	 */
-	public SoundEffect(SoundEffect copy){
+	public SoundEffect(SoundEffect copy) {
 		this(copy.beat, copy.cue);
 		position.set(copy.position);
 	}
@@ -43,11 +43,11 @@ public final class SoundEffect implements Comparable {
 		return false;
 	}
 
-	public void onAction() {
+	public void onAction(Remix remix) {
 		isCompleted = true;
 
 		if (cue != null) {
-			cue.getSFX().play();
+			cue.getSFX().play(1, cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1, 0);
 		}
 	}
 
