@@ -1,5 +1,6 @@
 package chrislo27.remixer.track;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 
 import chrislo27.remixer.editor.Editor;
@@ -10,10 +11,12 @@ public final class SoundEffect implements Comparable {
 
 	public float beat = 0;
 	public Cue cue;
-	public boolean isCompleted = false;
+	public int isCompleted = 0;
 	public Vector2 position = new Vector2();
 	public boolean selected = false;
 	public float duration = 1;
+
+	private long soundId = -1;
 
 	public SoundEffect(float beat, String cue) {
 		this(beat, CueList.getCue(cue));
@@ -39,7 +42,7 @@ public final class SoundEffect implements Comparable {
 
 	public boolean isPointIn(float x, float y) {
 		if (x >= position.x && y >= position.y
-				&& x <= position.x + cue.duration * Editor.BLOCK_SIZE_X
+				&& x <= position.x + duration * Editor.BLOCK_SIZE_X
 				&& y <= position.y + Editor.BLOCK_SIZE_Y)
 			return true;
 
@@ -47,17 +50,51 @@ public final class SoundEffect implements Comparable {
 	}
 
 	public void onAction(Remix remix) {
-		isCompleted = true;
+		isCompleted = 1;
 
 		if (cue != null) {
-			cue.getSFX().play(1,
+			Sound sfx = cue.getSFX();
+
+			soundId = sfx.play(1,
 					cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1,
 					0);
+
+			if (soundId != -1) {
+				if (cue.canAlterDuration) {
+					sfx.setLooping(soundId, true);
+
+				}
+			}
+
+		}
+	}
+
+	public void onEnd(Remix remix) {
+		isCompleted = 2;
+
+		if (cue != null) {
+			Sound sfx = cue.getSFX();
+
+			if (soundId != -1) {
+				if (cue.canAlterDuration) {
+					sfx.setLooping(soundId, false);
+					sfx.stop(soundId);
+				}
+			}
+
 		}
 	}
 
 	public void reset() {
-		isCompleted = false;
+		isCompleted = 0;
+
+		if (soundId != -1) {
+			Sound sfx = cue.getSFX();
+
+			sfx.setLooping(soundId, false);
+		}
+
+		soundId = -1;
 	}
 
 	@Override
