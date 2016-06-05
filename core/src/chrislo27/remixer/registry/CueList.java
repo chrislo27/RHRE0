@@ -263,6 +263,20 @@ public class CueList {
 			put(new Cue(wd, wd.name, "rightSmall", 0.25f));
 			put(new Cue(wd, wd.name, "rightBig", 0.25f));
 		}
+		
+		{
+			Game mdw = GameList.getGame("moaiDooWop2");
+			
+			put(new Cue(mdw, mdw.name, "d1", 0.125f));
+			put(new Cue(mdw, mdw.name, "ooo1", 2.125f));
+			put(new Cue(mdw, mdw.name, "wop1", 0.5f));
+			put(new Cue(mdw, mdw.name, "pah1", 0.5f));
+			
+			put(new Cue(mdw, mdw.name, "d2", 0.125f));
+			put(new Cue(mdw, mdw.name, "ooo2", 2.125f));
+			put(new Cue(mdw, mdw.name, "wop2", 0.5f));
+			put(new Cue(mdw, mdw.name, "pah2", 0.5f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();

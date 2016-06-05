@@ -11,6 +11,7 @@ import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.Lockstep;
+import chrislo27.remixer.game.MoaiDooWop;
 import chrislo27.remixer.game.MunchyMonk;
 import chrislo27.remixer.game.Ringside;
 import chrislo27.remixer.game.ShootEmUp;
@@ -55,6 +56,7 @@ public class GameList {
 		put(new Ringside("ringside", null));
 		put(new ShootEmUp("shootEmUp", null));
 		put(new WorkingDough("workingDough", null));
+		put(new MoaiDooWop("moaiDooWop2", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
