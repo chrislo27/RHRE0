@@ -49,7 +49,7 @@ public class GameList {
 		put(new SpaceDance("spaceDance"));
 		put(new CropStomp("cropStomp", "Chocolate2890"));
 		put(new BlueBirds("blueBirds", "Chocolate2890"));
-		put(new KarateMan("karateMan", "Chocolate2890"));
+		//put(new KarateMan("karateMan", "Chocolate2890"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
