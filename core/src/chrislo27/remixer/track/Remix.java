@@ -75,7 +75,7 @@ public class Remix {
 
 		if (music != null) music.pause();
 
-		//AssetRegistry.instance().pauseAllSound();
+		AssetRegistry.instance().pauseAllSound();
 	}
 
 	public void stop() {
@@ -86,7 +86,7 @@ public class Remix {
 		beat = music != null ? (musicStartTime < 0 ? getBeatFromSec(musicStartTime, bpm) : 0) : 0;
 		if (music != null) music.stop();
 
-		//AssetRegistry.instance().stopAllSound();
+		AssetRegistry.instance().stopAllSound();
 
 		for (Array<SoundEffect> track : tracks) {
 			for (SoundEffect a : track) {
@@ -106,7 +106,7 @@ public class Remix {
 			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
 		}
 
-		//AssetRegistry.instance().resumeAllSound();
+		AssetRegistry.instance().resumeAllSound();
 	}
 
 	public void update(float delta, boolean onlySelected) {
