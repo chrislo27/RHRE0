@@ -32,6 +32,22 @@ public class CueList {
 
 	private void loadResources() {
 		{
+			Game custom = GameList.getGame("custom");
+			FileHandle folder = Gdx.files.local("custom/");
+			if (folder.exists() && folder.isDirectory()) {
+				FileHandle[] all = folder.list(".ogg");
+				
+				Main.logger.info("Custom sound folder located with " + all.length + " legal files");
+
+				for (FileHandle fh : all) {
+					put(new Cue(custom, "", custom.name, fh.nameWithoutExtension(), 0.5f));
+
+					Main.logger.info("Added custom sound " + fh.nameWithoutExtension());
+				}
+			}
+		}
+		
+		{
 			Game ci = GameList.getGame("countIn");
 
 			put(new Cue(ci, ci.name, "and", 0.5f));
@@ -137,21 +153,30 @@ public class CueList {
 			put(new Cue(sd, sd.name, "pa2", 0.5f));
 			put(new Cue(sd, sd.name, "punch2", 1.5f));
 		}
-
+		
 		{
-			Game custom = GameList.getGame("custom");
-			FileHandle folder = Gdx.files.local("custom/");
-			if (folder.exists() && folder.isDirectory()) {
-				FileHandle[] all = folder.list(".ogg");
-				
-				Main.logger.info("Custom sound folder located with " + all.length + " legal files");
-
-				for (FileHandle fh : all) {
-					put(new Cue(custom, "", custom.name, fh.nameWithoutExtension(), 0.5f));
-
-					Main.logger.info("Added custom sound " + fh.nameWithoutExtension());
-				}
-			}
+			Game bb = GameList.getGame("blueBirds");
+			
+			put(new Cue(bb, bb.name, "peck", 0.5f));
+			put(new Cue(bb, bb.name, "peckyourbeak1", 0.5f));
+			put(new Cue(bb, bb.name, "peckyourbeak2", 0.5f));
+			put(new Cue(bb, bb.name, "peckyourbeak3", 0.5f));
+			put(new Cue(bb, bb.name, "stretch1", 0.5f));
+			put(new Cue(bb, bb.name, "stretch2", 0.5f));
+			put(new Cue(bb, bb.name, "stretchoutyourneck1", 4 / 6f));
+			put(new Cue(bb, bb.name, "stretchoutyourneck2", 0.5f));
+			put(new Cue(bb, bb.name, "stretchoutyourneck3", 0.5f));
+			put(new Cue(bb, bb.name, "stretchoutyourneck4", 1 / 3f));
+		}
+		
+		{
+			Game cs = GameList.getGame("cropStomp");
+			
+			put(new Cue(cs, cs.name, "molefling", 0.5f));
+			put(new Cue(cs, cs.name, "pick1", 0.5f));
+			put(new Cue(cs, cs.name, "pick2", 0.5f));
+			put(new Cue(cs, cs.name, "stomp", 0.5f));
+			put(new Cue(cs, cs.name, "walk", 0.5f));
 		}
 
 		// add individual cues as patterns too
