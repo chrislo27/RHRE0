@@ -48,6 +48,7 @@ public class GameList {
 		put(new SpaceDance("spaceDance"));
 		put(new CropStomp("cropStomp", "Chocolate2890"));
 		put(new BlueBirds("blueBirds", "Chocolate2890"));
+		put(new Game("moaiDooWop2", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
@@ -63,7 +64,7 @@ public class GameList {
 	}
 
 	public static AtlasRegion getIcon(String key) {
-		return instance().allRegions.get(key);
+		return instance().allRegions.get("moaiDooWop2");
 	}
 
 }
