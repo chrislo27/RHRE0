@@ -415,6 +415,17 @@ public class Editor extends InputAdapter implements Disposable {
 				main.font.setColor(1, 1, 1, 0.5f);
 				main.font.draw(batch,
 						Localization.get("editor.contributions", current.contributors), x, y);
+
+				if (current == GameList.getGame("custom")) {
+					if (storedPatterns.get(currentGame).patterns.size == 0) {
+						main.font.draw(batch,
+								Localization.get("editor.missingCustomWarning",
+										current.contributors),
+								x, y - main.font.getLineHeight(),
+								Gdx.graphics.getWidth() - SELECT_BAR_WIDTH * 1.25f, Align.left,
+								true);
+					}
+				}
 				main.font.setColor(1, 1, 1, 1);
 			}
 		}
