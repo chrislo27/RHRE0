@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.ObjectMap;
 
+import chrislo27.remixer.game.BlueBirds;
 import chrislo27.remixer.game.CountInGame;
+import chrislo27.remixer.game.CropStomp;
 import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
@@ -44,6 +46,8 @@ public class GameList {
 		put(new TapTroupe("tapTroupe"));
 		put(new TapTrial("tapTrial"));
 		put(new SpaceDance("spaceDance"));
+		put(new CropStomp("cropStomp", "Chocolate2890"));
+		put(new BlueBirds("blueBirds", "Chocolate2890"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
