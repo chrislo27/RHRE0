@@ -124,8 +124,9 @@ public class RemixPorter {
 			throw new Exception("Missing tracks");
 		}
 
-		Remix r = new Remix(bpm);
+		Remix r = new Remix(parsedTracks.size);
 
+		r.bpm = bpm;
 		r.musicStartTime = musicStartTime;
 		r.tracks = parsedTracks;
 		for (Array<SoundEffect> array : r.tracks) {
