@@ -13,6 +13,7 @@ import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.MunchyMonk;
+import chrislo27.remixer.game.Ringside;
 import chrislo27.remixer.game.SpaceDance;
 import chrislo27.remixer.game.TapTrial;
 import chrislo27.remixer.game.TapTroupe;
@@ -50,6 +51,7 @@ public class GameList {
 		put(new CropStomp("cropStomp", "Chocolate2890"));
 		put(new BlueBirds("blueBirds", "Chocolate2890"));
 		//put(new KarateMan("karateMan", "Chocolate2890"));
+		put(new Ringside("ringside", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

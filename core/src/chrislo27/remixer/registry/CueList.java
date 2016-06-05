@@ -178,6 +178,73 @@ public class CueList {
 			put(new Cue(cs, cs.name, "stomp", 0.5f));
 			put(new Cue(cs, cs.name, "walk", 0.5f));
 		}
+		
+		{
+			Game rs = GameList.getGame("ringside");
+			final float third = 1 / 3f;
+			
+			put(new Cue(rs, rs.name, "wubba1-1", third));
+			put(new Cue(rs, rs.name, "wubba1-2", third));
+			put(new Cue(rs, rs.name, "dubba1-1", third));
+			put(new Cue(rs, rs.name, "dubba1-2", third));
+			put(new Cue(rs, rs.name, "dubba1-3", third));
+			put(new Cue(rs, rs.name, "dubba1-4", third));
+			put(new Cue(rs, rs.name, "that1", third * 2));
+			put(new Cue(rs, rs.name, "true1", third));
+			put(new Cue(rs, rs.name, "woah1", third * 2));
+			put(new Cue(rs, rs.name, "you1", third));
+			put(new Cue(rs, rs.name, "go1", third * 2));
+			put(new Cue(rs, rs.name, "big1", third));
+			put(new Cue(rs, rs.name, "guy1", 0.5f));
+			put(new Cue(rs, rs.name, "pose1", 0.5f));
+			put(new Cue(rs, rs.name, "for1", 1 / 6f));
+			put(new Cue(rs, rs.name, "the1", third));
+			put(new Cue(rs, rs.name, "fans1", 0.5f));
+			put(new Cue(rs, rs.name, "wubba2-1", third));
+			put(new Cue(rs, rs.name, "wubba2-2", third));
+			put(new Cue(rs, rs.name, "dubba2-1", third));
+			put(new Cue(rs, rs.name, "dubba2-2", third));
+			put(new Cue(rs, rs.name, "dubba2-3", third));
+			put(new Cue(rs, rs.name, "dubba2-4", third));
+			put(new Cue(rs, rs.name, "that2", third * 2));
+			put(new Cue(rs, rs.name, "true2", third));
+			put(new Cue(rs, rs.name, "woah2", third * 2));
+			put(new Cue(rs, rs.name, "you2", third));
+			put(new Cue(rs, rs.name, "go2", third * 2));
+			put(new Cue(rs, rs.name, "big2", third));
+			put(new Cue(rs, rs.name, "guy2", 0.5f));
+			put(new Cue(rs, rs.name, "pose2", 0.5f));
+			put(new Cue(rs, rs.name, "for2", 1 / 6f));
+			put(new Cue(rs, rs.name, "the2", third));
+			put(new Cue(rs, rs.name, "fans2", 0.5f));
+			put(new Cue(rs, rs.name, "wubba3-1", third));
+			put(new Cue(rs, rs.name, "wubba3-2", third));
+			put(new Cue(rs, rs.name, "dubba3-1", third));
+			put(new Cue(rs, rs.name, "dubba3-2", third));
+			put(new Cue(rs, rs.name, "dubba3-3", third));
+			put(new Cue(rs, rs.name, "dubba3-4", third));
+			put(new Cue(rs, rs.name, "that3", third * 2));
+			put(new Cue(rs, rs.name, "true3", third));
+			put(new Cue(rs, rs.name, "woah3", third * 2));
+			put(new Cue(rs, rs.name, "you3", third));
+			put(new Cue(rs, rs.name, "go3", third * 2));
+			put(new Cue(rs, rs.name, "big3", third));
+			put(new Cue(rs, rs.name, "guy3", 0.5f));
+			put(new Cue(rs, rs.name, "pose3", 0.5f));
+			put(new Cue(rs, rs.name, "for3", 1 / 6f));
+			put(new Cue(rs, rs.name, "the3", third));
+			put(new Cue(rs, rs.name, "fans3", 0.5f));
+			put(new Cue(rs, rs.name, "poseAnd", 0.5f));
+			put(new Cue(rs, rs.name, "ye", 1));
+			put(new Cue(rs, rs.name, "yell1", 0.5f));
+			put(new Cue(rs, rs.name, "yell2", 0.5f));
+			put(new Cue(rs, rs.name, "yell3", 0.5f));
+			put(new Cue(rs, rs.name, "camera1", 1));
+			put(new Cue(rs, rs.name, "camera2", 1));
+			put(new Cue(rs, rs.name, "camera3", 1));
+			put(new Cue(rs, rs.name, "muscles1", 0.5f));
+			put(new Cue(rs, rs.name, "muscles2", 0.5f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
