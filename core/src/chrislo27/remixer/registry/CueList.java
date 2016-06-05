@@ -92,16 +92,16 @@ public class CueList {
 			float third = 1f / 3f;
 
 			put(new Cue(dd, dd.name, "blastoff", 2f));
-			put(new Cue(dd, dd.name, "deetdeetdoot1", third));
-			put(new Cue(dd, dd.name, "deetdeetdoot2", third));
-			put(new Cue(dd, dd.name, "deetdeetdoot3", third));
-			put(new Cue(dd, dd.name, "deetdeetduh1", third));
-			put(new Cue(dd, dd.name, "deetdeetduh2", third));
-			put(new Cue(dd, dd.name, "deetdeetduh3", third));
-			put(new Cue(dd, dd.name, "donk1", 0.5f));
-			put(new Cue(dd, dd.name, "donk2", 0.5f));
-			put(new Cue(dd, dd.name, "dwonk1", 0.5f));
-			put(new Cue(dd, dd.name, "dwonk2", 0.5f));
+			put(new Cue(dd, dd.name, "deetdeetdoot1", third * 2));
+			put(new Cue(dd, dd.name, "deetdeetdoot2", third * 2));
+			put(new Cue(dd, dd.name, "deetdeetdoot3", third * 2));
+			put(new Cue(dd, dd.name, "deetdeetduh1", third * 2));
+			put(new Cue(dd, dd.name, "deetdeetduh2", third * 2));
+			put(new Cue(dd, dd.name, "deetdeetduh3", third * 2));
+			put(new Cue(dd, dd.name, "donk1", third * 2));
+			put(new Cue(dd, dd.name, "donk2", third * 2));
+			put(new Cue(dd, dd.name, "dwonk1", third * 2));
+			put(new Cue(dd, dd.name, "dwonk2", third * 2));
 		}
 
 		{
