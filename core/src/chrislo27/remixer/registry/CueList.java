@@ -268,14 +268,16 @@ public class CueList {
 			Game mdw = GameList.getGame("moaiDooWop2");
 			
 			put(new Cue(mdw, mdw.name, "d1", 0.125f));
-			put(new Cue(mdw, mdw.name, "ooo1", 2.125f));
+			put(new Cue(mdw, mdw.name, "ooo1", 2.125f).setCanAlterDuration(true));
 			put(new Cue(mdw, mdw.name, "wop1", 0.5f));
 			put(new Cue(mdw, mdw.name, "pah1", 0.5f));
 			
 			put(new Cue(mdw, mdw.name, "d2", 0.125f));
-			put(new Cue(mdw, mdw.name, "ooo2", 2.125f));
+			put(new Cue(mdw, mdw.name, "ooo2", 2.125f).setCanAlterDuration(true));
 			put(new Cue(mdw, mdw.name, "wop2", 0.5f));
 			put(new Cue(mdw, mdw.name, "pah2", 0.5f));
+			
+			put(new Cue(mdw, mdw.name, "stoneGrind", 0.5f));
 		}
 
 		// add individual cues as patterns too
@@ -339,6 +341,7 @@ public class CueList {
 		public final float duration;
 		public final String folderParent;
 		public int pitchWithBpm = -1;
+		public boolean canAlterDuration = false;
 
 		public Cue(Game game, String folderParent, String folder, String file, float duration) {
 			this.game = game;
@@ -357,6 +360,12 @@ public class CueList {
 		public Cue setUsesPitch(int baseBpm) {
 			pitchWithBpm = baseBpm;
 
+			return this;
+		}
+		
+		public Cue setCanAlterDuration(boolean b){
+			canAlterDuration = b;
+			
 			return this;
 		}
 

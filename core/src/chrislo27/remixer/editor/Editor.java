@@ -51,6 +51,8 @@ public class Editor extends InputAdapter implements Disposable {
 	public static final int SELECT_BAR_HEIGHT = 256;
 	public static final int SELECT_BAR_WIDTH = (int) (SELECT_BAR_HEIGHT * 1.5f);
 	public static final int SCROLL_EXTRA_ITEMS = SELECT_BAR_HEIGHT / 64;
+	public static final int RESIZE_BEAT_DISTANCE = 16;
+	public static final float MIN_RESIZE = 0.25f;
 
 	private static GlyphLayout tmpLayout = new GlyphLayout();
 	private static Vector3 tmpVec3 = new Vector3();
@@ -78,6 +80,9 @@ public class Editor extends InputAdapter implements Disposable {
 
 	};
 	private boolean isMoving = false;
+	private int isResizing = 0;
+	private float durationX = 0;
+	private float originalDuration = 1;
 	private Rectangle tmpBoundsCalc = new Rectangle();
 	private Array<SoundEffect> copyArray = new Array<>();
 
@@ -524,9 +529,25 @@ public class Editor extends InputAdapter implements Disposable {
 		// offset first position by mouse
 		firstSfx.position.add(mouse.x, mouse.y);
 
-		firstSfx.position.x = MathHelper.lockAtIntervals(firstSfx.position.x,
-				lockingInterval * BLOCK_SIZE_X);
-		firstSfx.position.y = MathHelper.lockAtIntervals(firstSfx.position.y, BLOCK_SIZE_Y);
+		if (isResizing != 0) {
+			firstSfx.position.y = firstOldPos.y;
+
+			if (isResizing == 1) {
+				firstSfx.position.x = MathUtils.clamp(MathHelper.snapToNearest(firstSfx.position.x,
+						lockingInterval * BLOCK_SIZE_X), 0, durationX - MIN_RESIZE);
+				firstSfx.duration = (durationX - firstSfx.position.x) / BLOCK_SIZE_X;
+			} else if (isResizing == 2) {
+				firstSfx.position.x = durationX;
+				firstSfx.duration = (MathHelper.snapToNearest(mouse.x,
+						lockingInterval * BLOCK_SIZE_X) - firstSfx.position.x) / BLOCK_SIZE_X;
+			}
+
+			firstSfx.duration = Math.max(MIN_RESIZE, firstSfx.duration);
+		} else {
+			firstSfx.position.x = MathHelper.lockAtIntervals(firstSfx.position.x,
+					lockingInterval * BLOCK_SIZE_X);
+			firstSfx.position.y = MathHelper.lockAtIntervals(firstSfx.position.y, BLOCK_SIZE_Y);
+		}
 
 		// calculate the rectangle the selection encompasses
 		Rectangle bounds = tmpBoundsCalc;
@@ -564,8 +585,8 @@ public class Editor extends InputAdapter implements Disposable {
 						if (sfx == sel) continue mainsfx;
 					}
 
-					Rectangle.tmp.set(sfx.position.x, sfx.position.y,
-							sfx.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y);
+					Rectangle.tmp.set(sfx.position.x, sfx.position.y, sfx.duration * BLOCK_SIZE_X,
+							BLOCK_SIZE_Y);
 
 					if (bounds.y + bounds.height > Rectangle.tmp.y
 							&& bounds.y < Rectangle.tmp.y + Rectangle.tmp.height) {
@@ -632,7 +653,8 @@ public class Editor extends InputAdapter implements Disposable {
 				Rectangle.tmp.set(sfx.position.x, sfx.position.y, sfx.duration * BLOCK_SIZE_X,
 						BLOCK_SIZE_Y);
 
-				if (Rectangle.tmp.overlaps(tmpBoundsCalc)) {
+				if (Rectangle.tmp.overlaps(tmpBoundsCalc)
+						|| tmpBoundsCalc.overlaps(Rectangle.tmp)) {
 					rejectMovement = true;
 					break;
 				}
@@ -664,6 +686,10 @@ public class Editor extends InputAdapter implements Disposable {
 			for (int i = 0; i < selection.size; i++) {
 				Vector2 oldPos = oldPositions.get(i);
 
+				if (isResizing != 0 && i == 0) {
+					selection.get(i).duration = originalDuration;
+				}
+
 				if (oldPos.x < 0 || oldPos.y < 0) {
 					shouldBeDeleted = true;
 					break;
@@ -685,10 +711,14 @@ public class Editor extends InputAdapter implements Disposable {
 		}
 
 		isMoving = false;
+		isResizing = 0;
 		clearOldPositionArray();
 	}
 
-	public void beginMoving(boolean copy, float mouseX, float mouseY) {
+	public void beginMoving(boolean copy, int resize, float mouseX, float mouseY) {
+		if (copy && resize != 0)
+			throw new IllegalStateException("Cannot be copying and resizing at the same time!");
+
 		moveOrigin.set(mouseX, mouseY);
 		isMoving = true;
 		clearOldPositionArray();
@@ -710,6 +740,17 @@ public class Editor extends InputAdapter implements Disposable {
 			selection.sort();
 
 			copyArray.clear();
+		} else if (resize != 0) {
+			isResizing = resize;
+
+			if (isResizing == 1) {
+				durationX = selection.first().position.x
+						+ selection.first().duration * BLOCK_SIZE_X;
+			} else if (isResizing == 2) {
+				durationX = selection.first().position.x;
+			}
+
+			originalDuration = selection.first().duration;
 		}
 
 		// copy old positions over
@@ -856,10 +897,35 @@ public class Editor extends InputAdapter implements Disposable {
 				} else {
 					// start moving
 					if (isPointIn != null) {
-						boolean copy = Gdx.input.isKeyPressed(Keys.ALT_LEFT)
-								|| Gdx.input.isKeyPressed(Keys.ALT_RIGHT);
+						boolean tookAction = false;
 
-						beginMoving(copy, mouse.x, mouse.y);
+						if (selection.size == 1 && isPointIn.cue.canAlterDuration) {
+							int r = 0;
+
+							if ((mouse.x >= isPointIn.position.x
+									&& mouse.x <= isPointIn.position.x + RESIZE_BEAT_DISTANCE)) {
+								r = 1;
+							} else if ((mouse.x >= isPointIn.position.x
+									+ isPointIn.duration * BLOCK_SIZE_X - RESIZE_BEAT_DISTANCE
+									&& mouse.x <= isPointIn.position.x
+											+ isPointIn.duration * BLOCK_SIZE_X)) {
+								r = 2;
+							}
+
+							if (r != 0) {
+								beginMoving(false, r, mouse.x, mouse.y);
+								tookAction = true;
+							}
+						}
+
+						if (!tookAction) {
+							boolean copy = Gdx.input.isKeyPressed(Keys.ALT_LEFT)
+									|| Gdx.input.isKeyPressed(Keys.ALT_RIGHT);
+
+							beginMoving(copy, 0, mouse.x, mouse.y);
+
+							tookAction = true;
+						}
 					}
 				}
 			}
@@ -932,7 +998,7 @@ public class Editor extends InputAdapter implements Disposable {
 					remix.tracks.first().add(sfx);
 				}
 
-				beginMoving(false, selection.first().position.x, selection.first().position.y);
+				beginMoving(false, 0, selection.first().position.x, selection.first().position.y);
 
 				return true;
 			}

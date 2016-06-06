@@ -120,9 +120,20 @@ public class Remix {
 
 		for (Array<SoundEffect> track : tracks) {
 			for (SoundEffect a : track) {
-				if (a.isCompleted) continue;
+				if (a.isCompleted >= 2) continue;
 				if (onlySelected && !a.selected) continue;
-				if (beat >= a.beat && a.beat + a.duration > beat) a.onAction(this);
+
+				if (a.isCompleted == 0) {
+					if (beat >= a.beat && a.beat + a.duration > beat) {
+						a.onAction(this);
+					}
+				}
+
+				if (a.isCompleted == 1) {
+					if (beat >= a.beat + a.duration) {
+						a.onEnd(this);
+					}
+				}
 			}
 		}
 
