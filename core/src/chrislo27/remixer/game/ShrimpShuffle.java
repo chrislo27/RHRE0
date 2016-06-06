@@ -15,7 +15,7 @@ public class ShrimpShuffle extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "shrimpShuffle_to"));
-				array.add(new SoundEffect(3 / 8f, "shrimpShuffle_ge"));
+				array.add(new SoundEffect(1 / 3f, "shrimpShuffle_ge"));
 				array.add(new SoundEffect(1, "shrimpShuffle_ther"));
 			}
 		});
@@ -28,9 +28,9 @@ public class ShrimpShuffle extends Game {
 				array.add(new SoundEffect(1, "shrimpShuffle_two1"));
 				array.add(new SoundEffect(2, "shrimpShuffle_three1"));
 
-				array.add(new SoundEffect(3.5f, "shrimpShuffle_three2"));
-				array.add(new SoundEffect(4.375f, "shrimpShuffle_two2"));
-				array.add(new SoundEffect(5.5f, "shrimpShuffle_one2"));
+				array.add(new SoundEffect(3f + 4 / 6f, "shrimpShuffle_three2"));
+				array.add(new SoundEffect(4 + 4 / 6f, "shrimpShuffle_two2"));
+				array.add(new SoundEffect(6, "shrimpShuffle_one2"));
 			}
 		});
 		
@@ -42,9 +42,9 @@ public class ShrimpShuffle extends Game {
 				array.add(new SoundEffect(1, "shrimpShuffle_two1"));
 				array.add(new SoundEffect(2, "shrimpShuffle_three1"));
 
-				array.add(new SoundEffect(3.5f, "shrimpShuffle_a"));
-				array.add(new SoundEffect(4.375f, "shrimpShuffle_b"));
-				array.add(new SoundEffect(5.5f, "shrimpShuffle_c"));
+				array.add(new SoundEffect(3f + 4 / 6f, "shrimpShuffle_a"));
+				array.add(new SoundEffect(4 + 4 / 6f, "shrimpShuffle_b"));
+				array.add(new SoundEffect(6, "shrimpShuffle_c"));
 			}
 		});
 

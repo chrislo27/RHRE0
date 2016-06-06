@@ -296,17 +296,17 @@ public class CueList {
 		{
 			Game ss = GameList.getGame("shrimpShuffle");
 
-			put(new Cue(ss, ss.name, "to", 3 / 8f));
-			put(new Cue(ss, ss.name, "ge", 5 / 8f));
+			put(new Cue(ss, ss.name, "to", 1 / 3f));
+			put(new Cue(ss, ss.name, "ge", 2 / 3f));
 			put(new Cue(ss, ss.name, "ther", 0.5f));
 
-			put(new Cue(ss, ss.name, "one1", 2 / 3f));
-			put(new Cue(ss, ss.name, "two1", 2 / 3f));
-			put(new Cue(ss, ss.name, "three1", 2 / 3f));
+			put(new Cue(ss, ss.name, "one1", 0.5f));
+			put(new Cue(ss, ss.name, "two1", 0.5f));
+			put(new Cue(ss, ss.name, "three1", 0.5f));
 
-			put(new Cue(ss, ss.name, "three2", 2 / 3f));
-			put(new Cue(ss, ss.name, "two2", 2 / 3f));
-			put(new Cue(ss, ss.name, "one2", 2 / 3f));
+			put(new Cue(ss, ss.name, "three2", 0.5f));
+			put(new Cue(ss, ss.name, "two2", 0.5f));
+			put(new Cue(ss, ss.name, "one2", 0.5f));
 
 			put(new Cue(ss, ss.name, "a", 0.5f));
 			put(new Cue(ss, ss.name, "b", 0.5f));
