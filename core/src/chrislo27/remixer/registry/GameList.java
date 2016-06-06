@@ -11,6 +11,7 @@ import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DogNinja;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
+import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.MoaiDooWop;
 import chrislo27.remixer.game.MunchyMonk;
@@ -54,7 +55,7 @@ public class GameList {
 		put(new SpaceDance("spaceDance", "megaminerzero"));
 		put(new CropStomp("cropStomp", "Chocolate2890"));
 		put(new BlueBirds("blueBirds", "Chocolate2890"));
-		//put(new KarateMan("karateMan", "Chocolate2890"));
+		put(new KarateMan("karateMan", "Chocolate2890"));
 		put(new Ringside("ringside", null));
 		put(new ShootEmUp("shootEmUp", null));
 		put(new WorkingDough("workingDough", null));

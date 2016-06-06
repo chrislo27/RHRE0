@@ -282,7 +282,7 @@ public class CueList {
 
 		{
 			Game dn = GameList.getGame("dogNinja");
-			
+
 			put(new Cue(dn, dn.name, "bone1", 0.5f));
 			put(new Cue(dn, dn.name, "bone2", 0.5f));
 			put(new Cue(dn, dn.name, "fruit1", 0.5f));
@@ -292,30 +292,46 @@ public class CueList {
 			put(new Cue(dn, dn.name, "tire1", 0.5f));
 			put(new Cue(dn, dn.name, "tire2", 0.5f));
 		}
-		
+
 		{
 			Game ss = GameList.getGame("shrimpShuffle");
-			
+
 			put(new Cue(ss, ss.name, "to", 3 / 8f));
 			put(new Cue(ss, ss.name, "ge", 5 / 8f));
 			put(new Cue(ss, ss.name, "ther", 0.5f));
-			
-			put(new Cue(ss, ss.name, "one1", 0.5f));
-			put(new Cue(ss, ss.name, "two1", 0.5f));
-			put(new Cue(ss, ss.name, "three1", 0.5f));
-			
-			put(new Cue(ss, ss.name, "three2", 0.5f));
-			put(new Cue(ss, ss.name, "two2", 0.5f));
-			put(new Cue(ss, ss.name, "one2", 0.5f));
-			
+
+			put(new Cue(ss, ss.name, "one1", 2 / 3f));
+			put(new Cue(ss, ss.name, "two1", 2 / 3f));
+			put(new Cue(ss, ss.name, "three1", 2 / 3f));
+
+			put(new Cue(ss, ss.name, "three2", 2 / 3f));
+			put(new Cue(ss, ss.name, "two2", 2 / 3f));
+			put(new Cue(ss, ss.name, "one2", 2 / 3f));
+
 			put(new Cue(ss, ss.name, "a", 0.5f));
 			put(new Cue(ss, ss.name, "b", 0.5f));
 			put(new Cue(ss, ss.name, "c", 0.5f));
-			
+
 			put(new Cue(ss, ss.name, "ah", 0.25f));
 			put(new Cue(ss, ss.name, "wa", 0.5f));
 			put(new Cue(ss, ss.name, "ha", 0.5f));
 			put(new Cue(ss, ss.name, "uhn", 0.5f));
+		}
+
+		{
+			Game km = GameList.getGame("karateMan");
+
+			put(new Cue(km, km.name, "barrelout", 0.5f));
+			put(new Cue(km, km.name, "bulbhit", 0.5f));
+			put(new Cue(km, km.name, "bulbout", 0.5f));
+			put(new Cue(km, km.name, "hit3cue1", 0.5f));
+			put(new Cue(km, km.name, "hit3cue2", 0.5f));
+			put(new Cue(km, km.name, "offbeatpotout", 0.5f));
+			put(new Cue(km, km.name, "pothit", 0.5f));
+			put(new Cue(km, km.name, "potout", 0.5f));
+			put(new Cue(km, km.name, "punchkick1", 0.5f));
+			put(new Cue(km, km.name, "punchkick2", 0.5f));
+			
 		}
 
 		// add individual cues as patterns too
