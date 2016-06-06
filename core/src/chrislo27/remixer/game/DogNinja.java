@@ -14,8 +14,8 @@ public class DogNinja extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "fruit1"));
-				array.add(new SoundEffect(1, "fruit2"));
+				array.add(new SoundEffect(0, "dogNinja_fruit1"));
+				array.add(new SoundEffect(1, "dogNinja_fruit2"));
 			}
 		});
 
@@ -23,8 +23,8 @@ public class DogNinja extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "bone1"));
-				array.add(new SoundEffect(1, "bone2"));
+				array.add(new SoundEffect(0, "dogNinja_bone1"));
+				array.add(new SoundEffect(1, "dogNinja_bone2"));
 			}
 		});
 
@@ -32,8 +32,8 @@ public class DogNinja extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "pan1"));
-				array.add(new SoundEffect(1, "pan2"));
+				array.add(new SoundEffect(0, "dogNinja_pan1"));
+				array.add(new SoundEffect(1, "dogNinja_pan2"));
 			}
 		});
 
@@ -41,8 +41,8 @@ public class DogNinja extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "tire1"));
-				array.add(new SoundEffect(1, "tire2"));
+				array.add(new SoundEffect(0, "dogNinja_tire1"));
+				array.add(new SoundEffect(1, "dogNinja_tire2"));
 			}
 		});
 	}
