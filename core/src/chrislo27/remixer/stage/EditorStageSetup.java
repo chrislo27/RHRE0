@@ -77,8 +77,6 @@ public class EditorStageSetup {
 
 		if (isSelectingFile) {
 			Gdx.app.postRunnable(hideToolbar);
-		} else {
-			toolbar.setVisible(true);
 		}
 	}
 
@@ -178,9 +176,11 @@ public class EditorStageSetup {
 										invokeConfirmation("menu.failedOpen", null, true);
 									}
 
+								} else {
+									setSelectingFile(false);
+									toolbar.setVisible(true);
 								}
 
-								setSelectingFile(false);
 								System.gc();
 							}
 						};
@@ -271,9 +271,11 @@ public class EditorStageSetup {
 									invokeConfirmation("menu.failedSave", null, true);
 								}
 
+							} else {
+								setSelectingFile(false);
+								toolbar.setVisible(true);
 							}
 
-							setSelectingFile(false);
 							System.gc();
 						}
 					};
