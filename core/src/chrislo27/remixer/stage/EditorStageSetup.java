@@ -130,7 +130,7 @@ public class EditorStageSetup {
 					JFileChooser fileChooser = new JFileChooser();
 
 					{
-						fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 						fileChooser.setDialogTitle("Open a remix file");
 						FileNameExtensionFilter ffef = new FileNameExtensionFilter(
 								"JSON remix files (.rhre, .json)", "rhre", "json");
