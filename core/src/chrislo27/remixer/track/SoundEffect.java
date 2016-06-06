@@ -32,12 +32,13 @@ public final class SoundEffect implements Comparable {
 	}
 
 	/**
-	 * Copies the beat, cue, and position only.
+	 * Copies the beat, cue, position, and duration only.
 	 * @param copy
 	 */
 	public SoundEffect(SoundEffect copy) {
 		this(copy.beat, copy.cue);
 		position.set(copy.position);
+		duration = copy.duration;
 	}
 
 	public boolean isPointIn(float x, float y) {
