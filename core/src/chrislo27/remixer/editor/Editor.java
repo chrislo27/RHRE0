@@ -447,18 +447,27 @@ public class Editor extends InputAdapter implements Disposable {
 		int padding = 2;
 		float textOffsetX = thickness + padding;
 
-		if (!sfx.selected) {
-			batch.setColor(0.75f, 0.75f, 0.75f, 0.75f);
+		if (sfx.cue.canAlterDuration) {
+			batch.setColor(1, 0.75f, 0.75f, 0.75f);
 		} else {
-			batch.setColor(0.85f, 0.85f, 1f, 0.75f);
+			batch.setColor(0.75f, 0.75f, 0.75f, 0.75f);
+		}
+		if (sfx.selected) {
+			batch.setColor(batch.getColor().r + 0.1f, batch.getColor().g + 0.1f,
+					batch.getColor().b + 0.25f, batch.getColor().a);
 		}
 
 		Main.fillRect(batch, x, y, width, height);
 
-		if (!sfx.selected) {
-			batch.setColor(0.25f, 0.25f, 0.25f, 0.5f);
+		if (sfx.cue.canAlterDuration) {
+			batch.setColor(0.5f, 0.25f, 0.25f, 0.5f);
 		} else {
+			batch.setColor(0.25f, 0.25f, 0.25f, 0.5f);
+		}
+		if (sfx.selected) {
 			batch.setColor(0.25f, 0.25f, 0.75f, 0.5f);
+			batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b + 0.5f,
+					batch.getColor().a);
 		}
 
 		Main.drawRect(batch, x, y, width, height, thickness);
