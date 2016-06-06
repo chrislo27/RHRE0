@@ -296,7 +296,9 @@ public class EditorStageSetup {
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
 
-					editorScreen.editor.play();
+					if (!editorScreen.editor.getRemix().isStarted()) {
+						editorScreen.editor.play();
+					}
 				}
 
 			};
