@@ -254,30 +254,43 @@ public class CueList {
 			put(new Cue(shoot, shoot.name, "commStart", 1));
 			put(new Cue(shoot, shoot.name, "commEnd", 1));
 		}
-		
+
 		{
 			Game wd = GameList.getGame("workingDough");
-			
+
 			put(new Cue(wd, wd.name, "leftSmall", 0.25f));
 			put(new Cue(wd, wd.name, "leftBig", 0.25f));
 			put(new Cue(wd, wd.name, "rightSmall", 0.25f));
 			put(new Cue(wd, wd.name, "rightBig", 0.25f));
 		}
-		
+
 		{
 			Game mdw = GameList.getGame("moaiDooWop");
-			
+
 			put(new Cue(mdw, mdw.name, "d1", 0.125f));
 			put(new Cue(mdw, mdw.name, "ooo1", 2.125f).setCanAlterDuration(true));
 			put(new Cue(mdw, mdw.name, "wop1", 0.5f));
 			put(new Cue(mdw, mdw.name, "pah1", 0.5f));
-			
+
 			put(new Cue(mdw, mdw.name, "d2", 0.125f));
 			put(new Cue(mdw, mdw.name, "ooo2", 2.125f).setCanAlterDuration(true));
 			put(new Cue(mdw, mdw.name, "wop2", 0.5f));
 			put(new Cue(mdw, mdw.name, "pah2", 0.5f));
-			
+
 			put(new Cue(mdw, mdw.name, "stoneGrind", 0.5f));
+		}
+
+		{
+			Game dn = GameList.getGame("dogNinja");
+			
+			put(new Cue(dn, dn.name, "bone1", 0.5f));
+			put(new Cue(dn, dn.name, "bone2", 0.5f));
+			put(new Cue(dn, dn.name, "fruit1", 0.5f));
+			put(new Cue(dn, dn.name, "fruit2", 0.5f));
+			put(new Cue(dn, dn.name, "pan1", 0.5f));
+			put(new Cue(dn, dn.name, "pan2", 0.5f));
+			put(new Cue(dn, dn.name, "tire1", 0.5f));
+			put(new Cue(dn, dn.name, "tire2", 0.5f));
 		}
 
 		// add individual cues as patterns too
@@ -362,10 +375,10 @@ public class CueList {
 
 			return this;
 		}
-		
-		public Cue setCanAlterDuration(boolean b){
+
+		public Cue setCanAlterDuration(boolean b) {
 			canAlterDuration = b;
-			
+
 			return this;
 		}
 

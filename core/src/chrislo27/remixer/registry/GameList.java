@@ -8,6 +8,7 @@ import chrislo27.remixer.game.BlueBirds;
 import chrislo27.remixer.game.CountInGame;
 import chrislo27.remixer.game.CropStomp;
 import chrislo27.remixer.game.CustomSound;
+import chrislo27.remixer.game.DogNinja;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.Lockstep;
@@ -57,6 +58,7 @@ public class GameList {
 		put(new ShootEmUp("shootEmUp", null));
 		put(new WorkingDough("workingDough", null));
 		put(new MoaiDooWop("moaiDooWop", null));
+		put(new DogNinja("dogNinja", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
