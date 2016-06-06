@@ -56,7 +56,7 @@ public class GameList {
 		put(new Ringside("ringside", null));
 		put(new ShootEmUp("shootEmUp", null));
 		put(new WorkingDough("workingDough", null));
-		put(new MoaiDooWop("moaiDooWop2", null));
+		put(new MoaiDooWop("moaiDooWop", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

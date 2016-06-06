@@ -265,7 +265,7 @@ public class CueList {
 		}
 		
 		{
-			Game mdw = GameList.getGame("moaiDooWop2");
+			Game mdw = GameList.getGame("moaiDooWop");
 			
 			put(new Cue(mdw, mdw.name, "d1", 0.125f));
 			put(new Cue(mdw, mdw.name, "ooo1", 2.125f).setCanAlterDuration(true));
