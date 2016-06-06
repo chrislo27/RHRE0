@@ -465,7 +465,6 @@ public class Editor extends InputAdapter implements Disposable {
 			batch.setColor(0.25f, 0.25f, 0.25f, 0.5f);
 		}
 		if (sfx.selected) {
-			batch.setColor(0.25f, 0.25f, 0.75f, 0.5f);
 			batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b + 0.5f,
 					batch.getColor().a);
 		}
