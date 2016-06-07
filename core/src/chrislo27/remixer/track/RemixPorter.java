@@ -47,7 +47,8 @@ public class RemixPorter {
 
 			writer.array("sfxs");
 
-			for (SoundEffect sfx : track) {
+			for (int j = 0; j < track.size; j++) {
+				SoundEffect sfx = track.get(j);
 				writer.object();
 
 				writer.name("beat").value(sfx.beat);
