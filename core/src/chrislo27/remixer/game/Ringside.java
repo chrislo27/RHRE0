@@ -40,10 +40,10 @@ public class Ringside extends Game {
 				array.add(new SoundEffect(third * 2, "ringside_you1"));
 				array.add(new SoundEffect(1, "ringside_go1"));
 				array.add(new SoundEffect(1 + third * 2, "ringside_big1"));
-				array.add(new SoundEffect(2 + sixth, "ringside_guy1"));
+				array.add(new SoundEffect(2, "ringside_guy1"));
 
-				array.add(new SoundEffect(3, "ringside_muscles1"));
-				array.add(new SoundEffect(3.5f, "ringside_muscles2"));
+				array.add(new SoundEffect(2.5f, "ringside_muscles1"));
+				array.add(new SoundEffect(3, "ringside_muscles2"));
 			}
 		});
 
@@ -93,10 +93,10 @@ public class Ringside extends Game {
 				array.add(new SoundEffect(third * 2, "ringside_you2"));
 				array.add(new SoundEffect(1, "ringside_go2"));
 				array.add(new SoundEffect(1 + third * 2, "ringside_big2"));
-				array.add(new SoundEffect(2 + sixth, "ringside_guy2"));
+				array.add(new SoundEffect(2, "ringside_guy2"));
 
-				array.add(new SoundEffect(3, "ringside_muscles1"));
-				array.add(new SoundEffect(3.5f, "ringside_muscles2"));
+				array.add(new SoundEffect(2.5f, "ringside_muscles1"));
+				array.add(new SoundEffect(3, "ringside_muscles2"));
 			}
 		});
 
@@ -143,13 +143,13 @@ public class Ringside extends Game {
 				final float sixth = 1 / 6f;
 
 				array.add(new SoundEffect(0, "ringside_woah3"));
-				array.add(new SoundEffect(sixth + third * 2, "ringside_you3"));
-				array.add(new SoundEffect(sixth + 1, "ringside_go3"));
-				array.add(new SoundEffect(sixth + 1 + third * 2, "ringside_big3"));
-				array.add(new SoundEffect(sixth + 2 + sixth, "ringside_guy3"));
+				array.add(new SoundEffect(third * 2, "ringside_you3"));
+				array.add(new SoundEffect(1, "ringside_go3"));
+				array.add(new SoundEffect(1 + third * 2, "ringside_big3"));
+				array.add(new SoundEffect(2, "ringside_guy3"));
 
-				array.add(new SoundEffect(3, "ringside_muscles1"));
-				array.add(new SoundEffect(3.5f, "ringside_muscles2"));
+				array.add(new SoundEffect(2.5f, "ringside_muscles1"));
+				array.add(new SoundEffect(3, "ringside_muscles2"));
 			}
 		});
 
