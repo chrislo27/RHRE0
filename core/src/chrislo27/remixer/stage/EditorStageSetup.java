@@ -316,7 +316,9 @@ public class EditorStageSetup {
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
 
-					editorScreen.editor.getRemix().pause();
+					if (editorScreen.editor.getRemix().isStarted()) {
+						editorScreen.editor.getRemix().pause();
+					}
 				}
 
 			};
@@ -332,7 +334,10 @@ public class EditorStageSetup {
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
 
-					editorScreen.editor.getRemix().stop();
+					if (editorScreen.editor.getRemix().isStarted()
+							|| editorScreen.editor.getRemix().isPaused()) {
+						editorScreen.editor.getRemix().stop();
+					}
 				}
 
 			};
