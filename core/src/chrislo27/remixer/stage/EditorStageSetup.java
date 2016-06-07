@@ -573,7 +573,7 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							editorScreen.editor.getRemix().bpm + 1, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) + 1, Remix.MIN_BPM, Remix.MAX_BPM);
 
 				}
 			};
@@ -593,7 +593,7 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							editorScreen.editor.getRemix().bpm + 5, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) + 5, Remix.MIN_BPM, Remix.MAX_BPM);
 
 				}
 			};
@@ -612,7 +612,7 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							editorScreen.editor.getRemix().bpm - 1, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) - 1, Remix.MIN_BPM, Remix.MAX_BPM);
 				}
 			};
 			tempoChangeDown.setI10NStrategy(tempoStrat);
@@ -631,7 +631,7 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							editorScreen.editor.getRemix().bpm - 5, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) - 5, Remix.MIN_BPM, Remix.MAX_BPM);
 				}
 			};
 			tempoChangeDown5.setI10NStrategy(tempoStrat);

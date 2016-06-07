@@ -13,7 +13,7 @@ import ionium.templates.Main;
 public class Remix {
 
 	public static final int MIN_BPM = 60;
-	public static final int MAX_BPM = 240;
+	public static final int MAX_BPM = 360;
 
 	public Array<Array<SoundEffect>> tracks = new Array<>();
 
@@ -23,12 +23,12 @@ public class Remix {
 	private boolean isPaused = false;
 	private float beat = 0;
 
-	public int bpm = 120;
+	public float bpm = 120;
 
 	private Music music = null;
 	public float musicStartTime = 0;
 
-	public Remix(int bpm, int trackCount) {
+	public Remix(float bpm, int trackCount) {
 		for (int i = 0; i < trackCount; i++) {
 			this.tracks.add(new Array<SoundEffect>());
 		}

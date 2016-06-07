@@ -76,11 +76,11 @@ public class RemixPorter {
 	public static Remix importRemix(String json) throws Exception {
 		JsonValue jsonValue = reader.parse(json);
 
-		int bpm;
+		float bpm;
 		float musicStartTime;
 		Array<Array<SoundEffect>> parsedTracks = new Array<>();
 
-		bpm = jsonValue.getInt("bpm");
+		bpm = jsonValue.getFloat("bpm");
 		musicStartTime = jsonValue.getFloat("musicStartTime");
 
 		if (!jsonValue.hasChild("tracks")) {
