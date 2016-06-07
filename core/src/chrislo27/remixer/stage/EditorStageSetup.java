@@ -254,7 +254,7 @@ public class EditorStageSetup {
 											.exportRemix(editorScreen.editor.getRemix(), true);
 									FileHandle file = new FileHandle(selectedFile);
 									String extension = file.extension();
-									if (!extension.endsWith(".rhre") && !extension.endsWith(".json")) {
+									if (!extension.endsWith("rhre") && !extension.endsWith("json")) {
 										file = new FileHandle(
 												selectedFile.getAbsolutePath() + ".rhre");
 									}
