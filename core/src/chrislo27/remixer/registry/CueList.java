@@ -77,13 +77,13 @@ public class CueList {
 		{
 			Game mm = GameList.getGame("munchyMonk");
 
-			put(new Cue(mm, mm.name, "gulp", 0.5f));
+			put(new Cue(mm, mm.name, "gulp", 3 / 8f));
 			put(new Cue(mm, mm.name, "gulp3-1", 0.5f));
 			put(new Cue(mm, mm.name, "gulp3-2", 0.5f));
 			put(new Cue(mm, mm.name, "gulp3-3", 0.5f));
 			put(new Cue(mm, mm.name, "one", 0.5f));
 			put(new Cue(mm, mm.name, "three", 0.5f));
-			put(new Cue(mm, mm.name, "try", 0.5f));
+			put(new Cue(mm, mm.name, "try", 3 / 8f));
 			put(new Cue(mm, mm.name, "two", 0.5f));
 		}
 
