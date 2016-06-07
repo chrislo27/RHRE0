@@ -23,8 +23,8 @@ public class MunchyMonk extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "munchyMonk_try"));
-				array.add(new SoundEffect(0.5f, "munchyMonk_two"));
-				array.add(new SoundEffect(1, "munchyMonk_gulp"));
+				array.add(new SoundEffect(0.5f - 1 / 8f, "munchyMonk_two"));
+				array.add(new SoundEffect(1 + 1 / 8f, "munchyMonk_gulp"));
 				array.add(new SoundEffect(1.5f, "munchyMonk_gulp"));
 			}
 		});
