@@ -108,7 +108,7 @@ public class CueList {
 			Game tt = GameList.getGame("tapTroupe");
 			float dottedEighth = 0.75f;
 
-			put(new Cue(tt, tt.name, "and", 0.25f));
+			put(new Cue(tt, tt.name, "and", 0.5f));
 			put(new Cue(tt, tt.name, "bombom1", 0.75f));
 			put(new Cue(tt, tt.name, "bombom2", 0.75f));
 			put(new Cue(tt, tt.name, "ready1", 0.5f));
