@@ -20,6 +20,7 @@ import chrislo27.remixer.game.Ringside;
 import chrislo27.remixer.game.ShootEmUp;
 import chrislo27.remixer.game.ShrimpShuffle;
 import chrislo27.remixer.game.SpaceDance;
+import chrislo27.remixer.game.SpaceSoccer;
 import chrislo27.remixer.game.TapTrial;
 import chrislo27.remixer.game.TapTroupe;
 import chrislo27.remixer.game.WorkingDough;
@@ -64,6 +65,7 @@ public class GameList {
 		put(new DogNinja("dogNinja", null));
 		put(new ShrimpShuffle("shrimpShuffle", null));
 		put(new RhythmRally("rhythmRally", null));
+		put(new SpaceSoccer("spaceSoccer", "Chocolate2890"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

@@ -344,6 +344,20 @@ public class CueList {
 			put(new Cue(rr, rr.name, "whistle", 0.5f));
 		}
 
+		{
+			Game ss = GameList.getGame("spaceSoccer");
+
+			put(new Cue(ss, ss.name, "kick", 0.5f));
+			put(new Cue(ss, ss.name, "highkicklow1", 0.5f));
+			put(new Cue(ss, ss.name, "highkicklow2", 0.5f));
+			put(new Cue(ss, ss.name, "highkicklow3", 0.5f));
+			put(new Cue(ss, ss.name, "dispense1", 0.75f));
+			put(new Cue(ss, ss.name, "dispense2", 0.25f));
+			put(new Cue(ss, ss.name, "dispense3", 0.25f));
+			put(new Cue(ss, ss.name, "dispense4", 0.25f));
+			put(new Cue(ss, ss.name, "dispense5", 0.5f));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 
