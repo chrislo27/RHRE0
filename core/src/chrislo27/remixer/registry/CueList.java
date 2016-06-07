@@ -331,7 +331,17 @@ public class CueList {
 			put(new Cue(km, km.name, "potout", 0.5f));
 			put(new Cue(km, km.name, "punchkick1", 0.5f));
 			put(new Cue(km, km.name, "punchkick2", 0.5f));
-			
+		}
+
+		{
+			Game rr = GameList.getGame("rhythmRally");
+
+			put(new Cue(rr, rr.name, "hit1", 0.5f));
+			put(new Cue(rr, rr.name, "hit2", 0.5f));
+			put(new Cue(rr, rr.name, "hit3", 0.5f));
+			put(new Cue(rr, rr.name, "tonk", 0.5f));
+			put(new Cue(rr, rr.name, "tink", 0.5f));
+			put(new Cue(rr, rr.name, "whistle", 0.5f));
 		}
 
 		// add individual cues as patterns too

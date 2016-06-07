@@ -15,6 +15,7 @@ import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.MoaiDooWop;
 import chrislo27.remixer.game.MunchyMonk;
+import chrislo27.remixer.game.RhythmRally;
 import chrislo27.remixer.game.Ringside;
 import chrislo27.remixer.game.ShootEmUp;
 import chrislo27.remixer.game.ShrimpShuffle;
@@ -62,6 +63,7 @@ public class GameList {
 		put(new MoaiDooWop("moaiDooWop", null));
 		put(new DogNinja("dogNinja", null));
 		put(new ShrimpShuffle("shrimpShuffle", null));
+		put(new RhythmRally("rhythmRally", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
