@@ -1,17 +1,15 @@
 package chrislo27.remixer.stage;
 
 import java.io.File;
-import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import chrislo27.remixer.EditorScreen;
 import chrislo27.remixer.Main;
@@ -254,7 +252,8 @@ public class EditorStageSetup {
 											.exportRemix(editorScreen.editor.getRemix(), true);
 									FileHandle file = new FileHandle(selectedFile);
 									String extension = file.extension();
-									if (!extension.endsWith("rhre") && !extension.endsWith("json")) {
+									if (!extension.endsWith("rhre")
+											&& !extension.endsWith("json")) {
 										file = new FileHandle(
 												selectedFile.getAbsolutePath() + ".rhre");
 									}
@@ -553,9 +552,11 @@ public class EditorStageSetup {
 			tempo = new TextButton(stage, palette, "120");
 			tempo.setI10NStrategy(new LocalizationStrategy() {
 
+				private DecimalFormat format = new DecimalFormat("#.###");
+
 				@Override
 				public String get(String key, Object... params) {
-					return editorScreen.editor.getRemix().bpm + "";
+					return format.format(editorScreen.editor.getRemix().bpm);
 				}
 			});
 
@@ -573,7 +574,8 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							(int) (editorScreen.editor.getRemix().bpm) + 1, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) + 1, Remix.MIN_BPM,
+							Remix.MAX_BPM);
 
 				}
 			};
@@ -593,7 +595,8 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							(int) (editorScreen.editor.getRemix().bpm) + 5, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) + 5, Remix.MIN_BPM,
+							Remix.MAX_BPM);
 
 				}
 			};
@@ -612,7 +615,8 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							(int) (editorScreen.editor.getRemix().bpm) - 1, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) - 1, Remix.MIN_BPM,
+							Remix.MAX_BPM);
 				}
 			};
 			tempoChangeDown.setI10NStrategy(tempoStrat);
@@ -631,7 +635,8 @@ public class EditorStageSetup {
 						return;
 
 					editorScreen.editor.getRemix().bpm = MathUtils.clamp(
-							(int) (editorScreen.editor.getRemix().bpm) - 5, Remix.MIN_BPM, Remix.MAX_BPM);
+							(int) (editorScreen.editor.getRemix().bpm) - 5, Remix.MIN_BPM,
+							Remix.MAX_BPM);
 				}
 			};
 			tempoChangeDown5.setI10NStrategy(tempoStrat);
