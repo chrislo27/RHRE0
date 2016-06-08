@@ -402,6 +402,17 @@ public class CueList {
 			put(gr);
 		}
 
+		{
+			Game gc = GameList.getGame("gleeClub");
+
+			Cue start = new Cue(gc, gc.name, "singBegin", 0.125f);
+
+			put(new Cue(gc, gc.name, "singLoop", 1).setCanAlterDuration(true)
+					.setOneTimeSound(start.soundId));
+			put(new Cue(gc, gc.name, "singEnd", 0.5f));
+			put(start);
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 

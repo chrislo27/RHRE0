@@ -12,6 +12,7 @@ import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DogNinja;
 import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
+import chrislo27.remixer.game.GleeClub;
 import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.MicroRow;
@@ -74,6 +75,7 @@ public class GameList {
 		put(new ClappyTrio("clappyTrio", null));
 		put(new VegetaPull("vegetaPull", "megaminerzero"));
 		put(new WizardWaltz("wizardWaltz", null));
+		put(new GleeClub("gleeClub", "ahemtoday"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
