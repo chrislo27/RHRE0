@@ -267,17 +267,22 @@ public class CueList {
 		{
 			Game mdw = GameList.getGame("moaiDooWop");
 
-			put(new Cue(mdw, mdw.name, "d1", 0.125f));
-			put(new Cue(mdw, mdw.name, "ooo1", 2.125f).setCanAlterDuration(true));
+			Cue d1 = new Cue(mdw, mdw.name, "d1", 0.125f);
+			put(new Cue(mdw, mdw.name, "ooo1", 2.125f).setCanAlterDuration(true)
+					.setOneTimeSound(d1.soundId));
 			put(new Cue(mdw, mdw.name, "wop1", 0.5f));
 			put(new Cue(mdw, mdw.name, "pah1", 0.5f));
 
-			put(new Cue(mdw, mdw.name, "d2", 0.125f));
-			put(new Cue(mdw, mdw.name, "ooo2", 2.125f).setCanAlterDuration(true));
+			Cue d2 = new Cue(mdw, mdw.name, "d2", 0.125f);
+			put(new Cue(mdw, mdw.name, "ooo2", 2.125f).setCanAlterDuration(true)
+					.setOneTimeSound(d2.soundId));
 			put(new Cue(mdw, mdw.name, "wop2", 0.5f));
 			put(new Cue(mdw, mdw.name, "pah2", 0.5f));
 
 			put(new Cue(mdw, mdw.name, "stoneGrind", 0.5f));
+
+			put(d1);
+			put(d2);
 		}
 
 		{
@@ -357,10 +362,10 @@ public class CueList {
 			put(new Cue(ss, ss.name, "dispense4", 0.25f));
 			put(new Cue(ss, ss.name, "dispense5", 0.5f));
 		}
-		
+
 		{
 			Game mr = GameList.getGame("microRow");
-			
+
 			put(new Cue(mr, mr.name, "go", 0.5f));
 			put(new Cue(mr, mr.name, "ding", 0.5f));
 			put(new Cue(mr, mr.name, "dash1", 0.5f));
@@ -369,31 +374,32 @@ public class CueList {
 			put(new Cue(mr, mr.name, "triple2", 0.5f));
 			put(new Cue(mr, mr.name, "triple3", 0.5f));
 		}
-		
+
 		{
 			Game ct = GameList.getGame("clappyTrio");
-			
+
 			put(new Cue(ct, ct.name, "clap", 0.5f));
 			put(new Cue(ct, ct.name, "ready", 0.25f));
 		}
-		
+
 		{
 			Game ww = GameList.getGame("wizardWaltz");
-			
+
 			put(new Cue(ww, ww.name, "grow", 0.5f));
 			put(new Cue(ww, ww.name, "plant", 0.5f));
 		}
-		
+
 		{
 			Game vp = GameList.getGame("vegetaPull");
-			
+
 			put(new Cue(vp, vp.name, "appear", 0.5f));
 			put(new Cue(vp, vp.name, "longAppear", 0.5f));
 			put(new Cue(vp, vp.name, "pluck", 0.25f));
-			put(new Cue(vp, vp.name, "gr", 0.125f));
-			put(new Cue(vp, vp.name, "aaa", 0.25f).setSoundLoops(true));
+			Cue gr = new Cue(vp, vp.name, "gr", 0.125f);
+			put(new Cue(vp, vp.name, "aaa", 0.5f).setSoundLoops(true).setOneTimeSound(gr.soundId));
 			put(new Cue(vp, vp.name, "b", 0.5f));
 			put(new Cue(vp, vp.name, "cashier", 1));
+			put(gr);
 		}
 
 		// add individual cues as patterns too
@@ -459,6 +465,7 @@ public class CueList {
 		public int pitchWithBpm = -1;
 		public boolean canAlterDuration = false;
 		public boolean soundLoops = false;
+		public String oneTimeSound = null;
 
 		public Cue(Game game, String folderParent, String folder, String file, float duration) {
 			this.game = game;
@@ -481,6 +488,17 @@ public class CueList {
 		}
 
 		/**
+		 * A sound that can be played at the start of the beat
+		 * @param s
+		 * @return
+		 */
+		public Cue setOneTimeSound(String s) {
+			oneTimeSound = s;
+
+			return this;
+		}
+
+		/**
 		 * Also sets sound looping to true.
 		 * @param b
 		 * @return
@@ -491,15 +509,21 @@ public class CueList {
 
 			return this;
 		}
-		
-		public Cue setSoundLoops(boolean b){
+
+		public Cue setSoundLoops(boolean b) {
 			soundLoops = true;
-			
+
 			return this;
 		}
 
 		public Sound getSFX() {
 			return AssetRegistry.getSound(soundId);
+		}
+
+		public Sound getOneTimeSFX() {
+			if (oneTimeSound == null) return null;
+
+			return AssetRegistry.getSound(oneTimeSound);
 		}
 
 	}

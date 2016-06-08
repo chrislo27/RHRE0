@@ -42,8 +42,7 @@ public final class SoundEffect implements Comparable {
 	}
 
 	public boolean isPointIn(float x, float y) {
-		if (x >= position.x && y >= position.y
-				&& x <= position.x + duration * Editor.BLOCK_SIZE_X
+		if (x >= position.x && y >= position.y && x <= position.x + duration * Editor.BLOCK_SIZE_X
 				&& y <= position.y + Editor.BLOCK_SIZE_Y)
 			return true;
 
@@ -55,15 +54,24 @@ public final class SoundEffect implements Comparable {
 
 		if (cue != null) {
 			Sound sfx = cue.getSFX();
+			Sound oneTime = cue.getOneTimeSFX();
 
 			soundId = sfx.play(1,
 					cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1,
 					0);
 
+			if (oneTime != null) {
+				long id = oneTime.play(1, cue.pitchWithBpm > 0
+						? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1, 0);
+
+				if (id != -1) {
+					oneTime.setLooping(id, false);
+				}
+			}
+
 			if (soundId != -1) {
 				if (cue.soundLoops) {
 					sfx.setLooping(soundId, true);
-
 				}
 			}
 
