@@ -403,14 +403,25 @@ public class CueList {
 		}
 
 		{
-			Game gc = GameList.getGame("gleeClub");
+			//			Game gc = GameList.getGame("gleeClub");
+			//
+			//			Cue start = new Cue(gc, gc.name, "singBegin", 0.125f);
+			//
+			//			put(new Cue(gc, gc.name, "singLoop", 1).setCanAlterDuration(true)
+			//					.setOneTimeSound(start.soundId));
+			//			put(new Cue(gc, gc.name, "singEnd", 0.5f));
+			//			put(start);
+		}
 
-			Cue start = new Cue(gc, gc.name, "singBegin", 0.125f);
+		{
+			Game fb = GameList.getGame("fillbots");
 
-			put(new Cue(gc, gc.name, "singLoop", 1).setCanAlterDuration(true)
-					.setOneTimeSound(start.soundId));
-			put(new Cue(gc, gc.name, "singEnd", 0.5f));
-			put(start);
+			put(new Cue(fb, fb.name, "mediumFall", 0.5f));
+			put(new Cue(fb, fb.name, "bigFall", 0.5f));
+			put(new Cue(fb, fb.name, "smallFall", 0.5f));
+			put(new Cue(fb, fb.name, "mediumBot", 6).setUsesPitch(105));
+			put(new Cue(fb, fb.name, "bigBot", 9).setUsesPitch(105));
+			put(new Cue(fb, fb.name, "smallBot", 3).setUsesPitch(105));
 		}
 
 		// add individual cues as patterns too
@@ -473,7 +484,7 @@ public class CueList {
 		public final String soundId;
 		public final float duration;
 		public final String folderParent;
-		public int pitchWithBpm = -1;
+		public float pitchWithBpm = -1;
 		public boolean canAlterDuration = false;
 		public boolean soundLoops = false;
 		public String oneTimeSound = null;
@@ -492,7 +503,7 @@ public class CueList {
 			this(game, "sounds/cues/", folder, file, duration);
 		}
 
-		public Cue setUsesPitch(int baseBpm) {
+		public Cue setUsesPitch(float baseBpm) {
 			pitchWithBpm = baseBpm;
 
 			return this;
