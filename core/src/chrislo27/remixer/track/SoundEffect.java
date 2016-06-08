@@ -57,12 +57,12 @@ public final class SoundEffect implements Comparable {
 			Sound oneTime = cue.getOneTimeSFX();
 
 			soundId = sfx.play(1,
-					cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1,
+					cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(cue.pitchWithBpm, remix.bpm) : 1,
 					0);
 
 			if (oneTime != null) {
 				long id = oneTime.play(1, cue.pitchWithBpm > 0
-						? Remix.getPitchFromBpm(remix.bpm, cue.pitchWithBpm) : 1, 0);
+						? Remix.getPitchFromBpm(cue.pitchWithBpm, remix.bpm) : 1, 0);
 
 				if (id != -1) {
 					oneTime.setLooping(id, false);
