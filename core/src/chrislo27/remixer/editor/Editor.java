@@ -453,8 +453,8 @@ public class Editor extends InputAdapter implements Disposable {
 			batch.setColor(0.75f, 0.75f, 0.75f, 0.75f);
 		}
 		if (sfx.selected) {
-			batch.setColor(batch.getColor().r + 0.1f, batch.getColor().g + 0.1f,
-					batch.getColor().b + 0.25f, batch.getColor().a);
+			batch.setColor(batch.getColor().r * 1.1f, batch.getColor().g * 1.1f,
+					batch.getColor().b * 1.25f, batch.getColor().a);
 		}
 
 		Main.fillRect(batch, x, y, width, height);
@@ -465,7 +465,7 @@ public class Editor extends InputAdapter implements Disposable {
 			batch.setColor(0.25f, 0.25f, 0.25f, 0.5f);
 		}
 		if (sfx.selected) {
-			batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b + 0.5f,
+			batch.setColor(batch.getColor().r, batch.getColor().g, batch.getColor().b * 1.5f,
 					batch.getColor().a);
 		}
 
