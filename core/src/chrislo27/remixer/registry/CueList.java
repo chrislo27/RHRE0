@@ -193,8 +193,8 @@ public class CueList {
 			put(new Cue(rs, rs.name, "true1", third));
 			put(new Cue(rs, rs.name, "woah1", third * 2));
 			put(new Cue(rs, rs.name, "you1", third));
-			put(new Cue(rs, rs.name, "go1", third * 2));
-			put(new Cue(rs, rs.name, "big1", third));
+			put(new Cue(rs, rs.name, "go1", 0.5f));
+			put(new Cue(rs, rs.name, "big1", 0.5f));
 			put(new Cue(rs, rs.name, "guy1", 0.5f));
 			put(new Cue(rs, rs.name, "pose1", 0.5f));
 			put(new Cue(rs, rs.name, "for1", 1 / 6f));
@@ -210,8 +210,8 @@ public class CueList {
 			put(new Cue(rs, rs.name, "true2", third));
 			put(new Cue(rs, rs.name, "woah2", third * 2));
 			put(new Cue(rs, rs.name, "you2", third));
-			put(new Cue(rs, rs.name, "go2", third * 2));
-			put(new Cue(rs, rs.name, "big2", third));
+			put(new Cue(rs, rs.name, "go2", 0.5f));
+			put(new Cue(rs, rs.name, "big2", 0.5f));
 			put(new Cue(rs, rs.name, "guy2", 0.5f));
 			put(new Cue(rs, rs.name, "pose2", 0.5f));
 			put(new Cue(rs, rs.name, "for2", 1 / 6f));
@@ -227,8 +227,8 @@ public class CueList {
 			put(new Cue(rs, rs.name, "true3", third));
 			put(new Cue(rs, rs.name, "woah3", third * 2));
 			put(new Cue(rs, rs.name, "you3", third));
-			put(new Cue(rs, rs.name, "go3", third * 2));
-			put(new Cue(rs, rs.name, "big3", third));
+			put(new Cue(rs, rs.name, "go3", 0.5f));
+			put(new Cue(rs, rs.name, "big3", 0.5f));
 			put(new Cue(rs, rs.name, "guy3", 0.5f));
 			put(new Cue(rs, rs.name, "pose3", 0.5f));
 			put(new Cue(rs, rs.name, "for3", 1 / 6f));

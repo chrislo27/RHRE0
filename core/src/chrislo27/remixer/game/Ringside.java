@@ -39,7 +39,7 @@ public class Ringside extends Game {
 				array.add(new SoundEffect(0, "ringside_woah1"));
 				array.add(new SoundEffect(third * 2, "ringside_you1"));
 				array.add(new SoundEffect(1, "ringside_go1"));
-				array.add(new SoundEffect(1 + third * 2, "ringside_big1"));
+				array.add(new SoundEffect(1.5f, "ringside_big1"));
 				array.add(new SoundEffect(2, "ringside_guy1"));
 
 				array.add(new SoundEffect(2.5f, "ringside_muscles1"));
@@ -92,7 +92,7 @@ public class Ringside extends Game {
 				array.add(new SoundEffect(0, "ringside_woah2"));
 				array.add(new SoundEffect(third * 2, "ringside_you2"));
 				array.add(new SoundEffect(1, "ringside_go2"));
-				array.add(new SoundEffect(1 + third * 2, "ringside_big2"));
+				array.add(new SoundEffect(1.5f, "ringside_big2"));
 				array.add(new SoundEffect(2, "ringside_guy2"));
 
 				array.add(new SoundEffect(2.5f, "ringside_muscles1"));
@@ -145,7 +145,7 @@ public class Ringside extends Game {
 				array.add(new SoundEffect(0, "ringside_woah3"));
 				array.add(new SoundEffect(third * 2, "ringside_you3"));
 				array.add(new SoundEffect(1, "ringside_go3"));
-				array.add(new SoundEffect(1 + third * 2, "ringside_big3"));
+				array.add(new SoundEffect(1.5f, "ringside_big3"));
 				array.add(new SoundEffect(2, "ringside_guy3"));
 
 				array.add(new SoundEffect(2.5f, "ringside_muscles1"));
