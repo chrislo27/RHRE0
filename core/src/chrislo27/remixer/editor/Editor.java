@@ -766,7 +766,7 @@ public class Editor extends InputAdapter implements Disposable {
 			SoundEffect sfx = selection.get(i);
 			Vector2 vec2 = vec2Pool.obtain();
 
-			vec2.set(sfx.position.x, copy ? Short.MIN_VALUE : sfx.position.y);
+			vec2.set(sfx.position.x, sfx.position.y + (copy ? Short.MIN_VALUE : 0));
 
 			oldPositions.add(vec2);
 		}
