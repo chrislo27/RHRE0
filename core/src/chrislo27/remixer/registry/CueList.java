@@ -369,6 +369,13 @@ public class CueList {
 			put(new Cue(mr, mr.name, "triple2", 0.5f));
 			put(new Cue(mr, mr.name, "triple3", 0.5f));
 		}
+		
+		{
+			Game ct = GameList.getGame("clappyTrio");
+			
+			put(new Cue(ct, ct.name, "clap", 0.5f));
+			put(new Cue(ct, ct.name, "ready", 0.25f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();

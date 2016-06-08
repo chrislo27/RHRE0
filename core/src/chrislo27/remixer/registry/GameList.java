@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import chrislo27.remixer.game.BlueBirds;
+import chrislo27.remixer.game.ClappyTrio;
 import chrislo27.remixer.game.CountInGame;
 import chrislo27.remixer.game.CropStomp;
 import chrislo27.remixer.game.CustomSound;
@@ -68,6 +69,7 @@ public class GameList {
 		put(new RhythmRally("rhythmRally", null));
 		put(new SpaceSoccer("spaceSoccer", "Chocolate2890"));
 		put(new MicroRow("microRow", "serena"));
+		put(new ClappyTrio("clappyTrio", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
