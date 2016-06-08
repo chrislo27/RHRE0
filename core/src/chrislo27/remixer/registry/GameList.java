@@ -13,6 +13,7 @@ import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
+import chrislo27.remixer.game.MicroRow;
 import chrislo27.remixer.game.MoaiDooWop;
 import chrislo27.remixer.game.MunchyMonk;
 import chrislo27.remixer.game.RhythmRally;
@@ -66,6 +67,7 @@ public class GameList {
 		put(new ShrimpShuffle("shrimpShuffle", null));
 		put(new RhythmRally("rhythmRally", null));
 		put(new SpaceSoccer("spaceSoccer", "Chocolate2890"));
+		put(new MicroRow("microRow", "serena"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
