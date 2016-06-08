@@ -553,10 +553,16 @@ public class EditorStageSetup {
 			tempo.setI10NStrategy(new LocalizationStrategy() {
 
 				private DecimalFormat format = new DecimalFormat("#.###");
+				private float lastBpm = 0;
+				private String returnValue = null;
 
 				@Override
 				public String get(String key, Object... params) {
-					return format.format(editorScreen.editor.getRemix().bpm);
+					if (editorScreen.editor.getRemix().bpm != lastBpm || returnValue == null) {
+						returnValue = format.format(editorScreen.editor.getRemix().bpm);
+					}
+
+					return returnValue;
 				}
 			});
 
