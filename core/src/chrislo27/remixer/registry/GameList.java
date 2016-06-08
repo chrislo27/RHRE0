@@ -25,6 +25,7 @@ import chrislo27.remixer.game.SpaceDance;
 import chrislo27.remixer.game.SpaceSoccer;
 import chrislo27.remixer.game.TapTrial;
 import chrislo27.remixer.game.TapTroupe;
+import chrislo27.remixer.game.VegetaPull;
 import chrislo27.remixer.game.WizardWaltz;
 import chrislo27.remixer.game.WorkingDough;
 import ionium.util.BiObjectMap;
@@ -71,7 +72,7 @@ public class GameList {
 		put(new SpaceSoccer("spaceSoccer", "Chocolate2890"));
 		put(new MicroRow("microRow", "serena"));
 		put(new ClappyTrio("clappyTrio", null));
-		//put(new VegetaPull("vegetaPull", null));
+		put(new VegetaPull("vegetaPull", "megaminerzero"));
 		put(new WizardWaltz("wizardWaltz", null));
 
 		games.getAllKeys().sort();

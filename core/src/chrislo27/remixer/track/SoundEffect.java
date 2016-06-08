@@ -61,7 +61,7 @@ public final class SoundEffect implements Comparable {
 					0);
 
 			if (soundId != -1) {
-				if (cue.canAlterDuration) {
+				if (cue.soundLoops) {
 					sfx.setLooping(soundId, true);
 
 				}
@@ -77,7 +77,7 @@ public final class SoundEffect implements Comparable {
 			Sound sfx = cue.getSFX();
 
 			if (soundId != -1) {
-				if (cue.canAlterDuration) {
+				if (cue.soundLoops) {
 					sfx.setLooping(soundId, false);
 					sfx.stop(soundId);
 				}

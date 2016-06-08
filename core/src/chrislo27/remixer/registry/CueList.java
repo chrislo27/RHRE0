@@ -383,6 +383,18 @@ public class CueList {
 			put(new Cue(ww, ww.name, "grow", 0.5f));
 			put(new Cue(ww, ww.name, "plant", 0.5f));
 		}
+		
+		{
+			Game vp = GameList.getGame("vegetaPull");
+			
+			put(new Cue(vp, vp.name, "appear", 0.5f));
+			put(new Cue(vp, vp.name, "longAppear", 0.5f));
+			put(new Cue(vp, vp.name, "pluck", 0.25f));
+			put(new Cue(vp, vp.name, "gr", 0.125f));
+			put(new Cue(vp, vp.name, "aaa", 0.25f).setSoundLoops(true));
+			put(new Cue(vp, vp.name, "b", 0.5f));
+			put(new Cue(vp, vp.name, "cashier", 1));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
@@ -446,6 +458,7 @@ public class CueList {
 		public final String folderParent;
 		public int pitchWithBpm = -1;
 		public boolean canAlterDuration = false;
+		public boolean soundLoops = false;
 
 		public Cue(Game game, String folderParent, String folder, String file, float duration) {
 			this.game = game;
@@ -467,9 +480,21 @@ public class CueList {
 			return this;
 		}
 
+		/**
+		 * Also sets sound looping to true.
+		 * @param b
+		 * @return
+		 */
 		public Cue setCanAlterDuration(boolean b) {
 			canAlterDuration = b;
+			setSoundLoops(true);
 
+			return this;
+		}
+		
+		public Cue setSoundLoops(boolean b){
+			soundLoops = true;
+			
 			return this;
 		}
 
