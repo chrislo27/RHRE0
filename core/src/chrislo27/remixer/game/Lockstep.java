@@ -23,6 +23,24 @@ public class Lockstep extends Game {
 			}
 		});
 
+		this.patterns.put("march", new Pattern(this) {
+
+			@Override
+			public void addPatternToArray(Array<SoundEffect> array) {
+				array.add(new SoundEffect(0, "lockstep_march1"));
+				array.add(new SoundEffect(1, "lockstep_march2"));
+			}
+		});
+
+		this.patterns.put("backbeat march", new Pattern(this) {
+
+			@Override
+			public void addPatternToArray(Array<SoundEffect> array) {
+				array.add(new SoundEffect(0, "lockstep_march1_bkbt"));
+				array.add(new SoundEffect(1, "lockstep_march2_bkbt"));
+			}
+		});
+
 		this.patterns.put("switch", new Pattern(this) {
 
 			@Override
@@ -48,24 +66,6 @@ public class Lockstep extends Game {
 				array.add(new SoundEffect(1, "lockstep_return_hee"));
 				array.add(new SoundEffect(1.5f, "lockstep_return_ha"));
 				array.add(new SoundEffect(2, "lockstep_hai"));
-			}
-		});
-
-		this.patterns.put("march", new Pattern(this) {
-
-			@Override
-			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "lockstep_march1"));
-				array.add(new SoundEffect(1, "lockstep_march2"));
-			}
-		});
-
-		this.patterns.put("backbeat march", new Pattern(this) {
-
-			@Override
-			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "lockstep_march1_bkbt"));
-				array.add(new SoundEffect(1, "lockstep_march2_bkbt"));
 			}
 		});
 	}
