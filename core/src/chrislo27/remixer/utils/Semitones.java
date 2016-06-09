@@ -1,11 +1,14 @@
 package chrislo27.remixer.utils;
 
+import com.badlogic.gdx.utils.IntMap;
+
 import ionium.util.Utils;
 
 public class Semitones {
 
 	public static final int SEMITONES_IN_OCTAVE = 12;
 	public static final float SEMITONE_VALUE = 1f / SEMITONES_IN_OCTAVE;
+	private static final IntMap<Float> cachedPitches = new IntMap<>();
 
 	public static String getSemitoneName(int semitone) {
 		String thing;
@@ -61,7 +64,11 @@ public class Semitones {
 	}
 
 	public static float getALPitch(int semitone) {
-		return (float) Math.pow(2.0, semitone * SEMITONE_VALUE);
+		if (cachedPitches.get(semitone) == null) {
+			cachedPitches.put(semitone, (float) Math.pow(2.0, semitone * SEMITONE_VALUE));
+		}
+
+		return cachedPitches.get(semitone);
 	}
 
 }
