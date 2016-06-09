@@ -41,8 +41,10 @@ public final class SoundEffect implements Comparable {
 	 */
 	public SoundEffect(SoundEffect copy) {
 		this(copy.beat, copy.cue);
+
 		position.set(copy.position);
 		duration = copy.duration;
+		semitones = copy.semitones;
 	}
 
 	public boolean isPointIn(float x, float y) {
