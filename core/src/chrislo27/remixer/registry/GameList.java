@@ -81,7 +81,7 @@ public class GameList {
 		put(new GleeClub("gleeClub", "ahemtoday"));
 		put(new Fillbots("fillbots", null));
 		put(new Lockstep2("lockstep2", null));
-		put(new BuiltToScaleDS("builtToScaleDS", "DeltaGrovyle"));
+		put(new BuiltToScaleDS("builtToScaleDS", "serena, DeltaGrovyle"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
