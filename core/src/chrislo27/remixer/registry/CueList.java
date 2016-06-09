@@ -268,13 +268,13 @@ public class CueList {
 		{
 			Game mdw = GameList.getGame("moaiDooWop");
 
-			Cue d1 = new Cue(mdw, mdw.name, "d1", 0.125f);
+			Cue d1 = new Cue(mdw, mdw.name, "d1", 0.125f).hideFromList();
 			put(new Cue(mdw, mdw.name, "ooo1", 1).setCanAlterDuration(true)
 					.setOneTimeSound(d1.soundId));
 			put(new Cue(mdw, mdw.name, "wop1", 0.5f));
 			put(new Cue(mdw, mdw.name, "pah1", 0.5f));
 
-			Cue d2 = new Cue(mdw, mdw.name, "d2", 0.125f);
+			Cue d2 = new Cue(mdw, mdw.name, "d2", 0.125f).hideFromList();
 			put(new Cue(mdw, mdw.name, "ooo2", 1).setCanAlterDuration(true)
 					.setOneTimeSound(d2.soundId));
 			put(new Cue(mdw, mdw.name, "wop2", 0.5f));
@@ -396,7 +396,7 @@ public class CueList {
 			put(new Cue(vp, vp.name, "appear", 0.5f));
 			put(new Cue(vp, vp.name, "longAppear", 0.5f));
 			put(new Cue(vp, vp.name, "pluck", 0.25f));
-			Cue gr = new Cue(vp, vp.name, "gr", 0.125f);
+			Cue gr = new Cue(vp, vp.name, "gr", 0.125f).hideFromList();
 			put(new Cue(vp, vp.name, "aaa", 0.5f).setSoundLoops(true).setOneTimeSound(gr.soundId));
 			put(new Cue(vp, vp.name, "b", 0.5f));
 			put(new Cue(vp, vp.name, "cashier", 1));
@@ -406,7 +406,7 @@ public class CueList {
 		{
 			Game gc = GameList.getGame("gleeClub");
 
-			Cue start = new Cue(gc, gc.name, "singBegin", 0.125f);
+			Cue start = new Cue(gc, gc.name, "singBegin", 0.125f).hideFromList();
 
 			put(new Cue(gc, gc.name, "singLoop", 1).setCanAlterDuration(true)
 					.setOneTimeSound(start.soundId).setCanAlterPitch(true));
@@ -429,6 +429,8 @@ public class CueList {
 		Array<SoundEffect> tmp = new Array<>();
 
 		outer: for (final Cue c : cues.getAllValues()) {
+			if (!c.shouldAppearInList) continue;
+
 			String id = Localization.get(c.soundId);
 			id = "[#ADADAD]" + id;
 			id = id.replace("\n", " - ");
@@ -491,6 +493,7 @@ public class CueList {
 		public boolean canAlterPitch = false;
 		public boolean soundLoops = false;
 		public String oneTimeSound = null;
+		public boolean shouldAppearInList = true;
 
 		public Cue(Game game, String folderParent, String folder, String file, float duration) {
 			this.game = game;
@@ -543,6 +546,12 @@ public class CueList {
 
 		public Cue setSoundLoops(boolean b) {
 			soundLoops = true;
+
+			return this;
+		}
+
+		public Cue hideFromList() {
+			shouldAppearInList = false;
 
 			return this;
 		}
