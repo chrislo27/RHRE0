@@ -50,8 +50,9 @@ public class KarateMan extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "karateMan_punchkick1"));
-				array.add(new SoundEffect(0.75f, "karateMan_punchkick2"));
+				array.add(new SoundEffect(0, "karateMan_barrelout"));
+				array.add(new SoundEffect(1, "karateMan_punchkick1"));
+				array.add(new SoundEffect(1.75f, "karateMan_punchkick2"));
 			}
 		});
 	}
