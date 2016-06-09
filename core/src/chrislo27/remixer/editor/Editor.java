@@ -9,6 +9,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -973,6 +974,53 @@ public class Editor extends InputAdapter implements Disposable {
 						}
 					}
 				}
+			}
+		}
+
+		{
+			boolean shouldResetCursor = true;
+
+			if (selection.size == 1 && selection.first().cue.canAlterDuration) {
+				Vector3 mouse = unprojectMouse();
+
+				int r = isResizing;
+
+				SoundEffect isPointIn = null;
+
+				outer: for (int track = 0; track < remix.tracks.size && r == 0; track++) {
+					for (SoundEffect sfx : remix.tracks.get(track)) {
+						if (!sfx.selected) continue;
+
+						boolean in = sfx.isPointIn(mouse.x, mouse.y);
+
+						if (in) {
+							isPointIn = sfx;
+							break outer;
+						}
+					}
+				}
+
+				if (isPointIn != null) {
+					if ((mouse.x >= isPointIn.position.x
+							&& mouse.x <= isPointIn.position.x + RESIZE_BEAT_DISTANCE)) {
+						r = 1;
+					} else if ((mouse.x >= isPointIn.position.x + isPointIn.duration * BLOCK_SIZE_X
+							- RESIZE_BEAT_DISTANCE
+							&& mouse.x <= isPointIn.position.x
+									+ isPointIn.duration * BLOCK_SIZE_X)) {
+						r = 2;
+					}
+				}
+
+				if (r != 0) {
+					main.setCursor(main.horizontalResize);
+					shouldResetCursor = false;
+				}
+
+			}
+
+			if (shouldResetCursor) {
+				main.setCursor(null);
 			}
 		}
 

@@ -2,6 +2,9 @@ package chrislo27.remixer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -25,11 +28,13 @@ public class Main extends ionium.templates.Main {
 			new Resolution(1360, 768), new Resolution(1366, 768), new Resolution(1600, 900),
 			new Resolution(1768, 992), new Resolution(1920, 1080) };
 
-	// 4x bigger
 	public BitmapFont biggerFont;
 	public BitmapFont biggerFontBordered;
 	public BitmapFont font;
 	public BitmapFont fontBordered;
+
+	private Cursor currentCursor = null;
+	public Cursor horizontalResize;
 
 	public Main(Logger l) {
 		super(l);
@@ -55,12 +60,33 @@ public class Main extends ionium.templates.Main {
 		Gdx.graphics.setTitle(getTitle());
 
 		AssetRegistry.instance().addAssetLoader(new DefAssetLoader());
+
+		horizontalResize = Gdx.graphics.newCursor(
+				new Pixmap(Gdx.files.internal("images/cursor/horizontalResize.png")), 16, 8);
+
 	}
 
 	private void resizeScreenFromSettings() {
 		Utils.resizeScreenFromSettings(Settings.instance().actualWidth,
 				Settings.instance().actualHeight, Settings.instance().fullscreen,
 				allowedAspectRatios);
+	}
+
+	public void setCursor(Cursor c) {
+		if (currentCursor == c) return;
+
+		currentCursor = c;
+
+		if (c == null) {
+			Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
+		} else {
+			Gdx.graphics.setCursor(c);
+		}
+
+	}
+
+	public Cursor getCurrentCursor() {
+		return currentCursor;
 	}
 
 	@Override
@@ -164,6 +190,8 @@ public class Main extends ionium.templates.Main {
 		biggerFontBordered.dispose();
 		font.dispose();
 		fontBordered.dispose();
+
+		horizontalResize.dispose();
 
 		GameList.instance().atlas.dispose();
 
