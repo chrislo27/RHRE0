@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import chrislo27.remixer.game.BlueBirds;
 import chrislo27.remixer.game.BuiltToScaleDS;
 import chrislo27.remixer.game.ClappyTrio;
+import chrislo27.remixer.game.CosmoDance;
 import chrislo27.remixer.game.CountInGame;
 import chrislo27.remixer.game.CropStomp;
 import chrislo27.remixer.game.CustomSound;
@@ -82,6 +83,7 @@ public class GameList {
 		put(new Fillbots("fillbots", null));
 		put(new Lockstep2("lockstep2", null));
 		put(new BuiltToScaleDS("builtToScaleDS", "serena, DeltaGrovyle"));
+		put(new CosmoDance("cosmoDance", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

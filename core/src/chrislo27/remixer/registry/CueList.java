@@ -142,16 +142,16 @@ public class CueList {
 			put(new Cue(sd, sd.name, "turn1", 0.5f));
 			put(new Cue(sd, sd.name, "right1", 0.5f));
 			put(new Cue(sd, sd.name, "lets1", 0.5f));
-			put(new Cue(sd, sd.name, "sit1", 0.5f));
+			put(new Cue(sd, sd.name, "sit1", 1 / 3f));
 			put(new Cue(sd, sd.name, "down1", 0.5f));
-			put(new Cue(sd, sd.name, "pa1", 0.5f));
+			put(new Cue(sd, sd.name, "pa1", 1 / 3f));
 			put(new Cue(sd, sd.name, "punch1", 1.5f));
 			put(new Cue(sd, sd.name, "turn2", 0.5f));
 			put(new Cue(sd, sd.name, "right2", 0.5f));
 			put(new Cue(sd, sd.name, "lets2", 0.5f));
-			put(new Cue(sd, sd.name, "sit2", 0.5f));
+			put(new Cue(sd, sd.name, "sit2", 1 / 3f));
 			put(new Cue(sd, sd.name, "down2", 0.5f));
-			put(new Cue(sd, sd.name, "pa2", 0.5f));
+			put(new Cue(sd, sd.name, "pa2", 1 / 3f));
 			put(new Cue(sd, sd.name, "punch2", 1.5f));
 		}
 
