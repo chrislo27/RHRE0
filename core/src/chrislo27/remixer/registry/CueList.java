@@ -393,8 +393,8 @@ public class CueList {
 		{
 			Game vp = GameList.getGame("vegetaPull");
 
-			put(new Cue(vp, vp.name, "appear", 0.5f));
-			put(new Cue(vp, vp.name, "longAppear", 0.5f));
+			put(new Cue(vp, vp.name, "appear", 0.25f));
+			put(new Cue(vp, vp.name, "longAppear", 0.25f));
 			put(new Cue(vp, vp.name, "pluck", 0.25f));
 			Cue gr = new Cue(vp, vp.name, "gr", 0.125f).hideFromList();
 			put(new Cue(vp, vp.name, "aaa", 0.5f).setSoundLoops(true).setOneTimeSound(gr.soundId));
