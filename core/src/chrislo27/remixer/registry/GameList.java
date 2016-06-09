@@ -76,7 +76,7 @@ public class GameList {
 		put(new ClappyTrio("clappyTrio", null));
 		put(new VegetaPull("vegetaPull", "megaminerzero"));
 		put(new WizardWaltz("wizardWaltz", null));
-		//put(new GleeClub("gleeClub", "ahemtoday"));
+		put(new GleeClub("gleeClub", "ahemtoday"));
 		put(new Fillbots("fillbots", null));
 
 		games.getAllKeys().sort();

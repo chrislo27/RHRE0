@@ -54,6 +54,7 @@ public class RemixPorter {
 				writer.name("beat").value(sfx.beat);
 				writer.name("cue").value(CueList.getKey(sfx.cue));
 				writer.name("duration").value(sfx.duration);
+				writer.name("semitones").value(sfx.semitones);
 
 				writer.pop();
 			}
@@ -116,6 +117,7 @@ public class RemixPorter {
 						sfx.position.set(sfx.beat * Editor.BLOCK_SIZE_X,
 								trackNumber * Editor.BLOCK_SIZE_Y);
 						sfx.duration = cue.getFloat("duration", sfx.cue.duration);
+						sfx.semitones = cue.getInt("semitones", 0);
 
 						track.add(sfx);
 					}

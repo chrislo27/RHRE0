@@ -6,17 +6,21 @@ import com.badlogic.gdx.math.Vector2;
 import chrislo27.remixer.editor.Editor;
 import chrislo27.remixer.registry.CueList;
 import chrislo27.remixer.registry.CueList.Cue;
+import chrislo27.remixer.utils.Semitones;
+import ionium.templates.Main;
 
 public final class SoundEffect implements Comparable {
 
 	public float beat = 0;
 	public Cue cue;
-	public int isCompleted = 0;
 	public Vector2 position = new Vector2();
-	public boolean selected = false;
-	public float duration = 1;
 
+	public boolean selected = false;
 	private long soundId = -1;
+	public int isCompleted = 0;
+
+	public float duration = 1;
+	public int semitones = 0;
 
 	public SoundEffect(float beat, String cue) {
 		this(beat, CueList.getCue(cue));
@@ -49,6 +53,11 @@ public final class SoundEffect implements Comparable {
 		return false;
 	}
 
+	public float getPitch(float bpm) {
+		return (cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(cue.pitchWithBpm, bpm) : 1)
+				* (Semitones.getALPitch(semitones));
+	}
+
 	public void onAction(Remix remix) {
 		isCompleted = 1;
 
@@ -56,13 +65,10 @@ public final class SoundEffect implements Comparable {
 			Sound sfx = cue.getSFX();
 			Sound oneTime = cue.getOneTimeSFX();
 
-			soundId = sfx.play(1,
-					cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(cue.pitchWithBpm, remix.bpm) : 1,
-					0);
+			soundId = sfx.play(1, getPitch(remix.bpm), 0);
 
 			if (oneTime != null) {
-				long id = oneTime.play(1, cue.pitchWithBpm > 0
-						? Remix.getPitchFromBpm(cue.pitchWithBpm, remix.bpm) : 1, 0);
+				long id = oneTime.play(1, getPitch(remix.bpm), 0);
 
 				if (id != -1) {
 					oneTime.setLooping(id, false);

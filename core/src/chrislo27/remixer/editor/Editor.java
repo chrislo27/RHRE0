@@ -33,6 +33,7 @@ import chrislo27.remixer.registry.CueList;
 import chrislo27.remixer.registry.GameList;
 import chrislo27.remixer.track.Remix;
 import chrislo27.remixer.track.SoundEffect;
+import chrislo27.remixer.utils.Semitones;
 import ionium.util.MathHelper;
 import ionium.util.Utils;
 import ionium.util.i18n.Localization;
@@ -53,6 +54,8 @@ public class Editor extends InputAdapter implements Disposable {
 	public static final int SCROLL_EXTRA_ITEMS = SELECT_BAR_HEIGHT / 64;
 	public static final int RESIZE_BEAT_DISTANCE = 16;
 	public static final float MIN_RESIZE = 0.25f;
+	public static final int MIN_SEMITONE = -Semitones.SEMITONES_IN_OCTAVE * 2;
+	public static final int MAX_SEMITONE = Semitones.SEMITONES_IN_OCTAVE * 2;
 
 	private static GlyphLayout tmpLayout = new GlyphLayout();
 	private static Vector3 tmpVec3 = new Vector3();
@@ -411,15 +414,18 @@ public class Editor extends InputAdapter implements Disposable {
 		batch.flush();
 		StencilMaskUtil.resetMask();
 
+		main.font.setColor(1, 1, 1, 0.5f);
+
 		{
 			Game current = GameList.instance().games.getAllValues().get(currentGame);
 			if (current.contributors != null) {
 				float x = SELECT_BAR_WIDTH + 16;
-				float y = SELECT_BAR_HEIGHT - 8;
+				float y = SELECT_BAR_HEIGHT - 8 - main.font.getLineHeight();
 
-				main.font.setColor(1, 1, 1, 0.5f);
 				main.font.draw(batch,
-						Localization.get("editor.contributions", current.contributors), x, y);
+						Localization.get("editor.contributions", current.contributors),
+						SELECT_BAR_WIDTH, main.font.getCapHeight() * 4.5f,
+						Gdx.graphics.getWidth() - SELECT_BAR_WIDTH - 4, Align.right, false);
 
 				if (current == GameList.getGame("custom")) {
 					if (storedPatterns.get(currentGame).patterns.size == 0) {
@@ -431,9 +437,29 @@ public class Editor extends InputAdapter implements Disposable {
 								true);
 					}
 				}
-				main.font.setColor(1, 1, 1, 1);
+
 			}
 		}
+
+		String selectText = Localization.get("editor.selected", selection.size);
+
+		if (selection.size == 1 && selection.first().cue.canAlterDuration) {
+			selectText += Localization.get("editor.resizeInfo");
+		}
+
+		if (selection.size > 0) {
+			for (int i = 0; i < selection.size; i++) {
+				if (selection.get(i).cue.canAlterPitch) {
+					selectText += Localization.get("editor.semitoneInfo");
+					break;
+				}
+			}
+		}
+
+		main.font.draw(batch, selectText, SELECT_BAR_WIDTH, (SELECT_BAR_HEIGHT - 8),
+				Gdx.graphics.getWidth() - SELECT_BAR_WIDTH - 4, Align.right, true);
+
+		main.font.setColor(1, 1, 1, 1);
 
 		batch.end();
 	}
@@ -473,6 +499,8 @@ public class Editor extends InputAdapter implements Disposable {
 
 		batch.setColor(1, 1, 1, 1);
 
+		float imageWidthAdditive = 0;
+
 		if (currentGame != sfx.cue.game || SHOW_GAME_ICON_ALWAYS) {
 			AtlasRegion region = GameList.getIcon(sfx.cue.game.name);
 
@@ -481,7 +509,7 @@ public class Editor extends InputAdapter implements Disposable {
 			float regionHeight = (region.getRegionHeight() * 1f / region.getRegionWidth())
 					* regionWidth;
 
-			//textOffsetX += regionWidth + padding;
+			imageWidthAdditive = regionWidth + padding;
 
 			batch.setColor(1, 1, 1, 0.25f);
 			batch.draw(region, x + thickness + padding, y + height * 0.5f - regionHeight * 0.5f,
@@ -498,6 +526,15 @@ public class Editor extends InputAdapter implements Disposable {
 				width - thickness * 2 - padding - textOffsetX, Align.right, true);
 
 		font.draw(batch, tmpLayout, x + textOffsetX, y + height * 0.5f + tmpLayout.height * 0.5f);
+
+		if (sfx.cue.canAlterPitch) {
+			String semitone = Semitones.getSemitoneName(sfx.semitones);
+
+			tmpLayout.setText(font, semitone);
+
+			font.draw(batch, semitone, x + textOffsetX + imageWidthAdditive,
+					y + height * 0.5f + tmpLayout.height * 0.5f);
+		}
 
 		font.getData().setScale(1);
 
@@ -973,15 +1010,25 @@ public class Editor extends InputAdapter implements Disposable {
 	@Override
 	public boolean scrolled(int amount) {
 		if (remix.isStarted()) return false;
-		if (Gdx.graphics.getHeight() - Gdx.input.getY() > SELECT_BAR_HEIGHT) return false;
 
-		if (Gdx.input.getX() <= SELECT_BAR_WIDTH) {
-			moveToGame(currentGame + amount, false);
+		if (Gdx.graphics.getHeight() - Gdx.input.getY() <= SELECT_BAR_HEIGHT) {
+			if (Gdx.input.getX() <= SELECT_BAR_WIDTH) {
+				moveToGame(currentGame + amount, false);
+			} else {
+				moveToPattern(currentPattern + amount);
+			}
+
+			return true;
 		} else {
-			moveToPattern(currentPattern + amount);
+			if (selection.size > 0) {
+				for (int i = 0; i < selection.size; i++) {
+					selection.get(i).semitones = MathUtils.clamp(
+							selection.get(i).semitones + -amount, MIN_SEMITONE, MAX_SEMITONE);
+				}
+			}
 		}
 
-		return true;
+		return false;
 	}
 
 	@Override

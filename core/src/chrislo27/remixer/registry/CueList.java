@@ -403,14 +403,14 @@ public class CueList {
 		}
 
 		{
-			//			Game gc = GameList.getGame("gleeClub");
-			//
-			//			Cue start = new Cue(gc, gc.name, "singBegin", 0.125f);
-			//
-			//			put(new Cue(gc, gc.name, "singLoop", 1).setCanAlterDuration(true)
-			//					.setOneTimeSound(start.soundId));
-			//			put(new Cue(gc, gc.name, "singEnd", 0.5f));
-			//			put(start);
+			Game gc = GameList.getGame("gleeClub");
+
+			Cue start = new Cue(gc, gc.name, "singBegin", 0.125f);
+
+			put(new Cue(gc, gc.name, "singLoop", 1).setCanAlterDuration(true)
+					.setOneTimeSound(start.soundId).setCanAlterPitch(true));
+			put(new Cue(gc, gc.name, "singEnd", 0.5f));
+			put(start);
 		}
 
 		{
@@ -486,6 +486,7 @@ public class CueList {
 		public final String folderParent;
 		public float pitchWithBpm = -1;
 		public boolean canAlterDuration = false;
+		public boolean canAlterPitch = false;
 		public boolean soundLoops = false;
 		public String oneTimeSound = null;
 
@@ -505,6 +506,12 @@ public class CueList {
 
 		public Cue setUsesPitch(float baseBpm) {
 			pitchWithBpm = baseBpm;
+
+			return this;
+		}
+
+		public Cue setCanAlterPitch(boolean b) {
+			canAlterPitch = b;
 
 			return this;
 		}
