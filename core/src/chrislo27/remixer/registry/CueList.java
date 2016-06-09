@@ -429,8 +429,9 @@ public class CueList {
 
 		outer: for (final Cue c : cues.getAllValues()) {
 			String id = Localization.get(c.soundId);
-			id = "Cue - " + id;
+			id = "[#ADADAD]" + id;
 			id = id.replace("\n", " - ");
+			id += "[]";
 
 			for (Pattern p : c.game.patterns.getAllValues()) {
 				tmp.clear();
