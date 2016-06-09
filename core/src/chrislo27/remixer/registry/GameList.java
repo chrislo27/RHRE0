@@ -16,6 +16,7 @@ import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.GleeClub;
 import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
+import chrislo27.remixer.game.Lockstep2;
 import chrislo27.remixer.game.MicroRow;
 import chrislo27.remixer.game.MoaiDooWop;
 import chrislo27.remixer.game.MunchyMonk;
@@ -78,6 +79,7 @@ public class GameList {
 		put(new WizardWaltz("wizardWaltz", null));
 		put(new GleeClub("gleeClub", "ahemtoday"));
 		put(new Fillbots("fillbots", null));
+		put(new Lockstep2("lockstep2", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

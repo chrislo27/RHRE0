@@ -63,14 +63,14 @@ public class CueList {
 
 			put(new Cue(ls, ls.name, "march1", 0.5f));
 			put(new Cue(ls, ls.name, "march2", 0.5f));
-			put(new Cue(ls, ls.name, "march1_bkbt", 0.5f));
-			put(new Cue(ls, ls.name, "march2_bkbt", 0.5f));
+			put(new Cue(ls, ls.name, "march1_bkbt", 1 / 3f));
+			put(new Cue(ls, ls.name, "march2_bkbt", 1 / 3f));
 			put(new Cue(ls, ls.name, "hai", 0.5f));
 			put(new Cue(ls, ls.name, "bkbt_ha", 0.5f));
-			put(new Cue(ls, ls.name, "bkbt_hoi", 0.5f));
-			put(new Cue(ls, ls.name, "bkbt_boh", 0.5f));
+			put(new Cue(ls, ls.name, "bkbt_hoi", 1 / 3f));
+			put(new Cue(ls, ls.name, "bkbt_boh", 1 / 3f));
 			put(new Cue(ls, ls.name, "return_hee", 0.5f));
-			put(new Cue(ls, ls.name, "return_ha", 0.5f));
+			put(new Cue(ls, ls.name, "return_ha", 1 / 3f));
 			put(new Cue(ls, ls.name, "corruptHai", 0.5f));
 		}
 
