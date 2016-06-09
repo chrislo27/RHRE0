@@ -379,7 +379,7 @@ public class CueList {
 		{
 			Game ct = GameList.getGame("clappyTrio");
 
-			put(new Cue(ct, ct.name, "clap", 0.5f));
+			put(new Cue(ct, ct.name, "clap", 0.25f));
 			put(new Cue(ct, ct.name, "ready", 0.25f));
 		}
 
