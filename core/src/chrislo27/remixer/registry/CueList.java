@@ -182,58 +182,56 @@ public class CueList {
 
 		{
 			Game rs = GameList.getGame("ringside");
-			final float third = 1 / 3f;
-
-			put(new Cue(rs, rs.name, "wubba1-1", third));
-			put(new Cue(rs, rs.name, "wubba1-2", third));
-			put(new Cue(rs, rs.name, "dubba1-1", third));
-			put(new Cue(rs, rs.name, "dubba1-2", third));
-			put(new Cue(rs, rs.name, "dubba1-3", third));
-			put(new Cue(rs, rs.name, "dubba1-4", third));
-			put(new Cue(rs, rs.name, "that1", third * 2));
-			put(new Cue(rs, rs.name, "true1", third));
-			put(new Cue(rs, rs.name, "woah1", third * 2));
-			put(new Cue(rs, rs.name, "you1", third));
+			put(new Cue(rs, rs.name, "wubba1-1", 0.25f));
+			put(new Cue(rs, rs.name, "wubba1-2", 0.25f));
+			put(new Cue(rs, rs.name, "dubba1-1", 0.25f));
+			put(new Cue(rs, rs.name, "dubba1-2", 0.25f));
+			put(new Cue(rs, rs.name, "dubba1-3", 0.25f));
+			put(new Cue(rs, rs.name, "dubba1-4", 0.25f));
+			put(new Cue(rs, rs.name, "that1", 0.5f));
+			put(new Cue(rs, rs.name, "true1", 0.5f));
+			put(new Cue(rs, rs.name, "woah1", 0.5f));
+			put(new Cue(rs, rs.name, "you1", 0.25f));
 			put(new Cue(rs, rs.name, "go1", 0.5f));
 			put(new Cue(rs, rs.name, "big1", 0.5f));
 			put(new Cue(rs, rs.name, "guy1", 0.5f));
 			put(new Cue(rs, rs.name, "pose1", 0.5f));
 			put(new Cue(rs, rs.name, "for1", 1 / 6f));
-			put(new Cue(rs, rs.name, "the1", third));
+			put(new Cue(rs, rs.name, "the1", 0.25f));
 			put(new Cue(rs, rs.name, "fans1", 0.5f));
-			put(new Cue(rs, rs.name, "wubba2-1", third));
-			put(new Cue(rs, rs.name, "wubba2-2", third));
-			put(new Cue(rs, rs.name, "dubba2-1", third));
-			put(new Cue(rs, rs.name, "dubba2-2", third));
-			put(new Cue(rs, rs.name, "dubba2-3", third));
-			put(new Cue(rs, rs.name, "dubba2-4", third));
-			put(new Cue(rs, rs.name, "that2", third * 2));
-			put(new Cue(rs, rs.name, "true2", third));
-			put(new Cue(rs, rs.name, "woah2", third * 2));
-			put(new Cue(rs, rs.name, "you2", third));
+			put(new Cue(rs, rs.name, "wubba2-1", 0.25f));
+			put(new Cue(rs, rs.name, "wubba2-2", 0.25f));
+			put(new Cue(rs, rs.name, "dubba2-1", 0.25f));
+			put(new Cue(rs, rs.name, "dubba2-2", 0.25f));
+			put(new Cue(rs, rs.name, "dubba2-3", 0.25f));
+			put(new Cue(rs, rs.name, "dubba2-4", 0.25f));
+			put(new Cue(rs, rs.name, "that2", 0.5f));
+			put(new Cue(rs, rs.name, "true2", 0.5f));
+			put(new Cue(rs, rs.name, "woah2", 0.5f));
+			put(new Cue(rs, rs.name, "you2", 0.25f));
 			put(new Cue(rs, rs.name, "go2", 0.5f));
 			put(new Cue(rs, rs.name, "big2", 0.5f));
 			put(new Cue(rs, rs.name, "guy2", 0.5f));
 			put(new Cue(rs, rs.name, "pose2", 0.5f));
 			put(new Cue(rs, rs.name, "for2", 1 / 6f));
-			put(new Cue(rs, rs.name, "the2", third));
+			put(new Cue(rs, rs.name, "the2", 0.25f));
 			put(new Cue(rs, rs.name, "fans2", 0.5f));
-			put(new Cue(rs, rs.name, "wubba3-1", third));
-			put(new Cue(rs, rs.name, "wubba3-2", third));
-			put(new Cue(rs, rs.name, "dubba3-1", third));
-			put(new Cue(rs, rs.name, "dubba3-2", third));
-			put(new Cue(rs, rs.name, "dubba3-3", third));
-			put(new Cue(rs, rs.name, "dubba3-4", third));
-			put(new Cue(rs, rs.name, "that3", third * 2));
-			put(new Cue(rs, rs.name, "true3", third));
-			put(new Cue(rs, rs.name, "woah3", third * 2));
-			put(new Cue(rs, rs.name, "you3", third));
+			put(new Cue(rs, rs.name, "wubba3-1", 0.25f));
+			put(new Cue(rs, rs.name, "wubba3-2", 0.25f));
+			put(new Cue(rs, rs.name, "dubba3-1", 0.25f));
+			put(new Cue(rs, rs.name, "dubba3-2", 0.25f));
+			put(new Cue(rs, rs.name, "dubba3-3", 0.25f));
+			put(new Cue(rs, rs.name, "dubba3-4", 0.25f));
+			put(new Cue(rs, rs.name, "that3", 0.5f));
+			put(new Cue(rs, rs.name, "true3", 0.5f));
+			put(new Cue(rs, rs.name, "woah3", 0.5f));
+			put(new Cue(rs, rs.name, "you3", 0.25f));
 			put(new Cue(rs, rs.name, "go3", 0.5f));
 			put(new Cue(rs, rs.name, "big3", 0.5f));
 			put(new Cue(rs, rs.name, "guy3", 0.5f));
 			put(new Cue(rs, rs.name, "pose3", 0.5f));
 			put(new Cue(rs, rs.name, "for3", 1 / 6f));
-			put(new Cue(rs, rs.name, "the3", third));
+			put(new Cue(rs, rs.name, "the3", 0.25f));
 			put(new Cue(rs, rs.name, "fans3", 0.5f));
 			put(new Cue(rs, rs.name, "poseAnd", 0.5f));
 			put(new Cue(rs, rs.name, "ye", 1));
@@ -424,10 +422,10 @@ public class CueList {
 			put(new Cue(fb, fb.name, "bigBot", 9).setUsesPitch(105));
 			put(new Cue(fb, fb.name, "smallBot", 3).setUsesPitch(105));
 		}
-		
+
 		{
 			Game bts = GameList.getGame("builtToScaleDS");
-			
+
 			put(new Cue(bts, bts.name, "c", 0.25f).setCanAlterPitch(true));
 			put(new Cue(bts, bts.name, "pew", 0.5f).setCanAlterPitch(true));
 		}

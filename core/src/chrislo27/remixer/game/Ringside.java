@@ -14,18 +14,16 @@ public class Ringside extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				final float third = 1 / 3f;
-
 				array.add(new SoundEffect(0, "ringside_wubba1-1"));
-				array.add(new SoundEffect(third, "ringside_wubba1-2"));
-				array.add(new SoundEffect(third * 2, "ringside_dubba1-1"));
-				array.add(new SoundEffect(1, "ringside_dubba1-2"));
-				array.add(new SoundEffect(1 + third, "ringside_dubba1-3"));
-				array.add(new SoundEffect(1 + third * 2, "ringside_dubba1-4"));
-				array.add(new SoundEffect(2, "ringside_that1"));
-				array.add(new SoundEffect(2 + third * 2, "ringside_true1"));
+				array.add(new SoundEffect(0.25f, "ringside_wubba1-2"));
+				array.add(new SoundEffect(0.5f, "ringside_dubba1-1"));
+				array.add(new SoundEffect(0.75f, "ringside_dubba1-2"));
+				array.add(new SoundEffect(1, "ringside_dubba1-3"));
+				array.add(new SoundEffect(1 + 0.25f, "ringside_dubba1-4"));
+				array.add(new SoundEffect(1.5f, "ringside_that1"));
+				array.add(new SoundEffect(2, "ringside_true1"));
 
-				array.add(new SoundEffect(4, "ringside_ye"));
+				array.add(new SoundEffect(3, "ringside_ye"));
 			}
 		});
 
@@ -34,7 +32,6 @@ public class Ringside extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				final float third = 1 / 3f;
-				final float sixth = 1 / 6f;
 
 				array.add(new SoundEffect(0, "ringside_woah1"));
 				array.add(new SoundEffect(third * 2, "ringside_you1"));
@@ -67,18 +64,16 @@ public class Ringside extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				final float third = 1 / 3f;
-
 				array.add(new SoundEffect(0, "ringside_wubba2-1"));
-				array.add(new SoundEffect(third, "ringside_wubba2-2"));
-				array.add(new SoundEffect(third * 2, "ringside_dubba2-1"));
-				array.add(new SoundEffect(1, "ringside_dubba2-2"));
-				array.add(new SoundEffect(1 + third, "ringside_dubba2-3"));
-				array.add(new SoundEffect(1 + third * 2, "ringside_dubba2-4"));
-				array.add(new SoundEffect(2, "ringside_that2"));
-				array.add(new SoundEffect(2 + third * 2, "ringside_true2"));
+				array.add(new SoundEffect(0.25f, "ringside_wubba2-2"));
+				array.add(new SoundEffect(0.5f, "ringside_dubba2-1"));
+				array.add(new SoundEffect(0.75f, "ringside_dubba2-2"));
+				array.add(new SoundEffect(1, "ringside_dubba2-3"));
+				array.add(new SoundEffect(1 + 0.25f, "ringside_dubba2-4"));
+				array.add(new SoundEffect(1.5f, "ringside_that2"));
+				array.add(new SoundEffect(2, "ringside_true2"));
 
-				array.add(new SoundEffect(4, "ringside_ye"));
+				array.add(new SoundEffect(3, "ringside_ye"));
 			}
 		});
 
@@ -87,7 +82,6 @@ public class Ringside extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				final float third = 1 / 3f;
-				final float sixth = 1 / 6f;
 
 				array.add(new SoundEffect(0, "ringside_woah2"));
 				array.add(new SoundEffect(third * 2, "ringside_you2"));
@@ -120,18 +114,16 @@ public class Ringside extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				final float third = 1 / 3f;
-
 				array.add(new SoundEffect(0, "ringside_wubba3-1"));
-				array.add(new SoundEffect(third, "ringside_wubba3-2"));
-				array.add(new SoundEffect(third * 2, "ringside_dubba3-1"));
-				array.add(new SoundEffect(1, "ringside_dubba3-2"));
-				array.add(new SoundEffect(1 + third, "ringside_dubba3-3"));
-				array.add(new SoundEffect(1 + third * 2, "ringside_dubba3-4"));
-				array.add(new SoundEffect(2, "ringside_that3"));
-				array.add(new SoundEffect(2 + third * 2, "ringside_true3"));
+				array.add(new SoundEffect(0.25f, "ringside_wubba3-2"));
+				array.add(new SoundEffect(0.5f, "ringside_dubba3-1"));
+				array.add(new SoundEffect(0.75f, "ringside_dubba3-2"));
+				array.add(new SoundEffect(1, "ringside_dubba3-3"));
+				array.add(new SoundEffect(1 + 0.25f, "ringside_dubba3-4"));
+				array.add(new SoundEffect(1.5f, "ringside_that3"));
+				array.add(new SoundEffect(2, "ringside_true3"));
 
-				array.add(new SoundEffect(4, "ringside_ye"));
+				array.add(new SoundEffect(3, "ringside_ye"));
 			}
 		});
 
@@ -140,7 +132,6 @@ public class Ringside extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				final float third = 1 / 3f;
-				final float sixth = 1 / 6f;
 
 				array.add(new SoundEffect(0, "ringside_woah3"));
 				array.add(new SoundEffect(third * 2, "ringside_you3"));
