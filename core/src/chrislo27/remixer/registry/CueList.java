@@ -437,7 +437,7 @@ public class CueList {
 			if (!c.shouldAppearInList) continue;
 
 			String id = Localization.get(c.soundId);
-			id = "[#ADADAD]" + id;
+			id = "> [#ADADAD]" + id;
 			id = id.replace("\n", " - ");
 			id += "[]";
 
