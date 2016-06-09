@@ -50,6 +50,7 @@ public class CueList {
 		{
 			Game ci = GameList.getGame("countIn");
 
+			put(new Cue(ci, ci.name, "silence", 1f).setCanAlterDuration(true));
 			put(new Cue(ci, ci.name, "and", 0.5f));
 			put(new Cue(ci, ci.name, "cowbell", 0.5f));
 			put(new Cue(ci, ci.name, "one", 0.5f));

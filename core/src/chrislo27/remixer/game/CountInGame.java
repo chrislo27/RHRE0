@@ -9,6 +9,8 @@ public class CountInGame extends Game {
 
 	public CountInGame(String name) {
 		super(name, null);
+		
+		this.sortingPriority = Short.MAX_VALUE;
 
 		this.patterns.put("and", new Pattern(this) {
 

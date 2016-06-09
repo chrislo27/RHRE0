@@ -5,6 +5,7 @@ import ionium.util.BiObjectMap;
 
 public class Game implements Comparable {
 
+	protected int sortingPriority = 0;
 	public final String name;
 	public final BiObjectMap<String, Pattern> patterns = new BiObjectMap<>();
 	public final String contributors;
@@ -18,6 +19,14 @@ public class Game implements Comparable {
 	public int compareTo(Object o) {
 		if (o instanceof Game) {
 			Game g = (Game) o;
+
+			if (g.sortingPriority != this.sortingPriority) {
+				if (g.sortingPriority > this.sortingPriority) {
+					return 1;
+				} else {
+					return -1;
+				}
+			}
 
 			return this.name.compareTo(g.name);
 		}
