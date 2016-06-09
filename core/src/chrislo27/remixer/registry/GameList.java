@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.ObjectMap;
 
 import chrislo27.remixer.game.BlueBirds;
+import chrislo27.remixer.game.BuiltToScaleDS;
 import chrislo27.remixer.game.ClappyTrio;
 import chrislo27.remixer.game.CountInGame;
 import chrislo27.remixer.game.CropStomp;
@@ -80,6 +81,7 @@ public class GameList {
 		put(new GleeClub("gleeClub", "ahemtoday"));
 		put(new Fillbots("fillbots", null));
 		put(new Lockstep2("lockstep2", null));
+		put(new BuiltToScaleDS("builtToScaleDS", "DeltaGrovyle"));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

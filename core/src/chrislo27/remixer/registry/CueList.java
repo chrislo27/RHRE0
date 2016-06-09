@@ -424,6 +424,13 @@ public class CueList {
 			put(new Cue(fb, fb.name, "bigBot", 9).setUsesPitch(105));
 			put(new Cue(fb, fb.name, "smallBot", 3).setUsesPitch(105));
 		}
+		
+		{
+			Game bts = GameList.getGame("builtToScaleDS");
+			
+			put(new Cue(bts, bts.name, "c", 0.25f).setCanAlterPitch(true));
+			put(new Cue(bts, bts.name, "pew", 0.5f).setCanAlterPitch(true));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
