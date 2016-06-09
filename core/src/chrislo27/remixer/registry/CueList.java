@@ -365,10 +365,10 @@ public class CueList {
 		{
 			Game mr = GameList.getGame("microRow");
 
-			put(new Cue(mr, mr.name, "go", 0.5f));
+			put(new Cue(mr, mr.name, "go", 3 / 8f));
 			put(new Cue(mr, mr.name, "ding", 0.5f));
-			put(new Cue(mr, mr.name, "dash1", 0.5f));
-			put(new Cue(mr, mr.name, "dash2", 0.5f));
+			put(new Cue(mr, mr.name, "dash1", 3 / 8f));
+			put(new Cue(mr, mr.name, "dash2", 5 / 8f));
 			put(new Cue(mr, mr.name, "triple1", 0.5f));
 			put(new Cue(mr, mr.name, "triple2", 0.5f));
 			put(new Cue(mr, mr.name, "triple3", 0.5f));

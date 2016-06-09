@@ -36,9 +36,9 @@ public class MicroRow extends Game {
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
 				array.add(new SoundEffect(0, "microRow_dash1"));
-				array.add(new SoundEffect(0.5f, "microRow_dash2"));
+				array.add(new SoundEffect(3 / 8f, "microRow_dash2"));
 				
-				array.add(new SoundEffect(1.5f, "microRow_go"));
+				array.add(new SoundEffect(1 + 5 / 8f, "microRow_go"));
 				array.add(new SoundEffect(2, "microRow_go"));
 			}
 		});
