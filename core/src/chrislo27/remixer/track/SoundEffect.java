@@ -102,6 +102,18 @@ public final class SoundEffect implements Comparable {
 		}
 	}
 
+	public SoundEffect setDuration(float dur) {
+		duration = dur;
+
+		return this;
+	}
+
+	public SoundEffect setSemitone(int i) {
+		semitones = i;
+
+		return this;
+	}
+
 	public void reset() {
 		isCompleted = 0;
 
