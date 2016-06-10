@@ -37,6 +37,7 @@ import chrislo27.remixer.game.TapTroupe;
 import chrislo27.remixer.game.VegetaPull;
 import chrislo27.remixer.game.WizardWaltz;
 import chrislo27.remixer.game.WorkingDough;
+import ionium.templates.Main;
 import ionium.util.BiObjectMap;
 
 public class GameList {
@@ -95,6 +96,8 @@ public class GameList {
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
+		
+		Main.logger.info("Added " + games.getAllValues().size + " games to list");
 
 	}
 
