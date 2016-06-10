@@ -437,6 +437,17 @@ public class CueList {
 			put(new Cue(hr, hr.name, "cymbal", 0.5f).setCanAlterPitch(true));
 		}
 
+		{
+			Game ll = GameList.getGame("loveLizards");
+
+			put(new Cue(ll, ll.name, "bzzt1", 0.5f));
+			put(new Cue(ll, ll.name, "bzzt2", 0.5f));
+			put(new Cue(ll, ll.name, "bzzt3", 0.5f));
+			put(new Cue(ll, ll.name, "bzzt4", 0.5f));
+
+			put(new Cue(ll, ll.name, "happy", 0.5f));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 
