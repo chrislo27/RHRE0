@@ -430,6 +430,13 @@ public class CueList {
 			put(new Cue(bts, bts.name, "pew", 0.5f).setCanAlterPitch(true));
 		}
 
+		{
+			Game hr = GameList.getGame("hoppingRoad");
+
+			put(new Cue(hr, hr.name, "tink", 0.25f).setCanAlterPitch(true));
+			put(new Cue(hr, hr.name, "cymbal", 0.5f).setCanAlterPitch(true));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 

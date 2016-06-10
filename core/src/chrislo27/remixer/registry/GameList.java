@@ -16,6 +16,7 @@ import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.Fillbots;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.GleeClub;
+import chrislo27.remixer.game.HoppingRoad;
 import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.Lockstep2;
@@ -84,6 +85,7 @@ public class GameList {
 		put(new Lockstep2("lockstep2", null));
 		put(new BuiltToScaleDS("builtToScaleDS", "serena, DeltaGrovyle"));
 		put(new CosmoDance("cosmoDance", null));
+		put(new HoppingRoad("hoppingRoad", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
