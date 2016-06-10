@@ -23,7 +23,7 @@ public class AirBatter extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "airBatter_shoot"));
+				array.add(new SoundEffect(0, "airBatter_longShoot"));
 				array.add(new SoundEffect(2, "airBatter_hit"));
 			}
 		});
