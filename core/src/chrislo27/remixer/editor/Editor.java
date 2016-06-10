@@ -533,8 +533,7 @@ public class Editor extends InputAdapter implements Disposable {
 
 			tmpLayout.setText(font, semitone);
 
-			font.draw(batch, semitone, x + textOffsetX + imageWidthAdditive,
-					y + height * 0.5f + tmpLayout.height * 0.5f);
+			font.draw(batch, semitone, x + textOffsetX, y + height - thickness - padding);
 		}
 
 		font.getData().setScale(1);
