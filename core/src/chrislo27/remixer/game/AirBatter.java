@@ -19,14 +19,14 @@ public class AirBatter extends Game {
 			}
 		});
 		
-//		this.patterns.put("long", new Pattern(this) {
-//
-//			@Override
-//			public void addPatternToArray(Array<SoundEffect> array) {
-//				array.add(new SoundEffect(0, "airBatter_shoot"));
-//				array.add(new SoundEffect(2, "airBatter_hit"));
-//			}
-//		});
+		this.patterns.put("long", new Pattern(this) {
+
+			@Override
+			public void addPatternToArray(Array<SoundEffect> array) {
+				array.add(new SoundEffect(0, "airBatter_shoot"));
+				array.add(new SoundEffect(2, "airBatter_hit"));
+			}
+		});
 	}
 
 }
