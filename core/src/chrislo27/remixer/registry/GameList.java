@@ -13,11 +13,13 @@ import chrislo27.remixer.game.CropStomp;
 import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DogNinja;
 import chrislo27.remixer.game.DonkDonk;
+import chrislo27.remixer.game.ExhibitionMatch;
 import chrislo27.remixer.game.Fillbots;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.GleeClub;
 import chrislo27.remixer.game.HoppingRoad;
 import chrislo27.remixer.game.KarateMan;
+import chrislo27.remixer.game.LaunchParty;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.Lockstep2;
 import chrislo27.remixer.game.LoveLizards;
@@ -88,6 +90,8 @@ public class GameList {
 		put(new CosmoDance("cosmoDance", null));
 		put(new HoppingRoad("hoppingRoad", null));
 		put(new LoveLizards("loveLizards", null));
+		put(new LaunchParty("launchParty", null));
+		put(new ExhibitionMatch("exhibitionMatch", null));	
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

@@ -448,6 +448,15 @@ public class CueList {
 			put(new Cue(ll, ll.name, "happy", 0.5f));
 		}
 
+		{
+			Game em = GameList.getGame("exhibitionMatch");
+
+			put(new Cue(em, em.name, "stance", 0.5f));
+			put(new Cue(em, em.name, "throw", 0.5f));
+			put(new Cue(em, em.name, "hit", 1));
+			put(new Cue(em, em.name, "hitHomerun", 2));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 
