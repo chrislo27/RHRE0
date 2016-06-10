@@ -493,6 +493,20 @@ public class CueList {
 			put(new Cue(lp, lp.name, "seven-go", 1).setCanAlterPitch(true));
 		}
 
+		{
+			Game n = GameList.getGame("ninja");
+
+			put(new Cue(n, n.name, "shoot", 0.25f));
+			put(new Cue(n, n.name, "cut", 0.25f));
+		}
+		
+		{
+			Game ab = GameList.getGame("airBatter");
+			
+			put(new Cue(ab, ab.name, "shoot", 0.5f));
+			put(new Cue(ab, ab.name, "hit", 0.5f));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 

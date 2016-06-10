@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.ObjectMap;
 
+import chrislo27.remixer.game.AirBatter;
 import chrislo27.remixer.game.BlueBirds;
 import chrislo27.remixer.game.BuiltToScaleDS;
 import chrislo27.remixer.game.ClappyTrio;
@@ -26,6 +27,7 @@ import chrislo27.remixer.game.LoveLizards;
 import chrislo27.remixer.game.MicroRow;
 import chrislo27.remixer.game.MoaiDooWop;
 import chrislo27.remixer.game.MunchyMonk;
+import chrislo27.remixer.game.Ninja;
 import chrislo27.remixer.game.RhythmRally;
 import chrislo27.remixer.game.Ringside;
 import chrislo27.remixer.game.ShootEmUp;
@@ -92,11 +94,13 @@ public class GameList {
 		put(new HoppingRoad("hoppingRoad", null));
 		put(new LoveLizards("loveLizards", null));
 		put(new LaunchParty("launchParty", null));
-		put(new ExhibitionMatch("exhibitionMatch", null));	
+		put(new ExhibitionMatch("exhibitionMatch", null));
+		put(new Ninja("ninja", null));
+		put(new AirBatter("airBatter", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
-		
+
 		Main.logger.info("Added " + games.getAllValues().size + " games to list");
 
 	}
