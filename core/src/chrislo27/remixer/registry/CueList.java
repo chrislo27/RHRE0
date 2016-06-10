@@ -465,6 +465,34 @@ public class CueList {
 			put(new Cue(em, em.name, "hitHomerun", 2));
 		}
 
+		{
+			Game lp = GameList.getGame("launchParty");
+
+			put(new Cue(lp, lp.name, "one", 0.5f));
+			put(new Cue(lp, lp.name, "one-go", 0.5f));
+			
+			put(new Cue(lp, lp.name, "three-3", 0.5f));
+			put(new Cue(lp, lp.name, "three-2", 0.5f));
+			put(new Cue(lp, lp.name, "three-1", 0.5f));
+			put(new Cue(lp, lp.name, "three-go", 0.5f));
+			
+			put(new Cue(lp, lp.name, "five-5", 0.5f));
+			put(new Cue(lp, lp.name, "five-4", 0.5f));
+			put(new Cue(lp, lp.name, "five-3", 0.5f));
+			put(new Cue(lp, lp.name, "five-2", 0.5f));
+			put(new Cue(lp, lp.name, "five-1", 0.5f));
+			put(new Cue(lp, lp.name, "five-go", 0.5f));
+			
+			put(new Cue(lp, lp.name, "seven-7", 0.5f));
+			put(new Cue(lp, lp.name, "seven-6", 0.5f));
+			put(new Cue(lp, lp.name, "seven-5", 0.5f));
+			put(new Cue(lp, lp.name, "seven-4", 0.5f));
+			put(new Cue(lp, lp.name, "seven-3", 0.5f));
+			put(new Cue(lp, lp.name, "seven-2", 0.5f));
+			put(new Cue(lp, lp.name, "seven-1", 0.5f));
+			put(new Cue(lp, lp.name, "seven-go", 0.5f));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 
