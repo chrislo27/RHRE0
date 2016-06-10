@@ -513,6 +513,28 @@ public class CueList {
 			put(new Cue(db, db.name, "appear", 0.5f));
 			put(new Cue(db, db.name, "stab", 0.5f));
 		}
+		
+		{
+			Game fh = GameList.getGame("frogHop");
+			
+			put(new Cue(fh, fh.name, "shake", 0.25f));
+			put(new Cue(fh, fh.name, "one", 0.5f));
+			put(new Cue(fh, fh.name, "two", 0.5f));
+			put(new Cue(fh, fh.name, "three", 0.5f));
+			put(new Cue(fh, fh.name, "four", 0.5f));
+			put(new Cue(fh, fh.name, "yahoo1", 0.5f));
+			put(new Cue(fh, fh.name, "yahoo2", 0.5f));
+			put(new Cue(fh, fh.name, "yahoo3", 0.5f));
+			put(new Cue(fh, fh.name, "yahoo4", 0.5f));
+			put(new Cue(fh, fh.name, "yeah1", 0.5f));
+			put(new Cue(fh, fh.name, "yeah2", 0.5f));
+			put(new Cue(fh, fh.name, "spinitboys1", 0.5f));
+			put(new Cue(fh, fh.name, "spinitboys2", 0.5f));
+			put(new Cue(fh, fh.name, "spinitboys3", 0.5f));
+			put(new Cue(fh, fh.name, "spinitboys4", 0.5f));
+			put(new Cue(fh, fh.name, "spinitboys5", 0.5f));
+			put(new Cue(fh, fh.name, "spinitboys6", 0.5f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();

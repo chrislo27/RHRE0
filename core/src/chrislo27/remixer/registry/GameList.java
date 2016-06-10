@@ -17,6 +17,7 @@ import chrislo27.remixer.game.DonkDonk;
 import chrislo27.remixer.game.DrBacteria;
 import chrislo27.remixer.game.ExhibitionMatch;
 import chrislo27.remixer.game.Fillbots;
+import chrislo27.remixer.game.FrogHop;
 import chrislo27.remixer.game.Game;
 import chrislo27.remixer.game.GleeClub;
 import chrislo27.remixer.game.HoppingRoad;
@@ -99,6 +100,7 @@ public class GameList {
 		put(new Ninja("ninja", null));
 		put(new AirBatter("airBatter", null));
 		put(new DrBacteria("drBacteria", null));
+		put(new FrogHop("frogHop", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
