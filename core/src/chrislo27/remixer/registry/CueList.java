@@ -443,6 +443,7 @@ public class CueList {
 
 			put(new Cue(hr, hr.name, "tink", 0.25f).setCanAlterPitch(true));
 			put(new Cue(hr, hr.name, "cymbal", 0.5f).setCanAlterPitch(true));
+			put(new Cue(hr, hr.name, "spySnort", 0.25f).setCanAlterPitch(true));
 		}
 
 		{

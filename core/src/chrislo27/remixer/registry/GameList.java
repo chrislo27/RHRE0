@@ -98,7 +98,7 @@ public class GameList {
 		put(new LaunchParty("launchParty", null));
 		put(new ExhibitionMatch("exhibitionMatch", null));
 		put(new Ninja("ninja", null));
-		put(new AirBatter("airBatter", null));
+		put(new AirBatter("airBatter", "Chocolate2890"));
 		put(new DrBacteria("drBacteria", null));
 		put(new FrogHop("frogHop", null));
 
