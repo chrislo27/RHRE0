@@ -335,6 +335,8 @@ public class CueList {
 			put(new Cue(km, km.name, "potout", 0.5f));
 			put(new Cue(km, km.name, "punchkick1", 0.5f));
 			put(new Cue(km, km.name, "punchkick2", 0.5f));
+			put(new Cue(km, km.name, "hit4", 0.5f));
+			put(new Cue(km, km.name, "rock", 0.5f));
 		}
 
 		{

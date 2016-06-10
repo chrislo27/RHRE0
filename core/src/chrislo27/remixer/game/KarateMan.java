@@ -45,6 +45,14 @@ public class KarateMan extends Game {
 				array.add(new SoundEffect(0.5f, "karateMan_hit3cue2"));
 			}
 		});
+		this.patterns.put("hit 4", new Pattern(this) {
+
+			@Override
+			public void addPatternToArray(Array<SoundEffect> array) {
+				array.add(new SoundEffect(0, "karateMan_hit3cue1"));
+				array.add(new SoundEffect(0.5f, "karateMan_hit4"));
+			}
+		});
 		
 		this.patterns.put("punch kick!", new Pattern(this) {
 
