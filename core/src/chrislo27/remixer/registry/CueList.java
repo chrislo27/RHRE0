@@ -499,24 +499,25 @@ public class CueList {
 			put(new Cue(n, n.name, "shoot", 0.25f));
 			put(new Cue(n, n.name, "cut", 0.25f));
 		}
-		
+
 		{
 			Game ab = GameList.getGame("airBatter");
-			
+
 			put(new Cue(ab, ab.name, "shoot", 0.5f));
 			put(new Cue(ab, ab.name, "hit", 0.5f));
+			//put(new Cue(ab, ab.name, "longShoot", 1));
 		}
-		
+
 		{
 			Game db = GameList.getGame("drBacteria");
-			
+
 			put(new Cue(db, db.name, "appear", 0.5f));
 			put(new Cue(db, db.name, "stab", 0.5f));
 		}
-		
+
 		{
 			Game fh = GameList.getGame("frogHop");
-			
+
 			put(new Cue(fh, fh.name, "shake", 0.25f));
 			put(new Cue(fh, fh.name, "one", 0.5f));
 			put(new Cue(fh, fh.name, "two", 0.5f));
@@ -569,8 +570,8 @@ public class CueList {
 
 		tmp.clear();
 		tmp = null;
-		System.gc();
 
+		Main.logger.info("Added " + cues.getAllValues().size + " cues to list");
 	}
 
 	public void put(Cue cue, String... deprecatedNames) {
