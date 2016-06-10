@@ -106,7 +106,6 @@ public class GameList {
 		games.getAllValues().sort();
 
 		Main.logger.info("Added " + games.getAllValues().size + " games to list");
-
 	}
 
 	public void put(Game game) {

@@ -505,7 +505,7 @@ public class CueList {
 
 			put(new Cue(ab, ab.name, "shoot", 0.5f));
 			put(new Cue(ab, ab.name, "hit", 0.5f));
-			//put(new Cue(ab, ab.name, "longShoot", 1));
+			put(new Cue(ab, ab.name, "longShoot", 0.5f));
 		}
 
 		{
