@@ -506,6 +506,13 @@ public class CueList {
 			put(new Cue(ab, ab.name, "shoot", 0.5f));
 			put(new Cue(ab, ab.name, "hit", 0.5f));
 		}
+		
+		{
+			Game db = GameList.getGame("drBacteria");
+			
+			put(new Cue(db, db.name, "appear", 0.5f));
+			put(new Cue(db, db.name, "stab", 0.5f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
