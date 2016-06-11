@@ -84,7 +84,10 @@ public class Remix {
 		isPaused = false;
 
 		beat = music != null ? (musicStartTime < 0 ? getBeatFromSec(musicStartTime, bpm) : 0) : 0;
-		if (music != null) music.stop();
+		if (music != null) {
+			music.stop();
+			music.setPosition(0);
+		}
 
 		AssetRegistry.instance().stopAllSound();
 
@@ -101,18 +104,19 @@ public class Remix {
 		isPaused = false;
 		recalculate();
 
-		if (music != null) {
-			music.play();
-			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
-		}
-
 		AssetRegistry.instance().resumeAllSound();
 	}
 
 	public void update(float delta, boolean onlySelected) {
 		if (isStopped || isPaused) return;
 
-		if (music != null && music.isPlaying()) {
+		if (music != null && !music.isPlaying() && beat >= getBeatFromSec(musicStartTime, bpm)) {
+			music.play();
+			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
+		}
+
+		if (music != null && music.isPlaying()
+				&& beat >= getBeatFromSec(music.getPosition() + musicStartTime, bpm)) {
 			beat = getBeatFromSec(music.getPosition() + musicStartTime, bpm);
 		} else {
 			beat += getBeatFromSec(delta, bpm);
