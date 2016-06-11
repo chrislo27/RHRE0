@@ -35,6 +35,7 @@ import chrislo27.remixer.game.MunchyMonk;
 import chrislo27.remixer.game.Ninja;
 import chrislo27.remixer.game.RhythmRally;
 import chrislo27.remixer.game.Ringside;
+import chrislo27.remixer.game.ScrewbotFactory;
 import chrislo27.remixer.game.ShootEmUp;
 import chrislo27.remixer.game.ShrimpShuffle;
 import chrislo27.remixer.game.SpaceDance;
@@ -111,6 +112,7 @@ public class GameList {
 		put(new BonOdori("bonOdori", null));
 		put(new LoveLab("loveLab", null));
 		put(new DoubleDate("doubleDate", null));
+		put(new ScrewbotFactory("screwbotFactory", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

@@ -594,6 +594,15 @@ public class CueList {
 			put(new Cue(ll, ll.name, "shake2", 0.25f));
 		}
 
+		{
+			Game sf = GameList.getGame("screwbotFactory");
+
+			put(new Cue(sf, sf.name, "clankclank1", 0.5f));
+			put(new Cue(sf, sf.name, "clankclank2", 0.5f));
+			put(new Cue(sf, sf.name, "ohyeah", 5).setUsesPitch(105));
+			put(new Cue(sf, sf.name, "letsgo", 4).setUsesPitch(105));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 
