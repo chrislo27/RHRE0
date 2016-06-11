@@ -173,6 +173,10 @@ public class Editor extends InputAdapter implements Disposable {
 		oldPositions.clear();
 	}
 
+	public void setStartPos(float start) {
+		startPos = start;
+	}
+
 	public void play() {
 		if (!remix.isPaused()) remix.setCurrentBeat(startPos);
 

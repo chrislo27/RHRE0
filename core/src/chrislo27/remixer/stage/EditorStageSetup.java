@@ -100,6 +100,7 @@ public class EditorStageSetup {
 						editorScreen.editor.setRemix(new Remix(120, Editor.TRACK_COUNT));
 						editorScreen.editor.setMusic(null);
 						editorScreen.editor.camera.position.x = 0;
+						editorScreen.editor.setStartPos(editorScreen.editor.getRemix().musicStartTime);
 					}
 				};
 
@@ -165,6 +166,7 @@ public class EditorStageSetup {
 										editorScreen.editor.setRemix(r);
 										editorScreen.editor.setMusic(null);
 										editorScreen.editor.camera.position.x = 0;
+										editorScreen.editor.setStartPos(editorScreen.editor.getRemix().musicStartTime);
 										lastOpenLocation = selectedFile;
 
 										setSelectingFile(false);
