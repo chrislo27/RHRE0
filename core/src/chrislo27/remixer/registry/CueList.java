@@ -435,7 +435,7 @@ public class CueList {
 			Game bts = GameList.getGame("builtToScaleDS");
 
 			put(new Cue(bts, bts.name, "c", 0.25f).setCanAlterPitch(true));
-			put(new Cue(bts, bts.name, "pew", 0.5f).setCanAlterPitch(true));
+			put(new Cue(bts, bts.name, "pew", 0.5f));
 		}
 
 		{
