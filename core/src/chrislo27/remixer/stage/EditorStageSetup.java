@@ -397,6 +397,7 @@ public class EditorStageSetup {
 							System.gc();
 
 							setSelectingFile(false);
+							toolbar.setVisible(true);
 						}
 					};
 
