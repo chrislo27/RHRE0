@@ -14,8 +14,8 @@ public class ScrewbotFactory extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "screwbotFactory_"));
-				array.add(new SoundEffect(0.5f, "screwbotFactory_"));
+				array.add(new SoundEffect(0, "screwbotFactory_clankclank1"));
+				array.add(new SoundEffect(0.5f, "screwbotFactory_clankclank2"));
 				
 				array.add(new SoundEffect(2, "screwbotFactory_ohyeah"));
 			}
@@ -25,8 +25,8 @@ public class ScrewbotFactory extends Game {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
-				array.add(new SoundEffect(0, "screwbotFactory_"));
-				array.add(new SoundEffect(0.5f, "screwbotFactory_"));
+				array.add(new SoundEffect(0, "screwbotFactory_clankclank1"));
+				array.add(new SoundEffect(0.5f, "screwbotFactory_clankclank2"));
 				
 				array.add(new SoundEffect(2, "screwbotFactory_letsgo"));
 			}
