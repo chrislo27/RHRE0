@@ -603,6 +603,13 @@ public class CueList {
 			put(new Cue(sf, sf.name, "letsgo", 4).setUsesPitch(105));
 		}
 
+		{
+			Game c = GameList.getGame("cannery");
+
+			put(new Cue(c, c.name, "ding", 0.5f));
+			put(new Cue(c, c.name, "steam", 0.5f));
+		}
+
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
 
