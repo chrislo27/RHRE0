@@ -575,7 +575,11 @@ public class CueList {
 		{
 			Game dd = GameList.getGame("doubleDate");
 
-			//put(new Cue(dd, dd.name, "", 0.5f));
+			put(new Cue(dd, dd.name, "basketballBounce", 0.25f));
+			put(new Cue(dd, dd.name, "footballBounce", 0.5f));
+			put(new Cue(dd, dd.name, "footballKick", 0.5f));
+			put(new Cue(dd, dd.name, "kick", 0.5f));
+			put(new Cue(dd, dd.name, "soccerBounce", 0.5f));
 		}
 
 		{
