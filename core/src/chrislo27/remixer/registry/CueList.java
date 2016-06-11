@@ -541,10 +541,10 @@ public class CueList {
 		{
 			Game sd = GameList.getGame("splashdown");
 			
-			put(new Cue(sd, sd.name, "alleyoop", 1).setUsesPitch(120));
+			put(new Cue(sd, sd.name, "alleyoop", 1));
 			put(new Cue(sd, sd.name, "ascend", 0.25f));
 			put(new Cue(sd, sd.name, "descend", 0.25f));
-			put(new Cue(sd, sd.name, "oooh", 2.5f).setUsesPitch(120));
+			put(new Cue(sd, sd.name, "oooh", 1).setCanAlterDuration(true).setSoundLoops(false));
 			put(new Cue(sd, sd.name, "spin1", 0.5f));
 			put(new Cue(sd, sd.name, "spin2", 0.5f));
 			put(new Cue(sd, sd.name, "start", 0.5f));
@@ -680,7 +680,7 @@ public class CueList {
 		}
 
 		public Cue setSoundLoops(boolean b) {
-			soundLoops = true;
+			soundLoops = b;
 
 			return this;
 		}
