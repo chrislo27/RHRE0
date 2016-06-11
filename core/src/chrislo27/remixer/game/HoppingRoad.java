@@ -33,7 +33,7 @@ public class HoppingRoad extends Game {
 			}
 		});
 		
-		this.patterns.put("tf2 spy pattern", new Pattern(this) {
+		this.patterns.put("TF2 spy pattern", new Pattern(this) {
 
 			@Override
 			public void addPatternToArray(Array<SoundEffect> array) {
