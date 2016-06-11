@@ -36,6 +36,7 @@ import chrislo27.remixer.game.ShootEmUp;
 import chrislo27.remixer.game.ShrimpShuffle;
 import chrislo27.remixer.game.SpaceDance;
 import chrislo27.remixer.game.SpaceSoccer;
+import chrislo27.remixer.game.Splashdown;
 import chrislo27.remixer.game.TapTrial;
 import chrislo27.remixer.game.TapTroupe;
 import chrislo27.remixer.game.VegetaPull;
@@ -101,6 +102,7 @@ public class GameList {
 		put(new AirBatter("airBatter", "Chocolate2890"));
 		put(new DrBacteria("drBacteria", null));
 		put(new FrogHop("frogHop", null));
+		put(new Splashdown("splashdown", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();
