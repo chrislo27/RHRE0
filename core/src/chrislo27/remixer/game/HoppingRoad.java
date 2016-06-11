@@ -25,14 +25,13 @@ public class HoppingRoad extends Game {
 				array.add(new SoundEffect(4, "hoppingRoad_tink").setSemitone(0));
 				array.add(new SoundEffect(4.5f, "hoppingRoad_tink").setSemitone(0));
 				array.add(new SoundEffect(5, "hoppingRoad_tink").setSemitone(0));
-				array.add(new SoundEffect(5.5f, "hoppingRoad_tink").setSemitone(0));
 
-				array.add(new SoundEffect(6, "hoppingRoad_tink").setSemitone(-4));
-				array.add(new SoundEffect(6.5f, "hoppingRoad_tink").setSemitone(3));
-				array.add(new SoundEffect(7, "hoppingRoad_cymbal").setSemitone(0));
+				array.add(new SoundEffect(5.5f, "hoppingRoad_tink").setSemitone(-4));
+				array.add(new SoundEffect(6, "hoppingRoad_tink").setSemitone(3));
+				array.add(new SoundEffect(6.5f, "hoppingRoad_cymbal").setSemitone(0));
 			}
 		});
-		
+
 		this.patterns.put("TF2 spy pattern", new Pattern(this) {
 
 			@Override
@@ -48,11 +47,10 @@ public class HoppingRoad extends Game {
 				array.add(new SoundEffect(4, "hoppingRoad_spySnort").setSemitone(0));
 				array.add(new SoundEffect(4.5f, "hoppingRoad_spySnort").setSemitone(0));
 				array.add(new SoundEffect(5, "hoppingRoad_spySnort").setSemitone(0));
-				array.add(new SoundEffect(5.5f, "hoppingRoad_spySnort").setSemitone(0));
 
-				array.add(new SoundEffect(6, "hoppingRoad_spySnort").setSemitone(-4));
-				array.add(new SoundEffect(6.5f, "hoppingRoad_spySnort").setSemitone(3));
-				array.add(new SoundEffect(7, "hoppingRoad_cymbal").setSemitone(0));
+				array.add(new SoundEffect(5.5f, "hoppingRoad_spySnort").setSemitone(-4));
+				array.add(new SoundEffect(6, "hoppingRoad_spySnort").setSemitone(3));
+				array.add(new SoundEffect(6.5f, "hoppingRoad_cymbal").setSemitone(0));
 			}
 		});
 	}
