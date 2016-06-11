@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 import chrislo27.remixer.game.AirBatter;
 import chrislo27.remixer.game.BlueBirds;
+import chrislo27.remixer.game.BonOdori;
 import chrislo27.remixer.game.BuiltToScaleDS;
 import chrislo27.remixer.game.ClappyTrio;
 import chrislo27.remixer.game.CosmoDance;
@@ -105,6 +106,7 @@ public class GameList {
 		put(new FrogHop("frogHop", null));
 		put(new Splashdown("splashdown", null));
 		put(new StairCatch("stairCatch", null));
+		put(new BonOdori("bonOdori", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

@@ -559,6 +559,18 @@ public class CueList {
 			put(new Cue(sc, sc.name, "orange", 0.5f));
 			put(new Cue(sc, sc.name, "melon", 0.5f));
 		}
+		
+		{
+			Game bon = GameList.getGame("bonOdori");
+			
+			put(new Cue(bon, bon.name, "dondo1", 0.5f));
+			put(new Cue(bon, bon.name, "dondo2", 0.5f));
+			put(new Cue(bon, bon.name, "dondon1", 0.5f));
+			put(new Cue(bon, bon.name, "dondon2", 0.5f));
+			put(new Cue(bon, bon.name, "pan", 0.5f));
+			put(new Cue(bon, bon.name, "panpan1", 0.5f));
+			put(new Cue(bon, bon.name, "panpan2", 0.5f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
