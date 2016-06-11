@@ -7,6 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
@@ -314,6 +315,7 @@ public class EditorStageSetup {
 			};
 
 			playRemix.getColor().set(0, 0.5f, 0.055f, 1);
+			playRemix.getKeybinds().add(Keys.SPACE);
 			toolbar.addActor(playRemix).align(Align.topLeft).setPixelOffset(8 + (32 + 8) * 3, 8, 32,
 					32);
 
