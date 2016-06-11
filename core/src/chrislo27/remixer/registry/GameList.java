@@ -15,6 +15,7 @@ import chrislo27.remixer.game.CropStomp;
 import chrislo27.remixer.game.CustomSound;
 import chrislo27.remixer.game.DogNinja;
 import chrislo27.remixer.game.DonkDonk;
+import chrislo27.remixer.game.DoubleDate;
 import chrislo27.remixer.game.DrBacteria;
 import chrislo27.remixer.game.ExhibitionMatch;
 import chrislo27.remixer.game.Fillbots;
@@ -26,6 +27,7 @@ import chrislo27.remixer.game.KarateMan;
 import chrislo27.remixer.game.LaunchParty;
 import chrislo27.remixer.game.Lockstep;
 import chrislo27.remixer.game.Lockstep2;
+import chrislo27.remixer.game.LoveLab;
 import chrislo27.remixer.game.LoveLizards;
 import chrislo27.remixer.game.MicroRow;
 import chrislo27.remixer.game.MoaiDooWop;
@@ -107,6 +109,8 @@ public class GameList {
 		put(new Splashdown("splashdown", null));
 		put(new StairCatch("stairCatch", null));
 		put(new BonOdori("bonOdori", null));
+		put(new LoveLab("loveLab", null));
+		put(new DoubleDate("doubleDate", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

@@ -540,7 +540,7 @@ public class CueList {
 
 		{
 			Game sd = GameList.getGame("splashdown");
-			
+
 			put(new Cue(sd, sd.name, "alleyoop", 1));
 			put(new Cue(sd, sd.name, "ascend", 0.25f));
 			put(new Cue(sd, sd.name, "descend", 0.25f));
@@ -551,18 +551,18 @@ public class CueList {
 			put(new Cue(sd, sd.name, "yeah1", 0.5f));
 			put(new Cue(sd, sd.name, "yeah2", 0.5f));
 		}
-		
+
 		{
 			Game sc = GameList.getGame("stairCatch");
-			
+
 			put(new Cue(sc, sc.name, "clap", 0.5f));
 			put(new Cue(sc, sc.name, "orange", 0.5f));
 			put(new Cue(sc, sc.name, "melon", 0.5f));
 		}
-		
+
 		{
 			Game bon = GameList.getGame("bonOdori");
-			
+
 			put(new Cue(bon, bon.name, "dondo1", 0.5f));
 			put(new Cue(bon, bon.name, "dondo2", 0.5f));
 			put(new Cue(bon, bon.name, "dondon1", 0.5f));
@@ -570,6 +570,24 @@ public class CueList {
 			put(new Cue(bon, bon.name, "pan", 0.5f));
 			put(new Cue(bon, bon.name, "panpan1", 0.5f));
 			put(new Cue(bon, bon.name, "panpan2", 0.5f));
+		}
+
+		{
+			Game dd = GameList.getGame("doubleDate");
+
+			//put(new Cue(dd, dd.name, "", 0.5f));
+		}
+
+		{
+			Game ll = GameList.getGame("loveLab");
+
+			put(new Cue(ll, ll.name, "clear", 0.5f));
+			put(new Cue(ll, ll.name, "leftCatch", 0.5f));
+			put(new Cue(ll, ll.name, "rightCatch", 0.5f));
+			put(new Cue(ll, ll.name, "leftThrow", 0.5f));
+			put(new Cue(ll, ll.name, "rightThrow", 0.5f));
+			put(new Cue(ll, ll.name, "shake1", 0.25f));
+			put(new Cue(ll, ll.name, "shake2", 0.25f));
 		}
 
 		// add individual cues as patterns too
