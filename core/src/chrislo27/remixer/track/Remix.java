@@ -105,6 +105,9 @@ public class Remix {
 		recalculate();
 
 		AssetRegistry.instance().resumeAllSound();
+		if (music != null && music.isPlaying()) {
+			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
+		}
 	}
 
 	public void update(float delta, boolean onlySelected) {
