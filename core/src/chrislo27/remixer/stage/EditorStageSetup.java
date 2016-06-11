@@ -350,7 +350,6 @@ public class EditorStageSetup {
 
 			currentMusic = new TextButton(stage, palette, "menu.music") {
 
-				boolean selecting = false;
 				JFileChooser fileChooser;
 
 				{
@@ -372,7 +371,7 @@ public class EditorStageSetup {
 				public void onClickAction(float x, float y) {
 					super.onClickAction(x, y);
 
-					if (selecting) return;
+					if (isSelectingFile) return;
 
 					if (editorScreen.editor.getRemix().isStarted()
 							|| editorScreen.editor.getRemix().isPaused())
@@ -382,7 +381,7 @@ public class EditorStageSetup {
 
 						@Override
 						public void run() {
-							selecting = true;
+							setSelectingFile(true);
 
 							int result = fileChooser.showOpenDialog(null);
 
@@ -397,7 +396,7 @@ public class EditorStageSetup {
 
 							System.gc();
 
-							selecting = false;
+							setSelectingFile(false);
 						}
 					};
 
