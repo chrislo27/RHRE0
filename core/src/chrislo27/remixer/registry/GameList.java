@@ -8,6 +8,7 @@ import chrislo27.remixer.game.AirBatter;
 import chrislo27.remixer.game.BlueBirds;
 import chrislo27.remixer.game.BonOdori;
 import chrislo27.remixer.game.BuiltToScaleDS;
+import chrislo27.remixer.game.BuiltToScaleFever;
 import chrislo27.remixer.game.Cannery;
 import chrislo27.remixer.game.ClappyTrio;
 import chrislo27.remixer.game.CosmoDance;
@@ -115,6 +116,7 @@ public class GameList {
 		put(new DoubleDate("doubleDate", null));
 		put(new ScrewbotFactory("screwbotFactory", null));
 		put(new Cannery("cannery", "chrislo27"));
+		put(new BuiltToScaleFever("builtToScaleFever", null));
 
 		games.getAllKeys().sort();
 		games.getAllValues().sort();

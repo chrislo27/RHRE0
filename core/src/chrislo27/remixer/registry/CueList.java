@@ -624,6 +624,17 @@ public class CueList {
 			put(new Cue(c, c.name, "ding", 0.5f));
 			put(new Cue(c, c.name, "steam", 0.5f));
 		}
+		
+		{
+			Game bts = GameList.getGame("builtToScaleFever");
+			
+			put(new Cue(bts, bts.name, "1", 0.5f));
+			put(new Cue(bts, bts.name, "2", 0.5f));
+			put(new Cue(bts, bts.name, "3", 0.5f));
+			put(new Cue(bts, bts.name, "4", 0.5f));
+			put(new Cue(bts, bts.name, "prepare", 0.5f));
+			put(new Cue(bts, bts.name, "shoot", 0.5f));
+		}
 
 		// add individual cues as patterns too
 		Array<SoundEffect> tmp = new Array<>();
