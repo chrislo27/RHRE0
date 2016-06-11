@@ -242,10 +242,12 @@ public class Editor extends InputAdapter implements Disposable {
 					sfx.position.set(sfx.beat * BLOCK_SIZE_X, track * BLOCK_SIZE_Y);
 				}
 
-				if (MathHelper.intersects(camera.position.x - camera.viewportWidth * 0.5f,
-						camera.position.y - camera.viewportHeight * 0.5f, camera.viewportWidth,
-						camera.viewportHeight, sfx.position.x, sfx.position.y,
-						sfx.duration * BLOCK_SIZE_X, BLOCK_SIZE_Y)) {
+				if (MathHelper.intersects(
+						camera.position.x - camera.viewportWidth * 0.5f * camera.zoom,
+						camera.position.y - camera.viewportHeight * 0.5f * camera.zoom,
+						camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom,
+						sfx.position.x, sfx.position.y, sfx.duration * BLOCK_SIZE_X,
+						BLOCK_SIZE_Y)) {
 					renderSoundEffect(batch, currentGame, sfx);
 				}
 
@@ -257,15 +259,15 @@ public class Editor extends InputAdapter implements Disposable {
 
 		batch.setColor(0, 0, 0, 1);
 
-		for (int i = (int) ((camera.position.x - camera.viewportWidth * 0.5f)
-				/ BLOCK_SIZE_X); i <= (camera.position.x + camera.viewportWidth * 0.5f)
-						/ BLOCK_SIZE_X; i++) {
+		for (int i = (int) ((camera.position.x - camera.viewportWidth * 0.5f * camera.zoom)
+				/ BLOCK_SIZE_X); i <= (camera.position.x
+						+ camera.viewportWidth * 0.5f * camera.zoom) / BLOCK_SIZE_X; i++) {
 			Main.fillRect(batch, i * BLOCK_SIZE_X, 0, 2, BLOCK_SIZE_Y * remix.tracks.size);
 		}
 
 		for (int i = 0; i <= remix.tracks.size; i++) {
-			Main.fillRect(batch, camera.position.x - camera.viewportWidth * 0.5f, i * BLOCK_SIZE_Y,
-					camera.viewportWidth, 2);
+			Main.fillRect(batch, camera.position.x - camera.viewportWidth * 0.5f * camera.zoom,
+					i * BLOCK_SIZE_Y, camera.viewportWidth * camera.zoom, 2);
 		}
 
 		{
@@ -309,8 +311,8 @@ public class Editor extends InputAdapter implements Disposable {
 		{
 			// beat numbers
 			main.font.setColor(0, 0, 0, 1);
-			for (int i = (int) (camera.position.x - camera.viewportWidth * 0.5f)
-					/ BLOCK_SIZE_X; i <= (camera.position.x + camera.viewportWidth * 0.5f)
+			for (int i = (int) (camera.position.x - camera.viewportWidth * 0.5f * camera.zoom)
+					/ BLOCK_SIZE_X; i <= (camera.position.x + camera.viewportWidth * 0.5f * camera.zoom)
 							/ BLOCK_SIZE_X; i++) {
 				main.font.draw(main.batch, "" + i, i * BLOCK_SIZE_X,
 						remix.tracks.size * BLOCK_SIZE_Y + main.font.getCapHeight() * 1.5f, 0,
