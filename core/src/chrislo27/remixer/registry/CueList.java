@@ -597,10 +597,25 @@ public class CueList {
 		{
 			Game sf = GameList.getGame("screwbotFactory");
 
+			Cue letsgoStart = new Cue(sf, sf.name, "letsgoStart", 0.5f).hideFromList();
+			Cue ohyeahStart = new Cue(sf, sf.name, "ohyeahStart", 0.5f).hideFromList();
+
+			put(new Cue(sf, sf.name, "screwingOhYeah", 1).setCanAlterDuration(true)
+					.setOneTimeSound(ohyeahStart.soundId));
+			put(new Cue(sf, sf.name, "screwingLetsGo", 1).setCanAlterDuration(true)
+					.setOneTimeSound(letsgoStart.soundId));
 			put(new Cue(sf, sf.name, "clankclank1", 0.5f));
 			put(new Cue(sf, sf.name, "clankclank2", 0.5f));
-			put(new Cue(sf, sf.name, "ohyeah", 5).setUsesPitch(105));
-			put(new Cue(sf, sf.name, "letsgo", 4).setUsesPitch(105));
+			put(new Cue(sf, sf.name, "oh", 0.5f));
+			put(new Cue(sf, sf.name, "yeah", 0.5f));
+			put(new Cue(sf, sf.name, "lets", 0.5f));
+			put(new Cue(sf, sf.name, "go", 0.5f));
+			put(new Cue(sf, sf.name, "letsgoPlace", 0.5f));
+			put(new Cue(sf, sf.name, "letsgoStart", 0.5f));
+			put(new Cue(sf, sf.name, "ohyeahPlace", 0.5f));
+			put(letsgoStart);
+			put(ohyeahStart);
+			put(new Cue(sf, sf.name, "complete", 0.5f));
 		}
 
 		{
