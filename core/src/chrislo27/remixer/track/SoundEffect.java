@@ -57,7 +57,7 @@ public final class SoundEffect implements Comparable {
 
 	public float getPitch(float bpm) {
 		return (cue.pitchWithBpm > 0 ? Remix.getPitchFromBpm(cue.pitchWithBpm, bpm) : 1)
-				* (Semitones.getALPitch(semitones));
+				* (Semitones.getALPitch(cue.canAlterPitch ? semitones : 0));
 	}
 
 	public void onAction(Remix remix) {

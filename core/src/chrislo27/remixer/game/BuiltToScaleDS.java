@@ -18,7 +18,7 @@ public class BuiltToScaleDS extends Game {
 				array.add(new SoundEffect(1, "builtToScaleDS_c").setSemitone(2));
 				array.add(new SoundEffect(2, "builtToScaleDS_c").setSemitone(4));
 				array.add(new SoundEffect(3, "builtToScaleDS_c").setSemitone(5));
-				array.add(new SoundEffect(4, "builtToScaleDS_pew").setSemitone(7));
+				array.add(new SoundEffect(4, "builtToScaleDS_pew"));
 			}
 		});
 	}
