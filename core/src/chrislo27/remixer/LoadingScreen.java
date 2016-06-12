@@ -9,6 +9,7 @@ import chrislo27.remixer.game.Game;
 import chrislo27.remixer.registry.GameList;
 import ionium.screen.AssetLoadingScreen;
 import ionium.templates.Main;
+import ionium.util.DebugSetting;
 import ionium.util.packer.TileTexturePacker;
 
 public class LoadingScreen extends AssetLoadingScreen {
@@ -44,6 +45,11 @@ public class LoadingScreen extends AssetLoadingScreen {
 
 		for (Texture t : temp) {
 			t.dispose();
+		}
+
+		if (DebugSetting.debug) {
+			Main.filltex = new Texture("images/games/moaiDooWop2.png");
+			Main.filltexRegion.setTexture(Main.filltex);
 		}
 	}
 

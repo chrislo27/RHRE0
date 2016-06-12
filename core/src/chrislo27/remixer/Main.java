@@ -63,7 +63,6 @@ public class Main extends ionium.templates.Main {
 
 		horizontalResize = Gdx.graphics.newCursor(
 				new Pixmap(Gdx.files.internal("images/cursor/horizontalResize.png")), 16, 8);
-
 	}
 
 	private void resizeScreenFromSettings() {
