@@ -48,7 +48,7 @@ public class HoppingRoad extends Game {
 				array.add(new SoundEffect(4, "hoppingRoad_spySnort").setSemitone(0));
 				array.add(new SoundEffect(4.5f, "hoppingRoad_spySnort").setSemitone(0));
 				array.add(new SoundEffect(5, "hoppingRoad_spySnort").setSemitone(0));
-				array.add(new SoundEffect(5, "hoppingRoad_tink").setSemitone(0));
+				array.add(new SoundEffect(5, "hoppingRoad_spySnort").setSemitone(0));
 
 				array.add(new SoundEffect(5.5f, "hoppingRoad_spySnort").setSemitone(-4));
 				array.add(new SoundEffect(6, "hoppingRoad_spySnort").setSemitone(3));
