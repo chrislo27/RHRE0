@@ -27,6 +27,8 @@ public class Remix {
 
 	private Music music = null;
 	public float musicStartTime = 0;
+	
+	private boolean musicPlayed = false;
 
 	public Remix(float bpm, int trackCount) {
 		for (int i = 0; i < trackCount; i++) {
@@ -42,6 +44,7 @@ public class Remix {
 
 	public void setMusic(Music mus) {
 		music = mus;
+		musicPlayed = false;
 
 		if (music != null) {
 			music.stop();
@@ -88,6 +91,7 @@ public class Remix {
 			music.stop();
 			music.setPosition(0);
 		}
+		musicPlayed = false;
 
 		AssetRegistry.instance().stopAllSound();
 
@@ -113,9 +117,10 @@ public class Remix {
 	public void update(float delta, boolean onlySelected) {
 		if (isStopped || isPaused) return;
 
-		if (music != null && !music.isPlaying() && beat >= getBeatFromSec(musicStartTime, bpm)) {
+		if (music != null && !music.isPlaying() && !musicPlayed && beat >= getBeatFromSec(musicStartTime, bpm)) {
 			music.play();
 			music.setPosition(getSecFromBeat(beat, bpm) - musicStartTime);
+			musicPlayed = true;
 		}
 
 		if (music != null && music.isPlaying()
