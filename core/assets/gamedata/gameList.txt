@@ -1,0 +1,53 @@
+# The editor will read this file at runtime and begin to parse it, line by line.
+# It will read each line and load each game's data file.
+# The data file will be located in the folder
+# assets/gamedata/<gameName>/data.txt
+
+# RULES OF THIS FILE
+# It ignores lines that begin with a #, and blank lines.
+# Lines with trailing or following spaces will be trimmed.
+# Names should be in camelCase, as a convention.
+
+airBatter
+blueBirds
+bonOdori
+builtToScaleDS
+builtToScaleFever
+cannery
+clappyTrio
+cosmoDance
+countInGame
+cropStomp
+dogNinja
+donkDonk
+doubleDate
+drBacteria
+exhibitionMatch
+fillbots
+frogHop
+gleeClub
+hoppingRoad
+karateMan
+launchParty
+lockstep
+lockstep2
+loveLab
+loveLizards
+microRow
+moaiDooWop
+munchyMonk
+ninja
+rhythmRally
+ringside
+screwbotFactory
+shootEmUp
+shrimpShuffle
+spaceDance
+spaceSoccer
+splashdown
+stairCatch
+tapTrial
+tapTroupe
+vegetaPull
+wizardWaltz
+workingDough
