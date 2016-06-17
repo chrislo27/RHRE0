@@ -51,7 +51,7 @@ public class Main extends ionium.templates.Main {
 	@Override
 	public void create() {
 		resizeScreenFromSettings();
-		Main.version = "v0.4.3-alpha";
+		Main.version = "v1.0.0-beta";
 
 		super.create();
 
