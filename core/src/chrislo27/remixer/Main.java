@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.init.DefAssetLoader;
+import chrislo27.remixer.registry.GameList;
 import ionium.registry.AssetRegistry;
 import ionium.registry.ScreenRegistry;
 import ionium.util.Logger;
@@ -58,6 +59,8 @@ public class Main extends ionium.templates.Main {
 		Gdx.graphics.setTitle(getTitle());
 
 		AssetRegistry.instance().addAssetLoader(new DefAssetLoader());
+
+		GameList.instance();
 
 		horizontalResize = Gdx.graphics.newCursor(
 				new Pixmap(Gdx.files.internal("images/cursor/horizontalResize.png")), 16, 8);

@@ -1,0 +1,37 @@
+{
+  "_comment": "Fields named _comment are ignored safely.",
+  "gameID": "exhibitionMatch",
+  "cues": [
+    {
+      "id": "exhibitionMatch_stance",
+      "localization": "stance",
+      "duration": 0.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "exhibitionMatch_throw",
+      "localization": "throw",
+      "duration": 0.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null
+    },
+    {
+      "id": "exhibitionMatch_hit",
+      "localization": "hit",
+      "duration": 0.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null
+    }
+  ],
+  "patterns": [
+    {
+      "id": "exhibitionMatch_throwAndHit",
+      "localization": "throw and hit"
+    }
+  ]
+}
