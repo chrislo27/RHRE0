@@ -1,11 +1,11 @@
 # The editor will read this file at runtime and begin to parse it, line by line.
 # It will read each line and load each game's data file.
 # The data file will be located in the folder
-# assets/gamedata/<gameName>/data.txt
+# assets/gamedata/<gameName>/data.json
 
 # RULES OF THIS FILE
 # It ignores lines that begin with a #, and blank lines.
-# Lines with trailing or following spaces will be trimmed.
+# Lines with trailing or following whitespace will be trimmed.
 # Names should be in camelCase, as a convention.
 
 airBatter

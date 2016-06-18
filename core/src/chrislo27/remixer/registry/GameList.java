@@ -41,7 +41,7 @@ public class GameList {
 			if (line.startsWith("#")) continue;
 			if (line.equals("")) continue;
 
-			FileHandle dataFile = Gdx.files.internal("gamedata/" + line + "/data.txt");
+			FileHandle dataFile = Gdx.files.internal("gamedata/" + line + "/data.json");
 
 			if (!dataFile.exists()) {
 				Main.logger.warn("Game not found! " + line);
