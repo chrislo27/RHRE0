@@ -142,7 +142,6 @@ public class Main extends ionium.templates.Main {
 		ttfParam.magFilter = TextureFilter.Nearest;
 		ttfParam.minFilter = TextureFilter.Linear;
 		ttfParam.genMipMaps = true;
-		ttfParam.characters += SpecialCharactersList.getJapaneseKana();
 		ttfParam.size = 24;
 
 		font = ttfGenerator.generateFont(ttfParam);
