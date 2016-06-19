@@ -20,11 +20,6 @@ public class EditorScreen extends Updateable<Main> {
 
 		main.batch.begin();
 
-		main.font.setColor(1, 1, 1, 1);
-		main.font.draw(main.batch, "タルン ライト\r\n" + "レツ シ ダウン\r\n"
-				+ "パパパパンチ\ntesting\nワト ヂド ユ ジャスト セイ アバオト ミ ユ リタル ビチ?\nアイル ハヴウ ユ ノ アイ グラジュエイテド タポ アフ マイ クラス イン ダ ネイヴイ シルズ.\n"
-				+ "イロ ハ ニホヘト チリヌル ヲ ワ カ ヨ タレ ソ ツネ ナラム ウヰノオクヤマ ケフ コエテ アサキ ユメ ミシ ヱヒ モ セス\n" + "歩く", 0,
-				Gdx.graphics.getHeight() - 64, Gdx.graphics.getWidth(), Align.center, true);
 
 		main.batch.end();
 	}

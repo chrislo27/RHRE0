@@ -136,7 +136,7 @@ public class Main extends ionium.templates.Main {
 		super.loadFont();
 
 		FreeTypeFontGenerator ttfGenerator = new FreeTypeFontGenerator(
-				Gdx.files.internal("fonts/Osaka-UI.ttf"));
+				Gdx.files.internal("fonts/PTSans.ttf"));
 
 		FreeTypeFontParameter ttfParam = new FreeTypeFontParameter();
 		ttfParam.magFilter = TextureFilter.Nearest;
