@@ -16,6 +16,7 @@ import chrislo27.remixer.registry.GameList;
 import ionium.registry.AssetRegistry;
 import ionium.registry.ScreenRegistry;
 import ionium.util.Logger;
+import ionium.util.SpecialCharactersList;
 import ionium.util.Utils;
 import ionium.util.resolution.AspectRatio;
 import ionium.util.resolution.Resolution;
@@ -96,6 +97,7 @@ public class Main extends ionium.templates.Main {
 		ScreenRegistry reg = ScreenRegistry.instance();
 
 		reg.add("assetloading", new LoadingScreen(this));
+		reg.add("editor", new EditorScreen(this));
 	}
 
 	@Override
@@ -133,12 +135,13 @@ public class Main extends ionium.templates.Main {
 		super.loadFont();
 
 		FreeTypeFontGenerator ttfGenerator = new FreeTypeFontGenerator(
-				Gdx.files.internal("fonts/PTSans.ttf"));
+				Gdx.files.internal("fonts/Osaka-UI.ttf"));
 
 		FreeTypeFontParameter ttfParam = new FreeTypeFontParameter();
 		ttfParam.magFilter = TextureFilter.Nearest;
 		ttfParam.minFilter = TextureFilter.Linear;
 		ttfParam.genMipMaps = true;
+		ttfParam.characters += SpecialCharactersList.getJapaneseKana();
 		ttfParam.size = 24;
 
 		font = ttfGenerator.generateFont(ttfParam);

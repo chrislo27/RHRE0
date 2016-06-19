@@ -14,6 +14,7 @@ public class Game {
 
 	public final String id;
 	public final Array<Cue> cues = new Array<>();
+	public final Array<Pattern> patterns = new Array<>();
 
 	public Game(FileHandle dataFile) {
 		this(dataFile.readString("UTF-8"));
@@ -42,7 +43,7 @@ public class Game {
 
 		JsonValue jsonPatternList = jsonRoot.get("patterns");
 		if (jsonPatternList != null) {
-
+			
 		}
 	}
 
