@@ -7,7 +7,7 @@ import ionium.registry.GlobalVariables;
 
 public class Settings {
 
-	public static final String PREFERENCE_PREFIX = "RhythmHeavenRemixBoard-";
+	public static final String PREFERENCE_PREFIX = "RhythmHeavenRemixEditor-";
 
 	private static Settings instance;
 
