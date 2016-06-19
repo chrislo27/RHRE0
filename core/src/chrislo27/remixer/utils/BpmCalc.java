@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 
 import ionium.templates.Main;
 
-public class BPMCalc {
+public class BpmCalc {
 
 	private static final Comparator<ChangesTempo> comparator = new Comparator<ChangesTempo>() {
 

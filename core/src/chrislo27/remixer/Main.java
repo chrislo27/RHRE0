@@ -13,8 +13,6 @@ import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.init.DefAssetLoader;
 import chrislo27.remixer.registry.GameList;
-import chrislo27.remixer.utils.BPMCalc;
-import chrislo27.remixer.utils.BPMCalc.ChangesTempo;
 import ionium.registry.AssetRegistry;
 import ionium.registry.ScreenRegistry;
 import ionium.util.Logger;
