@@ -19,7 +19,7 @@ public class LoadingScreen extends AssetLoadingScreen {
 	public LoadingScreen(Main m) {
 		super(m);
 
-		splash = new Texture("images/splash.png");
+		splash = new Texture("images/logo/splash.png");
 	}
 
 	@Override
