@@ -1,0 +1,66 @@
+{
+  "gameID": "spaceball",
+  "cues": [
+    {
+      "id": "spaceball_shoot",
+      "localization": "shoot",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "spaceball_longShoot",
+      "localization": "shoot high",
+      "duration": 2,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "spaceball_hit",
+      "localization": "hit",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+  ]
+  "patterns": [
+    {
+      "id": "spaceball_ball",
+      "localization": "ball",
+        "cues": [
+          {
+            "id": "spaceball_shoot",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "spaceball_hit",
+            "beat": 1.0
+            "track": 0
+          }
+          ]
+    }
+    {
+      "id": "spaceball_highBall",
+      "localization": "high ball",
+        "cues": [
+          {
+            "id": "spaceball_longShoot",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "spaceball_hit",
+            "beat": 2.0
+            "track": 0
+          }
+          ]
+    }
+  ]
+}
