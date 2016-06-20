@@ -27,8 +27,6 @@ public class Cue {
 
 	public Cue(JsonValue json, String gameId, FileHandle dataFileLoc) {
 		if (json == null) throw new IllegalArgumentException("JsonValue cannot be null!");
-
-		Main.logger.debug(gameId + "_");
 		
 		id = json.getString("id", null);
 		location = dataFileLoc.sibling("sounds/" + id.replace(gameId + "_", "") + ".ogg");
