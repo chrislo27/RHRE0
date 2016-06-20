@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 import chrislo27.remixer.utils.BpmCalc;
 import ionium.audio.transition.MusicTransitioner;
 import ionium.registry.AssetRegistry;
 import ionium.screen.Updateable;
+import ionium.util.i18n.Localization;
 
 public class MainMenuScreen extends Updateable<Main> {
 
@@ -27,7 +29,7 @@ public class MainMenuScreen extends Updateable<Main> {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.35f, 0.4f, 0.7f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		Texture rhLogo = AssetRegistry.getTexture("rhLogo");
@@ -57,6 +59,15 @@ public class MainMenuScreen extends Updateable<Main> {
 					sectionWidth, sectionHeight, ARCHITECT_LETTER_SPACING * i, 0,
 					ARCHITECT_LETTER_SPACING, architectLogo.getHeight(), false, false);
 		}
+
+		main.font.setColor(1, 1, 1, 1);
+		main.font.getData().setScale(0.75f);
+		main.font.draw(main.batch,
+				Localization.get("mainMenu.kevinMacleodAttribution", "Off to Osaka"), 4,
+				4 + main.font.getLineHeight() * 3);
+		main.font.getData().setScale(1);
+		main.font.draw(main.batch, Main.version, Gdx.graphics.getWidth() - 4, 8 + main.font.getCapHeight(), 0, Align.right,
+				false);
 
 		main.batch.end();
 	}
