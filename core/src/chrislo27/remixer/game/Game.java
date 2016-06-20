@@ -32,7 +32,9 @@ public class Game {
 
 		if (jsonRoot == null) throw new IllegalArgumentException("JSON value cannot be null!");
 
-		id = jsonRoot.getString("id", null);
+		id = jsonRoot.getString("gameId", null);
+
+		if (id == null) throw new RuntimeException("Game ID was null!");
 
 		JsonValue jsonCueList = jsonRoot.get("cues");
 		if (jsonCueList != null && jsonCueList.isArray()) {
@@ -41,7 +43,7 @@ public class Game {
 			while (it.hasNext()) {
 				JsonValue next = it.next();
 
-				Cue c = new Cue(next);
+				Cue c = new Cue(next, id, dataFileLocation);
 
 				cues.add(c);
 				CueList.instance().map.put(c.id, c);
