@@ -47,6 +47,11 @@ public class Game {
 
 				cues.add(c);
 				CueList.instance().map.put(c.id, c);
+
+				Pattern p = new Pattern(c.id + "_cue", true);
+				ActionSFX asfx = new ActionSFX(c, 0, 0);
+				p.sfx.add(asfx);
+				patterns.add(p);
 			}
 		}
 
@@ -64,7 +69,7 @@ public class Game {
 					continue;
 				}
 
-				Pattern p = new Pattern(id);
+				Pattern p = new Pattern(id, false);
 				Localization.instance().addCustom(id,
 						nextPattern.getString("localization", "<missing localization>"));
 
@@ -102,6 +107,8 @@ public class Game {
 				}
 			}
 		}
+		
+		patterns.sort();
 	}
 
 	public FileHandle getIconLocation() {
