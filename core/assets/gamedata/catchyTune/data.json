@@ -1,0 +1,86 @@
+{
+  "gameID": "catchyTune",
+  "cues": [
+    {
+      "id": "catchyTune_orange",
+      "localization": "orange bounce",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "catchyTune_pineapple",
+      "localization": "pineapple bounce",
+      "duration": 2,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "catchyTune_clap",
+      "localization": "clap",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+  ]
+  "patterns": [
+    {
+      "id": "catchyTune_orangePattern",
+      "localization": "orange",
+        "cues": [
+          {
+            "id": "catchyTune_orange",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "catchyTune_orange",
+            "beat": 1.0
+            "track": 0
+          }
+          {
+            "id": "catchyTune_orange",
+            "beat": 2.0
+            "track": 0
+          }
+          {
+            "id": "catchyTune_clap",
+            "beat": 3.0
+            "track": 0
+          }
+          ]
+    }
+    {
+      "id": "catchyTune_pineapplePattern",
+      "localization": "pineapple",
+        "cues": [
+          {
+            "id": "catchyTune_pineapple",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "catchyTune_pineapple",
+            "beat": 2.0
+            "track": 0
+          }
+          {
+            "id": "catchyTune_pineapple",
+            "beat": 4.0
+            "track": 0
+          }
+          {
+            "id": "catchyTune_clap",
+            "beat": 6.0
+            "track": 0
+          }
+          ]
+    }
+  ]
+}

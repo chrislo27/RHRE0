@@ -66,8 +66,12 @@ public class MainMenuScreen extends Updateable<Main> {
 				Localization.get("mainMenu.kevinMacleodAttribution", "Off to Osaka"), 4,
 				4 + main.font.getLineHeight() * 3);
 		main.font.getData().setScale(1);
-		main.font.draw(main.batch, Main.version, Gdx.graphics.getWidth() - 4, 8 + main.font.getCapHeight(), 0, Align.right,
-				false);
+		main.font.draw(main.batch, Main.version, Gdx.graphics.getWidth() - 4,
+				8 + main.font.getCapHeight(), 0, Align.right, false);
+
+		Texture splash = AssetRegistry.getTexture("splashLogo");
+		main.batch.draw(splash, Gdx.graphics.getWidth() - 4 - 64, 8 + main.font.getLineHeight(), 64,
+				128);
 
 		main.batch.end();
 	}

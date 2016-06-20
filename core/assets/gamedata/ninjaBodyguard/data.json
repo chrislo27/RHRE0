@@ -1,0 +1,23 @@
+{
+  "gameID": "ninjaBodyguard",
+  "cues": [
+    {
+      "id": "ninjaBodyguard_shoot",
+      "localization": "shoot",
+      "duration": 0.25,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "ninjaBodyguard_cut",
+      "localization": "cut",
+      "duration": 0.25,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+  ]
+}

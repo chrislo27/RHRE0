@@ -13,6 +13,7 @@ import chrislo27.remixer.registry.CueList;
 import chrislo27.remixer.registry.GameList;
 import ionium.animation.Animation;
 import ionium.registry.handler.IAssetLoader;
+import ionium.templates.Main;
 import ionium.util.AssetMap;
 
 public class DefAssetLoader implements IAssetLoader {
@@ -34,6 +35,7 @@ public class DefAssetLoader implements IAssetLoader {
 
 	@Override
 	public void addUnmanagedTextures(HashMap<String, Texture> textures) {
+		textures.put("splashLogo", new Texture("images/logo/splash.png"));
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package chrislo27.remixer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import ionium.registry.AssetRegistry;
 import ionium.screen.AssetLoadingScreen;
 import ionium.templates.Main;
 import ionium.util.DebugSetting;
@@ -14,17 +15,16 @@ public class LoadingScreen extends AssetLoadingScreen {
 
 	private float splashOpacity = 1;
 	private float splashDecay = 2;
-	private Texture splash;
 
 	public LoadingScreen(Main m) {
 		super(m);
-
-		splash = new Texture("images/logo/splash.png");
 	}
 
 	@Override
 	public void render(float delta) {
 		super.render(delta);
+
+		Texture splash = AssetRegistry.getTexture("splashLogo");
 
 		main.batch.begin();
 
@@ -32,9 +32,8 @@ public class LoadingScreen extends AssetLoadingScreen {
 		Main.fillRect(main.batch, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		main.batch.setColor(1, 1, 1, splashOpacity);
-		float width = (splash.getWidth() * 1f / splash.getHeight()) * Gdx.graphics.getHeight();
-		main.batch.draw(splash, Gdx.graphics.getWidth() * 0.5f - width * 0.5f, 0, width,
-				Gdx.graphics.getHeight());
+		main.batch.draw(splash, Gdx.graphics.getWidth() * 0.5f - splash.getWidth() * 0.5f,
+				Gdx.graphics.getHeight() * 0.5f - splash.getHeight() * 0.5f);
 
 		main.batch.setColor(1, 1, 1, 1);
 
@@ -99,8 +98,6 @@ public class LoadingScreen extends AssetLoadingScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
-
-		splash.dispose();
 	}
 
 }

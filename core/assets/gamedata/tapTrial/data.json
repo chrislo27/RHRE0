@@ -1,0 +1,202 @@
+{
+  "gameID": "tapTrial",
+  "cues": [
+    {
+      "id": "tapTrial_ook",
+      "localization": "ook",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_ookook1",
+      "localization": "ookook1",
+      "duration": 0.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_ookook2",
+      "localization": "ookook2",
+      "duration": 0.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_ooki1",
+      "localization": "ooki1",
+      "duration": 0.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_ooki2",
+      "localization": "ooki2",
+      "duration": 1.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_jumptap1",
+      "localization": "jump1",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_jumptap1_tap",
+      "localization": "land1",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_jumptap2",
+      "localization": "jump2",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_jumptap2_tap",
+      "localization": "land2",
+      "duration": 1,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+    {
+      "id": "tapTrial_tap",
+      "localization": "tap",
+      "duration": 0.5,
+      "resizable": false,
+      "repitchable": false,
+      "oneTimeCue": null,
+      "hidden": false
+    },
+   ]
+  "patterns": [
+    {
+      "id": "tapTrial_1tap",
+      "localization": "1 tap",
+        "cues": [
+          {
+            "id": "tapTrial_ook",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "tapTrial_tap",
+            "beat": 1.0
+            "track": 0
+          }
+          ]
+    }
+    {
+      "id": "tapTrial_2tap",
+      "localization": "2 tap",
+        "cues": [
+          {
+            "id": "tapTrial_ookook1",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "tapTrial_ookook2",
+            "beat": 0.5
+            "track": 0
+          }
+          {
+            "id": "tapTrial_tap",
+            "beat": 1.0
+            "track": 0
+          }
+          {
+            "id": "tapTrial_tap",
+            "beat": 1.5
+            "track": 0
+          }
+          ]
+    }
+    {
+      "id": "tapTrial_3tap",
+      "localization": "3 tap",
+        "cues": [
+          {
+            "id": "tapTrial_ooki1",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "tapTrial_ooki2",
+            "beat": 0.5
+            "track": 0
+          }
+          {
+            "id": "tapTrial_tap",
+            "beat": 2
+            "track": 0
+          }
+          {
+            "id": "tapTrial_tap",
+            "beat": 2.5
+            "track": 0
+          }
+          {
+            "id": "tapTrial_tap",
+            "beat": 3
+            "track": 0
+          }
+          ]
+    }
+    {
+      "id": "tapTrial_jump1",
+      "localization": "jump1",
+        "cues": [
+          {
+            "id": "tapTrial_jump1",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "tapTrial_land1",
+            "beat": 1.0
+            "track": 0
+          }
+          ]
+    }
+    {
+      "id": "tapTrial_jump2",
+      "localization": "jump2",
+        "cues": [
+          {
+            "id": "tapTrial_jump2",
+            "beat": 0.0
+            "track": 0
+          }
+          {
+            "id": "tapTrial_land2",
+            "beat": 1.0
+            "track": 0
+          }
+          ]
+    }
+  ]
+}
