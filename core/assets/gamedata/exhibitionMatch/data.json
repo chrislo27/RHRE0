@@ -10,7 +10,7 @@
       "repitchable": false,
       "oneTimeCue": null,
       "hidden": false
-	  "_comment": "The volume field is only used for Sneaky Spirits and is ignored for other games",
+	  "_comment": "The volume field is usually only used for Sneaky Spirits",
 	  "volume": 1.0
     },
     {
@@ -33,7 +33,33 @@
   "patterns": [
     {
       "id": "exhibitionMatch_throwAndHit",
-      "localization": "throw and hit"
+      "localization": "throw and hit",
+	  "cues": [
+		{
+			"id": "exhibitionMatch_stance",
+			"beat": 0.0,
+			"_comment": "track is for what level it spawns at, starts at 0 going up",
+			"track": 0,
+			"_comment": "Again, a Sneaky Spirits field but can be used",
+			"volume": 1.0,
+			"_comment": "Semitone is for stuff like Built to Scale (DS) or Launch Party",
+			"semitone": 0
+		},
+		
+		{
+			"id": "exhibitionMatch_throw",
+			"beat": 2.0,
+			"track": 0,
+		},
+		
+		{
+			"id": "exhibitionMatch_hit",
+			"beat": 6.0,
+			"track": 0,
+		}
+	  
+	  ]
+	  
     }
   ]
 }
