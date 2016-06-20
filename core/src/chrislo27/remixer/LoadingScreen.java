@@ -2,6 +2,7 @@ package chrislo27.remixer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Interpolation;
 
 import ionium.registry.AssetRegistry;
 import ionium.screen.AssetLoadingScreen;
@@ -28,10 +29,12 @@ public class LoadingScreen extends AssetLoadingScreen {
 
 		main.batch.begin();
 
-		main.batch.setColor(0, 0, 0, splashOpacity);
+		float opacity = Interpolation.fade.apply(splashOpacity);
+
+		main.batch.setColor(0, 0, 0, opacity);
 		Main.fillRect(main.batch, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		main.batch.setColor(1, 1, 1, splashOpacity);
+		main.batch.setColor(1, 1, 1, opacity);
 		main.batch.draw(splash, Gdx.graphics.getWidth() * 0.5f - splash.getWidth() * 0.5f,
 				Gdx.graphics.getHeight() * 0.5f - splash.getHeight() * 0.5f);
 
