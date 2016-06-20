@@ -10,6 +10,8 @@
       "repitchable": false,
       "oneTimeCue": null,
       "hidden": false
+	  "_comment": "The volume field is only used for Sneaky Spirits and is ignored for other games",
+	  "volume": 1.0
     },
     {
       "id": "exhibitionMatch_throw",
