@@ -25,11 +25,11 @@ public class HoppingRoad extends Game {
 				array.add(new SoundEffect(4, "hoppingRoad_tink").setSemitone(0));
 				array.add(new SoundEffect(4.5f, "hoppingRoad_tink").setSemitone(0));
 				array.add(new SoundEffect(5, "hoppingRoad_tink").setSemitone(0));
-				array.add(new SoundEffect(5, "hoppingRoad_tink").setSemitone(0));
+				array.add(new SoundEffect(5.5f, "hoppingRoad_tink").setSemitone(0));
 
-				array.add(new SoundEffect(5.5f, "hoppingRoad_tink").setSemitone(-4));
-				array.add(new SoundEffect(6, "hoppingRoad_tink").setSemitone(3));
-				array.add(new SoundEffect(6.5f, "hoppingRoad_cymbal").setSemitone(0));
+				array.add(new SoundEffect(6f, "hoppingRoad_tink").setSemitone(-4));
+				array.add(new SoundEffect(6.5f, "hoppingRoad_tink").setSemitone(3));
+				array.add(new SoundEffect(7f, "hoppingRoad_cymbal").setSemitone(0));
 			}
 		});
 
@@ -48,11 +48,11 @@ public class HoppingRoad extends Game {
 				array.add(new SoundEffect(4, "hoppingRoad_spySnort").setSemitone(0));
 				array.add(new SoundEffect(4.5f, "hoppingRoad_spySnort").setSemitone(0));
 				array.add(new SoundEffect(5, "hoppingRoad_spySnort").setSemitone(0));
-				array.add(new SoundEffect(5, "hoppingRoad_spySnort").setSemitone(0));
+				array.add(new SoundEffect(5.5f, "hoppingRoad_spySnort").setSemitone(0));
 
-				array.add(new SoundEffect(5.5f, "hoppingRoad_spySnort").setSemitone(-4));
-				array.add(new SoundEffect(6, "hoppingRoad_spySnort").setSemitone(3));
-				array.add(new SoundEffect(6.5f, "hoppingRoad_cymbal").setSemitone(0));
+				array.add(new SoundEffect(6f, "hoppingRoad_spySnort").setSemitone(-4));
+				array.add(new SoundEffect(6.5f, "hoppingRoad_spySnort").setSemitone(3));
+				array.add(new SoundEffect(7f, "hoppingRoad_cymbal").setSemitone(0));
 			}
 		});
 	}
