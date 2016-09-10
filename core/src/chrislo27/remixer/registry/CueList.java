@@ -41,7 +41,7 @@ public class CueList {
 
 				for (FileHandle fh : all) {
 					put(new Cue(custom, "", custom.name, fh.nameWithoutExtension(), 0.5f)
-							.setCanAlterDuration(true).setCanAlterPitch(true).setSoundLoops(true));
+							.setCanAlterPitch(true).setCanAlterDuration(true).setSoundLoops(false));
 
 					Main.logger.info("Added custom sound " + fh.nameWithoutExtension());
 				}
