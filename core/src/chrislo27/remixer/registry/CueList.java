@@ -40,7 +40,8 @@ public class CueList {
 				Main.logger.info("Custom sound folder located with " + all.length + " legal files");
 
 				for (FileHandle fh : all) {
-					put(new Cue(custom, "", custom.name, fh.nameWithoutExtension(), 0.5f));
+					put(new Cue(custom, "", custom.name, fh.nameWithoutExtension(), 0.5f)
+							.setCanAlterDuration(true).setCanAlterPitch(true).setSoundLoops(true));
 
 					Main.logger.info("Added custom sound " + fh.nameWithoutExtension());
 				}
@@ -624,10 +625,10 @@ public class CueList {
 			put(new Cue(c, c.name, "ding", 0.5f));
 			put(new Cue(c, c.name, "steam", 0.5f));
 		}
-		
+
 		{
 			Game bts = GameList.getGame("builtToScaleFever");
-			
+
 			put(new Cue(bts, bts.name, "1", 0.5f));
 			put(new Cue(bts, bts.name, "2", 0.5f));
 			put(new Cue(bts, bts.name, "3", 0.5f));
