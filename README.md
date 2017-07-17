@@ -1,7 +1,7 @@
 # Rhythm Heaven Remix Editor 0
 
 ## OUTDATED
-### Use RHRE2 https://github.com/chrislo27/RhythmHeavenRemixEditor instead!
+### Use RHRE https://github.com/chrislo27/RhythmHeavenRemixEditor instead!
 
 
 
